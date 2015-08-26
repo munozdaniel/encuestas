@@ -1,11 +1,47 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Phalcon PHP Framework</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Sistema de Encuesta sobre los complejos de Melewe.">
+        <meta name="author" content="Pichun Marcia - Muñoz Daniel">
+        {{ get_title() }}
+        <!-- core CSS -->
+        {{ stylesheet_link('css/bootstrap.min.css') }}
+        {{ stylesheet_link('css/font-awesome.min.css') }}
+        {{ stylesheet_link('css/animate.min.css') }}
+        {{ stylesheet_link('css/owl.carousel.css') }}
+        {{ stylesheet_link('css/owl.transitions.css') }}
+        {{ stylesheet_link('css/prettyPhoto.css') }}
+        {{ stylesheet_link('css/main.css') }}
+        {{ stylesheet_link('css/responsive.css') }}
+        <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+        <![endif]-->
+        <link rel="shortcut icon" href="images/ico/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     </head>
-    <body>
+    <body id="home" class="homepage">
         {{ content() }}
     </body>
+
+    <!-- Javascripts -->
+    {{ javascript_include('js/jquery.js') }}
+    {{ javascript_include('js/bootstrap.min.js') }}
+    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    {{ javascript_include('js/owl.carousel.min.js') }}
+    {{ javascript_include('js/mousescroll.js') }}
+    {{ javascript_include('js/smoothscroll.js') }}
+    {{ javascript_include('js/jquery.prettyPhoto.js') }}
+    {{ javascript_include('js/jquery.isotope.min.js') }}
+    {{ javascript_include('js/jquery.inview.min.js') }}
+    {{ javascript_include('js/wow.min.js') }}
+    {{ javascript_include('js/main.js') }}
+
+
 </html>
