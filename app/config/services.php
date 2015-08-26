@@ -78,3 +78,19 @@ $di->setShared('session', function () {
 
     return $session;
 });
+/**
+ * Register a user component
+ */
+$di->set('elementos', function(){
+    return new Elementos();
+});
+/**
+ * Register the flash service with custom CSS classes
+ */
+$di->set('flash', function(){
+    return new FlashSession(array(
+        'error'   => 'alert alert-danger',
+        'success' => 'alert alert-success',
+        'notice'  => 'alert alert-info',
+    ));
+});
