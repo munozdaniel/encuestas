@@ -61,7 +61,9 @@ $di->setShared('view', function () use ($config) {
 $di->set('db', function () use ($config) {
     return new DbAdapter($config->database->toArray());
 });
-
+$di->set('dbusuarios', function () use ($config) {
+    return new DbAdapter($config->gestionusuarios->toArray());
+});
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
  */

@@ -11,6 +11,14 @@ return new \Phalcon\Config(array(
         'dbname'      => 'encuestaMelewe',
         'charset'     => 'utf8',
     ),
+    'gestionusuarios' => array(
+        'adapter'     => 'Mysql',
+        'host'        => '192.168.42.14',
+        'username'    => 'root',
+        'password'    => 'infoimps',
+        'dbname'      => 'gestionusuarios',
+        'charset'     => 'utf8',
+    ),
     'application' => array(
         'controllersDir' => APP_PATH . '/app/controllers/',
         'modelsDir'      => APP_PATH . '/app/models/',
