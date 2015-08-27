@@ -81,7 +81,7 @@ $di->setShared('session', function () {
 /**
  * Register a user component
  */
-$di->set('elementos', function(){
+$di->set('elemento', function(){
     return new Elementos();
 });
 /**
