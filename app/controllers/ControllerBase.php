@@ -10,7 +10,7 @@ class ControllerBase extends Controller
         $this->view->setTemplateAfter('main');
     }
 
-    protected function forward($uri)
+    protected function redireccionar($uri)
     {
         $uriParts = explode('/', $uri);
         $params = array_slice($uriParts, 2);
