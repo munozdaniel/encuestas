@@ -61,9 +61,11 @@ $di->setShared('view', function () use ($config) {
 $di->set('db', function () use ($config) {
     return new DbAdapter($config->database->toArray());
 });
-$di->set('dbusuarios', function () use ($config) {
+// This service returns a MySQL database
+$di->set('dbUsuarios', function () use ($config) {
     return new DbAdapter($config->gestionusuarios->toArray());
-});
+
+});;
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
  */
@@ -89,10 +91,33 @@ $di->set('elemento', function(){
 /**
  * Register the flash service with custom CSS classes
  */
-$di->set('flash', function(){
-    return new FlashSession(array(
-        'error'   => 'alert alert-danger',
-        'success' => 'alert alert-success',
-        'notice'  => 'alert alert-info',
+$di->set('flash', function()
+{
+    return new Phalcon\Flash\Direct(array(
+        'error'     => 'alert alert-danger',
+        'success'   => 'alert alert-success',
+        'notice'    => 'alert alert-info',
+        'warning'   => 'alert alert-warning',
     ));
+});
+
+/**
+ * Registramos el gestor de eventos (Utilizado en plugins/Seguridad.php)
+ */
+$di->set('dispatcher', function() use ($di)
+{
+
+    $eventsManager = $di->getShared('eventsManager');
+
+    $roles = new Seguridad($di);
+
+    /**
+     * Escuchamos eventos en el componente dispatcher usando el plugin Roles
+     */
+    $eventsManager->attach('dispatch', $roles);
+
+    $dispatcher = new Phalcon\Mvc\Dispatcher();
+    $dispatcher->setEventsManager($eventsManager);
+
+    return $dispatcher;
 });
