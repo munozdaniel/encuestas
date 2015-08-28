@@ -7,6 +7,8 @@
         <meta name="description" content="Sistema de Encuesta sobre los complejos de Melewe.">
         <meta name="author" content="Pichun Marcia - Muñoz Daniel">
         <?php echo $this->tag->getTitle(); ?>
+        <!--  CSS propios de cada pagina -->
+
         <!-- core CSS -->
         <?php echo $this->tag->stylesheetLink('css/bootstrap.min.css'); ?>
         <?php echo $this->tag->stylesheetLink('css/font-awesome.min.css'); ?>
@@ -34,14 +36,21 @@
     <?php echo $this->tag->javascriptInclude('js/jquery.js'); ?>
     <?php echo $this->tag->javascriptInclude('js/bootstrap.min.js'); ?>
     <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    
     <?php echo $this->tag->javascriptInclude('js/owl.carousel.min.js'); ?>
     <?php echo $this->tag->javascriptInclude('js/mousescroll.js'); ?>
     <?php echo $this->tag->javascriptInclude('js/smoothscroll.js'); ?>
     <?php echo $this->tag->javascriptInclude('js/jquery.prettyPhoto.js'); ?>
+    
     <?php echo $this->tag->javascriptInclude('js/jquery.isotope.min.js'); ?>
     <?php echo $this->tag->javascriptInclude('js/jquery.inview.min.js'); ?>
+    
     <?php echo $this->tag->javascriptInclude('js/wow.min.js'); ?>
-    <?php echo $this->tag->javascriptInclude('js/main.js'); ?>
+    <?php echo $this->tag->javascriptInclude('js/inicio.js'); ?>
+    <!-- JS propios de cada pagina -->
 
+    <?php if (($this->assets->collection('footer'))) { ?>
+        <?php echo $this->assets->outputJs('footer'); ?>
+    <?php } ?>
 
 </html>

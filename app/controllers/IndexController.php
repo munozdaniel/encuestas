@@ -6,9 +6,14 @@ class IndexController extends ControllerBase
     {
         $this->tag->setTitle('Bienvenidos');
         parent::initialize();
+        //cargar los js para la vista de esta función
+        $this->assets
+            ->collection('footer')
+            ->addJs('js/main.js');
     }
     public function indexAction()
     {
+
     }
 
 }

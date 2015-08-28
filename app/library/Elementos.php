@@ -5,20 +5,20 @@ class Elementos extends \Phalcon\Mvc\User\Component
         'inicio'     =>  array(
                 'class'     =>  'scroll',
                 'titulo'    =>'Inicio',
-                'controlador'=>'#',
-                'accion'    =>'home'
+                'controlador'=>'index',
+                'accion'    =>'#home'
         ),
         'encuesta'  =>  array(
                 'class'     =>  'scroll',
                 'titulo'    =>'Encuesta',
-                'controlador'=>'#',
-                'accion'    =>'features'
+                'controlador'=>'index',
+                'accion'    =>'#features'
         ),
         'contacto'  =>  array(
                 'class'     =>  'scroll',
                 'titulo'    =>'Contacto',
-                'controlador'=>'#',
-                'accion'    =>'contact'
+                'controlador'=>'index',
+                'accion'    =>'#contact'
         )
     );
     private $_sesion = array(
@@ -50,16 +50,19 @@ class Elementos extends \Phalcon\Mvc\User\Component
         $nombreDelControlador = $this->view->getControllerName();
         foreach($this->_menu as $contenido => $item)
         {
-            if ($nombreDelControlador == $item['controlador'])
-                $activo = "active";
-            else
-                $activo ="";
-            echo "<li class='".$item['class']." ".$activo."'><a href='".$item['controlador']."".$item['accion']."'>".$item['titulo']."</a></li>";
+            //if ($nombreDelControlador == $item['controlador'])
+              //  $activo = "active";
+            //else
+              //  $activo ="";
+            echo "<li class='".$item['class']." "."'>";
+             echo $this->tag->linkTo($item['controlador'] . '' . $item['accion'], $item['titulo']), '</li>';
+            //echo "<a href='".$item['controlador']."".$item['accion']."'>".$item['titulo']."</a></li>";
         }
         foreach($this->_sesion as $contenido => $item)
         {
-
-            echo "<li><a href='".$item['controlador']."/".$item['accion']."'>".$item['titulo']."</a></li>";
+            echo "<li>";
+            echo $this->tag->linkTo($item['controlador'] . '/' . $item['accion'], $item['titulo']), '</li>';
+            //echo "<li><a href='".$item['controlador']."/".$item['accion']."'>".$item['titulo']."</a></li>";
         }
     }
 }

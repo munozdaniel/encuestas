@@ -1,50 +1,6 @@
-jQuery(function($) {'use strict';
+jQuery(function($) {
 
-	// Navigation Scroll
-	$(window).scroll(function(event) {
-		Scroll();
-	});
-
-	$('.navbar-collapse ul li a').on('click', function() {  
-		$('html, body').animate({scrollTop: $(this.hash).offset().top - 5}, 1000);
-		return false;
-	});
-
-	// User define function
-	function Scroll() {
-		var contentTop      =   [];
-		var contentBottom   =   [];
-		var winTop      =   $(window).scrollTop();
-		var rangeTop    =   200;
-		var rangeBottom =   500;
-		$('.navbar-collapse').find('.scroll a').each(function(){
-			contentTop.push( $( $(this).attr('href') ).offset().top);
-			contentBottom.push( $( $(this).attr('href') ).offset().top + $( $(this).attr('href') ).height() );
-		})
-		$.each( contentTop, function(i){
-			if ( winTop > contentTop[i] - rangeTop ){
-				$('.navbar-collapse li.scroll')
-				.removeClass('active')
-				.eq(i).addClass('active');			
-			}
-		})
-	};
-
-	$('#tohash').on('click', function(){
-		$('html, body').animate({scrollTop: $(this.hash).offset().top - 5}, 1000);
-		return false;
-	});
-
-	// accordian
-	$('.accordion-toggle').on('click', function(){
-		$(this).closest('.panel-group').children().each(function(){
-		$(this).find('>.panel-heading').removeClass('active');
-		 });
-
-	 	$(this).closest('.panel-heading').toggleClass('active');
-	});
-
-	//Slider
+	//Slider SI LO USO
 	$(document).ready(function() {
 		var time = 7; // time in seconds
 
@@ -133,7 +89,7 @@ jQuery(function($) {'use strict';
 	//smoothScroll
 	smoothScroll.init();
 
-	// portfolio filter
+	// portfolio filter ELIMINAR
 	$(window).load(function(){'use strict';
 		var $portfolio_selectors = $('.portfolio-filter >li>a');
 		var $portfolio = $('.portfolio-items');
@@ -150,9 +106,9 @@ jQuery(function($) {'use strict';
 			return false;
 		});
 	});
-
+    //ELIMINAR NO LOS USO
 	$(document).ready(function() {
-		//Animated Progress
+		//Animated Progress ELIMINAR
 		$('.progress-bar').bind('inview', function(event, visible, visiblePartX, visiblePartY) {
 			if (visible) {
 				$(this).css('width', $(this).data('width') + '%');
@@ -160,7 +116,7 @@ jQuery(function($) {'use strict';
 			}
 		});
 
-		//Animated Number
+		//Animated Number ELIMINAR
 		$.fn.animateNumbers = function(stop, commas, duration, ease) {
 			return this.each(function() {
 				var $this = $(this);
@@ -192,7 +148,7 @@ jQuery(function($) {'use strict';
 		});
 	});
 
-	// Contact form
+	// FORMULARIO DE CONTACTOS
 	var form = $('#main-contact-form');
 	form.submit(function(event){
 		event.preventDefault();

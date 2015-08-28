@@ -7,6 +7,8 @@
         <meta name="description" content="Sistema de Encuesta sobre los complejos de Melewe.">
         <meta name="author" content="Pichun Marcia - Muñoz Daniel">
         {{ get_title() }}
+        <!--  CSS propios de cada pagina -->
+
         <!-- core CSS -->
         {{ stylesheet_link('css/bootstrap.min.css') }}
         {{ stylesheet_link('css/font-awesome.min.css') }}
@@ -34,14 +36,21 @@
     {{ javascript_include('js/jquery.js') }}
     {{ javascript_include('js/bootstrap.min.js') }}
     <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    {# Carrusel del inicio. Verificar si se puede utilizar solamente en el action.#}
     {{ javascript_include('js/owl.carousel.min.js') }}
     {{ javascript_include('js/mousescroll.js') }}
     {{ javascript_include('js/smoothscroll.js') }}
     {{ javascript_include('js/jquery.prettyPhoto.js') }}
+    {# ISOTOPE: Verificar si se puede borrar, es posible que se utilice con el filtro de galerias.#}
     {{ javascript_include('js/jquery.isotope.min.js') }}
     {{ javascript_include('js/jquery.inview.min.js') }}
+    {#Wow: Utilizado para las transiciones de los eltos.#}
     {{ javascript_include('js/wow.min.js') }}
-    {{ javascript_include('js/main.js') }}
+    {{ javascript_include('js/inicio.js') }}
+    <!-- JS propios de cada pagina -->
 
+    {%  if (assets.collection("footer")) %}
+        {{  assets.outputJs("footer") }}
+    {% endif %}
 
 </html>
