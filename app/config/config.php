@@ -8,7 +8,7 @@ return new \Phalcon\Config(array(
         'host'        => '192.168.42.14',
         'username'    => 'root',
         'password'    => 'infoimps',
-        'dbname'      => 'encuestaMelewe',
+        'dbname'      => 'encuestamelewe',
         'charset'     => 'utf8',
     ),
     'gestionusuarios' => array(
