@@ -5,20 +5,20 @@ class Elementos extends \Phalcon\Mvc\User\Component
         'inicio'     =>  array(
                 'class'     =>  'scroll',
                 'titulo'    =>'Inicio',
-                'controlador'=>'index',
+                'controlador'=>'',
                 'accion'    =>'#home'
         ),
         'encuesta'  =>  array(
                 'class'     =>  'scroll',
                 'titulo'    =>'Encuesta',
-                'controlador'=>'index',
-                'accion'    =>'#features'
+                'controlador'=>'',
+                'accion'    =>'index#features'
         ),
         'contacto'  =>  array(
                 'class'     =>  'scroll',
                 'titulo'    =>'Contacto',
-                'controlador'=>'index',
-                'accion'    =>'#contact'
+                'controlador'=>'',
+                'accion'    =>'index#contact'
         )
     );
     private $_sesion = array(
@@ -55,7 +55,7 @@ class Elementos extends \Phalcon\Mvc\User\Component
             //else
               //  $activo ="";
             echo "<li class='".$item['class']." "."'>";
-             echo $this->tag->linkTo($item['controlador'] . '' . $item['accion'], $item['titulo']), '</li>';
+             echo $this->tag->linkTo($item['controlador'] . '/' . $item['accion'], $item['titulo']), '</li>';
             //echo "<a href='".$item['controlador']."".$item['accion']."'>".$item['titulo']."</a></li>";
         }
         foreach($this->_sesion as $contenido => $item)
