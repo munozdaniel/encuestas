@@ -58,41 +58,50 @@
             <div class="col-sm-6">
                 <div class="media service-box wow fadeInRight">
                     <div class="pull-left">
-                        <i class="fa fa-line-chart"></i>
+                        <i class="fa fa-pagelines"></i>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading">UX design</h4>
-                        <p>Backed by some of the biggest names in the industry, Firefox OS is an open platform that fosters greater</p>
+                        <h4 class="media-heading">Villa la Angostura</h4>
+                        <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
                     </div>
                 </div>
 
                 <div class="media service-box wow fadeInRight">
                     <div class="pull-left">
-                        <i class="fa fa-cubes"></i>
+                        <i class="fa fa-picture-o"></i>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading">UI design</h4>
-                        <p>Backed by some of the biggest names in the industry, Firefox OS is an open platform that fosters greater</p>
+                        <h4 class="media-heading">Caviahue</h4>
+                        <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
                     </div>
                 </div>
 
                 <div class="media service-box wow fadeInRight">
                     <div class="pull-left">
-                        <i class="fa fa-pie-chart"></i>
+                        <i class="fa fa-tree"></i>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading">SEO Services</h4>
-                        <p>Backed by some of the biggest names in the industry, Firefox OS is an open platform that fosters greater</p>
+                        <h4 class="media-heading">Moquehue</h4>
+                        <p><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
                     </div>
                 </div>
 
                 <div class="media service-box wow fadeInRight">
                     <div class="pull-left">
-                        <i class="fa fa-pie-chart"></i>
+                        <i class="fa fa-car"></i>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading">SEO Services</h4>
-                        <p>Backed by some of the biggest names in the industry, Firefox OS is an open platform that fosters greater</p>
+                        <h4 class="media-heading">San Martin de los Andes</h4>
+                        <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
+                    </div>
+                </div>
+                <div class="media service-box wow fadeInRight">
+                    <div class="pull-left">
+                        <i class="fa fa-sun-o"></i>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Las Grutas</h4>
+                        <p>Complejo Casas y Duplex</p>
                     </div>
                 </div>
             </div>
