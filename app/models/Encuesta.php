@@ -37,13 +37,19 @@ class Encuesta extends \Phalcon\Mvc\Model
      *
      * @var integer
      */
+    public $personal_id;
+
+    /**
+     *
+     * @var integer
+     */
     public $unidad_id;
 
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $encuesta_composicionGrupo;
+    public $composicion_id;
 
     /**
      *
@@ -53,9 +59,9 @@ class Encuesta extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $encuesta_dondeReservo;
+    public $reservacion_id;
 
     /**
      *
@@ -65,9 +71,9 @@ class Encuesta extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $encuesta_comoSeInforma;
+    public $informacion_id;
 
     /**
      *
@@ -77,15 +83,15 @@ class Encuesta extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $encuesta_conoceOtroMelewe;
+    public $complejo_id;
 
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $encuesta_motivoEleccionDestino;
+    public $motivo_id;
 
     /**
      *
@@ -98,8 +104,13 @@ class Encuesta extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->belongsTo('unidad_id', 'Unidad', 'unidad_id', array('alias' => 'Unidad'));
+        $this->belongsTo('complejo_id', 'Complejo', 'complejo_id', array('alias' => 'Complejo'));
         $this->belongsTo('recepcion_id', 'Recepcion', 'recepcion_id', array('alias' => 'Recepcion'));
+        $this->belongsTo('unidad_id', 'Unidad', 'unidad_id', array('alias' => 'Unidad'));
+        $this->belongsTo('personal_id', 'Personal', 'personal_id', array('alias' => 'Personal'));
+        $this->belongsTo('composicion_id', 'Composicion', 'composicion_id', array('alias' => 'Composicion'));
+        $this->belongsTo('reservacion_id', 'Reservacion', 'reservacion_id', array('alias' => 'Reservacion'));
+        $this->belongsTo('informacion_id', 'Informacion', 'informacion_id', array('alias' => 'Informacion'));
     }
 
     /**
