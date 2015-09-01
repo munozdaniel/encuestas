@@ -27,7 +27,7 @@ return new \Phalcon\Config(array(
         'pluginsDir'     => APP_PATH . '/app/plugins/',
         'libraryDir'     => APP_PATH . '/app/library/',
         'cacheDir'       => APP_PATH . '/app/cache/',
-        'forms'       => APP_PATH . '/app/forms/',
+        'formsDir'       => APP_PATH . '/app/forms/',
         'baseUri'        => '/encuestas/',
     )
 ));
