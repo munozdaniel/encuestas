@@ -53,7 +53,7 @@
         </div>
         <div class="row">
             <div class="col-sm-6 wow fadeInLeft">
-                <img class="img-responsive" src="images/main-feature.png" alt="">
+                {{ image("images/main-feature.png", "alt": "Paisaje Encuestas", "class":"img-responsive") }}
             </div>
             <div class="col-sm-6">
                 <div class="media service-box wow fadeInRight">
@@ -61,8 +61,10 @@
                         <i class="fa fa-pagelines"></i>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading">Villa la Angostura</h4>
-                        <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
+                        <p>
+                            {{ link_to("encuesta/villa", "Villa la Angostura", "class": "media-heading links-encuestas") }}
+                            <br><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>
+                        </p>
                     </div>
                 </div>
 
@@ -71,7 +73,7 @@
                         <i class="fa fa-picture-o"></i>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading">Caviahue</h4>
+                        {{ link_to("encuesta/caviahue", "Caviahue", "class": "media-heading links-encuestas") }}
                         <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
                     </div>
                 </div>
@@ -81,7 +83,7 @@
                         <i class="fa fa-tree"></i>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading">Moquehue</h4>
+                        {{ link_to("encuesta/moquehue", "Moquehue", "class": "media-heading links-encuestas") }}
                         <p><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
                     </div>
                 </div>
@@ -91,7 +93,7 @@
                         <i class="fa fa-car"></i>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading">San Martin de los Andes</h4>
+                        {{ link_to("encuesta/andes", "San Martin de los Andes", "class": "media-heading links-encuestas") }}
                         <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
                     </div>
                 </div>
@@ -100,7 +102,7 @@
                         <i class="fa fa-sun-o"></i>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading">Las Grutas</h4>
+                        {{ link_to("encuesta/grutas", "Las Grutas", "class": "media-heading links-encuestas") }}
                         <p>Complejo Casas y Duplex</p>
                     </div>
                 </div>
