@@ -94,10 +94,10 @@ $di->set('elemento', function(){
 $di->set('flash', function()
 {
     return new Phalcon\Flash\Direct(array(
-        'error'     => 'alert alert-danger absoluto',
-        'success'   => 'alert alert-success absoluto exito',
-        'notice'    => 'alert alert-info absoluto',
-        'warning'   => 'alert alert-warning absoluto',
+        'error'     => 'alert alert-danger absoluto estilo',
+        'success'   => 'alert alert-success absoluto estilo',
+        'notice'    => 'alert alert-info absoluto estilo',
+        'warning'   => 'alert alert-warning absoluto estilo',
     ));
 });
 

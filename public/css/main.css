@@ -948,4 +948,5 @@ ul.nostyle i {
 
 /*Mensajes*/
 .absoluto{    position: absolute;}
-.exito{margin-bottom: 0px !important;  left:0 !important; z-index: 144 !important; }
+.estilo{margin-bottom: 0px !important;  left:0 !important; z-index: 144 !important; }
+.sub-items{    font-weight: 300 !important;}
