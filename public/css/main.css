@@ -945,3 +945,7 @@ ul.nostyle i {
     color: #272727;
     font-size: 18px;
 }
+
+/*Mensajes*/
+.absoluto{    position: absolute;}
+.exito{margin-bottom: 0px !important;  left:0 !important; z-index: 144 !important; }
