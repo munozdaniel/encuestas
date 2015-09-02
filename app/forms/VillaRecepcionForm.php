@@ -22,53 +22,131 @@ class VillaRecepcionForm extends \Phalcon\Forms\Form{
     public function initialize($entity = null, $options = array())
     {
         /*----------------- NIVEL DE DESEMPEÑO -------------------*/
-        $nivelDesempeno = new Select('nivelDesempeno', Puntaje::find(), array(
+        /*$nivelDesempeno = new Select('nivelDesempeno', Puntaje::find(), array(
             'using'      => array('puntaje_id', 'puntaje_descripcion'),
             'useEmpty'   => true,
             'emptyText'  => 'Seleccionar',
             'emptyValue' => ''
         ));
         $nivelDesempeno->setLabel('Nivel de Desempeño');
-        $this->add($nivelDesempeno);
+        $this->add($nivelDesempeno);*/
+        $listaPuntaje = Puntaje::find();
+        $descripcionPuntaje = array();
+        foreach($listaPuntaje as $item)
+        {
+            array_push($descripcionPuntaje,$item->puntaje_descripcion."&nbsp; &nbsp;");
+        }
+        $nivelDesempeno = new RadioGroup("nivelDesempeno", [
+            'elements' => $descripcionPuntaje,
+            'class' => 'pure-button button-white segment-item'
+        ]);
 
+        $nivelDesempeno->setFilters([
+            'striptags',
+            'trim'
+        ]);
+
+        $nivelDesempeno->addValidators([
+            new \Phalcon\Mvc\Model\Validator\StringLength([
+                'min' => 1,
+                'max' => 1,
+                'messageMaximum' => 'Too many characters for Post Type field',
+                'messageMinimum' => 'Post Type field cannot be empty',
+                'cancelOnFail' => true
+            ]),
+            new \Phalcon\Mvc\Model\Validator\Regex([
+                'pattern' => '/[a-z]/',
+                'message' => 'Post Type contained out of bounds characters',
+                'cancelOnFail' => true
+            ]),
+        ]);
+
+
+        $this->add($nivelDesempeno);
         /*----------------- TIEMPO DE RESPUESTA -------------------*/
-        $tiempoRespuesta = new Select('tiempoRespuesta', Puntaje::find(), array(
+        $tiempoRespuesta = new RadioGroup("tiempoRespuesta", [
+            'elements' => $descripcionPuntaje,
+            'class' => 'pure-button button-white segment-item'
+        ]);
+
+        $tiempoRespuesta->setFilters([
+            'striptags',
+            'trim'
+        ]);
+
+        $tiempoRespuesta->addValidators([
+            new \Phalcon\Mvc\Model\Validator\StringLength([
+                'min' => 1,
+                'max' => 1,
+                'messageMaximum' => 'Too many characters for Post Type field',
+                'messageMinimum' => 'Post Type field cannot be empty',
+                'cancelOnFail' => true
+            ]),
+            new \Phalcon\Mvc\Model\Validator\Regex([
+                'pattern' => '/[a-z]/',
+                'message' => 'Post Type contained out of bounds characters',
+                'cancelOnFail' => true
+            ]),
+        ]);
+
+
+        $this->add($tiempoRespuesta);
+        /*$tiempoRespuesta = new Select('tiempoRespuesta', Puntaje::find(), array(
             'using'      => array('puntaje_id', 'puntaje_descripcion'),
             'useEmpty'   => true,
             'emptyText'  => 'Seleccionar',
             'emptyValue' => ''
         ));
         $tiempoRespuesta->setLabel('Tiempo de Respuesta');
-        $this->add($tiempoRespuesta);
+        $this->add($tiempoRespuesta);*/
 
         /*----------------- TRATO Y CORDIALIDAD -------------------*/
-        $tratoCordialidad = new Select('tratoCordialidad', Puntaje::find(), array(
-            'using'      => array('puntaje_id', 'puntaje_descripcion'),
-            'useEmpty'   => true,
-            'emptyText'  => 'Seleccionar',
-            'emptyValue' => ''
-        ));
-        $tratoCordialidad->setLabel('Tiempo de Respuesta');
+        $tratoCordialidad = new RadioGroup("tratoCordialidad", [
+            'elements' => $descripcionPuntaje,
+            'class' => 'pure-button button-white segment-item'
+        ]);
+
+        $tratoCordialidad->setFilters([
+            'striptags',
+            'trim'
+        ]);
+
+        $tratoCordialidad->addValidators([
+            new \Phalcon\Mvc\Model\Validator\StringLength([
+                'min' => 1,
+                'max' => 1,
+                'messageMaximum' => 'Too many characters for Post Type field',
+                'messageMinimum' => 'Post Type field cannot be empty',
+                'cancelOnFail' => true
+            ]),
+            new \Phalcon\Mvc\Model\Validator\Regex([
+                'pattern' => '/[a-z]/',
+                'message' => 'Post Type contained out of bounds characters',
+                'cancelOnFail' => true
+            ]),
+        ]);
+
+
         $this->add($tratoCordialidad);
 
         /*----------------- INCONVENIENTES -------------------*/
-        $rbtInconvenienteSi = new Radio('rbtRecepcionInconSi', array(
+        $rbtInconvenienteSi = new Radio('rbtInconvenienteSi', array(
             'name' => 'inconvenientesRecepcion',
             'value' => 0
         ));
         $this->add($rbtInconvenienteSi);
-        $rbtInconvenienteNo= new Radio('rbtRecepcionInconNo', array(
+        $rbtInconvenienteNo= new Radio('rbtInconvenienteNo', array(
             'name' => 'inconvenientesRecepcion',
             'value' => 1
         ));
         $this->add($rbtInconvenienteNo);
 
         /*----------------- COMENTARIOS -------------------*/
-        $comentarios = new Text("comentarios",
+        $comentarios = new \Phalcon\Forms\Element\TextArea("comentarios",
             array(
-                'maxlength'   => 150,
+                'maxlength'   => 240,
                 'placeholder' => 'Ingrese su comentario...',
-                'line-height'         => '450px',
+                'rows'=>'4' ,'cols'=>'50'
             ));
         $comentarios->setFilters(array('string'));
         $this->add($comentarios);

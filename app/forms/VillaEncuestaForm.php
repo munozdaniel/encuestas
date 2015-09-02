@@ -7,6 +7,8 @@ use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\Numericality;
 use \Phalcon\Forms\Element\Radio;
+use \Phalcon\Forms\Element\Check;
+ use Phalcon\Mvc\Model\Validator\StringLength;
 /**
  * Created by PhpStorm.
  * User: dmunioz
@@ -74,10 +76,10 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
         $composicionGrupoOtro = new Text('composicionGrupoOtro');
         $composicionGrupoOtro->setFilters(array('string'));
         $this->add($composicionGrupoOtro);
-        /*--------------- DONDE RESERVÓ? ------------*/
+        /*--------------- DONDE RESERVÓ? Radio Button------------*/
         $dondeReservo = new Select('dondeReservo', Reservacion::find(), array(
             'using'      => array('reservacion_id', 'reservacion_nombre'),
-            'useEmpty'   => true,
+            'useEmpty'   => false,
             'emptyText'  => '---',
             'emptyValue' => '',
             'onchange'  =>"habilitarOtro(this.id,this.value)"
@@ -88,25 +90,43 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
         $dondeReservoOtro = new Text('dondeReservoOtro');
         $dondeReservoOtro->setFilters(array('string'));
         $this->add($dondeReservoOtro);
-        /*------------- COMO SE INFORMÓ? ------------*/
-        $comoSeInformo = new Select('comoSeInformo', Informacion::find(), array(
+        /*------------- COMO SE INFORMÓ? Radio Button ------------*/
+        $informacion = Informacion::find();
+        $this->view->informacion = $informacion;
+        for($i=0; $i<count($informacion);$i++){
+            $groupInformacion = new Check("informacion".$i,array(
+                "name" => "informacion[]",
+                "value" => $informacion[$i]->informacion_id
+            ));
+            $this->add($groupInformacion);
+        }
+        /*$comoSeInformo = new Select('comoSeInformo', Informacion::find(), array(
             'using'      => array('informacion_id', 'informacion_nombre'),
-            'useEmpty'   => true,
+            'useEmpty'   => false,
             'emptyText'  => '---',
             'emptyValue' => ''
         ));
         $comoSeInformo->setLabel('De que manera recibe informacion?');
-        $this->add($comoSeInformo);
-        /*------------- CONOCE OTRO MELEWE? ------------*/
-        $complejo = new Select('complejo', Complejo::find(), array(
+        $this->add($comoSeInformo);*/
+        /*------------- CONOCE OTRO MELEWE? Checkbox ------------*/
+        $complejos = Complejo::find();
+        $this->view->complejos = $complejos;
+        for($i=0; $i<count($complejos);$i++){
+            $group = new Check("complejo".$i,array(
+                "name" => "complejo[]",
+                "value" => $complejos[$i]->complejo_id
+            ));
+            $this->add($group);
+        }
+        /*$complejo = new Select('complejo', Complejo::find(), array(
             'using'      => array('complejo_id', 'complejo_nombre'),
             'useEmpty'   => true,
             'emptyText'  => '---',
             'emptyValue' => ''
         ));
         $complejo->setLabel('Conoce algun otro Melewe? Cual?');
-        $this->add($complejo);
-        /*------------- MOTIVO DE ELECCION DE MELEWE? ------------*/
+        $this->add($complejo);*/
+        /*------------- MOTIVO DE ELECCION DE MELEWE? Select ------------*/
         $motivoDeEleccion = new Select('motivoDeEleccion', Motivo::find(), array(
             'using'      => array('motivo_id', 'motivo_nombre'),
             'useEmpty'   => true,
@@ -122,5 +142,7 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
         $comentarios->setFilters(array('string'));
 
         $this->add($unidad);
+
+
     }
 }
