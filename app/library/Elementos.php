@@ -22,6 +22,7 @@ class Elementos extends \Phalcon\Mvc\User\Component
         )
     );
     private $_sesion = array(
+
         'login'     =>  array(
             'class'     =>  '',
             'titulo'    =>'Ingresar',
@@ -39,12 +40,23 @@ class Elementos extends \Phalcon\Mvc\User\Component
 
         $auth = $this->session->get('auth');
         if ($auth) {
+            $this->_sesion = array(
+                'estadisticas'     =>  array(
+                    'class'     =>  '',
+                    'titulo'    =>'Estadisticas',
+                    'controlador'=>'index',
+                    'accion'    =>'index'
+                )
+            );
             $this->_sesion['login']= array(
                 'class'     =>  '',
                 'titulo'    =>'Salir',
-                'controlador'=>'index',
-                'accion'    =>'index'
+                'controlador'=>'sesion',
+                'accion'    =>'cerrar'
             );
+        }
+        else
+        {
 
         }
         $nombreDelControlador = $this->view->getControllerName();
