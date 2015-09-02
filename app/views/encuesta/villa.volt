@@ -67,11 +67,62 @@
                         <label class="sub-items">NO</label>
                         {{ recepcionForm.render('rbtInconvenienteNo') }}
                         <br>
+                        <label>Comentarios</label><br>
                         {{ recepcionForm.render('comentarios') }}
                         <br>
                     </div>
                     <!-- ----------------------- UNIDAD FORM -------------------------- -->
+                    <div class="table-responsive espacio-form"><hr>
+                        <h4>UNIDADES <br> <small>Cual es su opinión con respecto a:</small></h4>
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td>Higiene de las instalaciones</td>
+                                <td>{{ unidadForm.render('higiene') }}</td>
+                            </tr>
+                            <tr>
+                                <td>Equipamiento</td>
+                                <td>{{ unidadForm.render('equipamiento') }}</td>
+                            </tr>
+                            <tr>
+                                <td>Confort</td>
+                                <td>{{ unidadForm.render('confort') }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="espacio-form">
+                        <label>Hubo algún inconveniente?</label><br>
+                        <label class="sub-items">SI</label>
+                        {{ unidadForm.render('rbtInconvenienteSi') }}
+                        <label class="sub-items">NO</label>
+                        {{ unidadForm.render('rbtInconvenienteNo') }}
+                        <br>
+                        <label>Comentarios</label><br>
+                        {{ unidadForm.render('comentarios') }}
+                        <br>
+                    </div>
                     <!-- ----------------------- PERSONAL FORM -------------------------- -->
+                    <div class="table-responsive espacio-form"><hr>
+                        <h4>PERSONAL <br> <small>Cual es su opinión con respecto al Trato y Cordialidad de:</small></h4>
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td>Higiene de las instalaciones</td>
+                                <td>{{ personalForm.render('personal') }}</td>
+                            </tr>
+                            <tr>
+                                <td>Equipamiento</td>
+                                <td>{{ personalForm.render('mucamas') }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="espacio-form">
+                        <label>Comentarios</label><br>
+                        {{ personalForm.render('comentarios') }}
+                        <br>
+                    </div>
                     <!-- ----------------------- ENCUESTA FORM PART II -------------------------- -->
 
                     <div class="espacio-form">

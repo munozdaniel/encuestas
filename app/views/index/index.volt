@@ -1,7 +1,8 @@
 {{ content() }}
 <section id="main-slider">
     <div class="owl-carousel">
-        <div class="item" style="background-image: url(images/slider/bg1.jpg);">
+        <div class="" >
+            {{ image("images/slider/bg1.jpg", "alt": "Slider bg1", "class":"item") }}
             <div class="slider-inner">
                 <div class="container">
                     <div class="row">
@@ -13,20 +14,8 @@
                 </div>
             </div>
         </div><!--/.item-->
-        <div class="item" style="background-image: url(images/slider/bg2.jpg);">
-            <div class="slider-inner">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="carousel-content">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><!--/.item-->
-        <div class="item" style="background-image: url('images/slider/bg2.jpg');">
+        <div class="">
+            {{ image("images/slider/bg2.jpg", "alt": "Slider bg2", "class":"item") }}
             <div class="slider-inner">
                 <div class="container">
                     <div class="row">
@@ -39,6 +28,7 @@
                 </div>
             </div>
         </div><!--/.item-->
+
     </div><!--/.owl-carousel-->
 </section><!--/#main-slider-->
 
