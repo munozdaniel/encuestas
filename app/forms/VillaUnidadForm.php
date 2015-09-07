@@ -98,7 +98,7 @@ class VillaUnidadForm extends \Phalcon\Forms\Form{
 
          $unidad_inconveniente = new RadioGroup("unidad_inconveniente", [
              'elements' => array('SI','NO'),
-             'class' => 'pure-button button-white segment-item'
+             'class' => 'pure-button button-white segment-item sub-items'
          ]);
 
          $unidad_inconveniente->setChecked(1);
