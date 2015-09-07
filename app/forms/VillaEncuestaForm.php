@@ -25,41 +25,41 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
     {
         /*------------- Nº UNIDAD ------------*/
 
-        $unidad = new Text("unidad");
+        $unidad = new Text("encuesta_nroUnidad");
         $unidad->setLabel("Estuve alojado en la Unidad Nº");
         $unidad->setFilters(array('int'));
         $unidad->addValidators(array(
             new PresenceOf(array(
-                'message' => 'La unidad es Requerida.'
+                'message' => 'La UNIDAD es Requerida.'
+            )),
+            new Numericality(array(
+                'message' => 'La UNIDAD debe ser un valor numerico.'
             ))
         ));
         $this->add($unidad);
         /*------------- FECHA ESTADIA ------------*/
 
-        $fechaEstadia = new \Phalcon\Forms\Element\Date("fechaEstadia");
+        $fechaEstadia = new \Phalcon\Forms\Element\Date("encuesta_fechaEstadia");
         $fechaEstadia->setLabel("Fecha de estadía");
         //$fechaEstadia->setFilters(array('int'));
         $fechaEstadia->addValidators(array(
             new PresenceOf(array(
-                'message' => 'La fecha de estadía es Requerida.'
+                'message' => 'La FECHA de estadía es Requerida.'
             ))
         ));
         $this->add($fechaEstadia);
         /*------------- ES SU PRIMERA VISITA ------------*/
+        $primeraVisita = new RadioGroup("encuesta_primeraVisita", [
+            'elements' => array('SI','NO'),
+            'class' => 'pure-button button-white segment-item sub-items'
+        ]);
 
-        $rbtPrimeraVisitaSi = new Radio('rbtPrimeraVisitaSi', array(
-            'name' => 'primeraVisita',
-            'value' => 0
-        ));
-        $this->add($rbtPrimeraVisitaSi);
-        $rbtPrimeraVisitaNo= new Radio('rbtPrimeraVisitaNo', array(
-            'name' => 'primeraVisita',
-            'value' => 1
-        ));
-        $this->add($rbtPrimeraVisitaNo);
+        $primeraVisita->setChecked(1);
+        $this->add($primeraVisita);
+
         /*------------- COMPOSICION DEL GRUPO ------------*/
 
-        $grupoCompuesto = new Select('composicionGrupo', Composicion::find(), array(
+        $grupoCompuesto = new Select('composicion_id', Composicion::find(), array(
             'using'      => array('composicion_id', 'composicion_nombre'),
             'useEmpty'   => false,
             'emptyText'  => '---',
@@ -73,11 +73,12 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
         ));
         $grupoCompuesto->setLabel('Como esta compuesto?');
         $this->add($grupoCompuesto);
+
         $composicionGrupoOtro = new Text('composicionGrupoOtro');
         $composicionGrupoOtro->setFilters(array('string'));
         $this->add($composicionGrupoOtro);
         /*--------------- DONDE RESERVÓ? Radio Button------------*/
-        $dondeReservo = new Select('dondeReservo', Reservacion::find(), array(
+        $dondeReservo = new Select('reservacion_id', Reservacion::find(), array(
             'using'      => array('reservacion_id', 'reservacion_nombre'),
             'useEmpty'   => false,
             'emptyText'  => '---',
@@ -90,12 +91,12 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
         $dondeReservoOtro = new Text('dondeReservoOtro');
         $dondeReservoOtro->setFilters(array('string'));
         $this->add($dondeReservoOtro);
-        /*------------- COMO SE INFORMÓ? Radio Button ------------*/
+        /*------------- COMO SE INFORMÓ? Checkbox  ------------*/
         $informacion = Informacion::find();
         $this->view->informacion = $informacion;
         for($i=0; $i<count($informacion);$i++){
-            $groupInformacion = new Check("informacion".$i,array(
-                "name" => "informacion[]",
+            $groupInformacion = new Check("informacion_id".$i,array(
+                "name" => "informacion_id[]",
                 "value" => $informacion[$i]->informacion_id
             ));
             $this->add($groupInformacion);
@@ -112,10 +113,11 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
         $complejos = Complejo::find();
         $this->view->complejos = $complejos;
         for($i=0; $i<count($complejos);$i++){
-            $group = new Check("complejo".$i,array(
-                "name" => "complejo[]",
+            $group = new Check("complejo_id".$i,array(
+                "name" => "complejo_id[]",
                 "value" => $complejos[$i]->complejo_id
             ));
+
             $this->add($group);
         }
         /*$complejo = new Select('complejo', Complejo::find(), array(
@@ -127,7 +129,7 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
         $complejo->setLabel('Conoce algun otro Melewe? Cual?');
         $this->add($complejo);*/
         /*------------- MOTIVO DE ELECCION DE MELEWE? Select ------------*/
-        $motivoDeEleccion = new Select('motivoDeEleccion', Motivo::find(), array(
+        $motivoDeEleccion = new Select('motivo_id', Motivo::find(), array(
             'using'      => array('motivo_id', 'motivo_nombre'),
             'useEmpty'   => true,
             'emptyText'  => '---',
@@ -137,11 +139,14 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
         $this->add($motivoDeEleccion);
         /*------------- OBSERVACIONES ------------*/
 
-        $comentarios = new Text("comentarios");
-        $comentarios->setLabel("Comentarios");
+        $comentarios = new \Phalcon\Forms\Element\TextArea("encuesta_observacion",
+            array(
+                'maxlength'   => 150,
+                'placeholder' => 'Ingrese su comentario...',
+                'rows'=>'4' ,'cols'=>'50'
+            ));
         $comentarios->setFilters(array('string'));
-
-        $this->add($unidad);
+        $this->add($comentarios);
 
 
     }
