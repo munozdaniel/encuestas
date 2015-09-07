@@ -49,9 +49,9 @@ class RadioGroup  extends \Phalcon\Forms\Element{
             if ($this->checked && $this->checked == $key) {
                 $checked = ' checked="true"';
             }
-
+        //NOTA!!! : en el atributo value el valor va a ser key+1 porque en la bd las tablas siempre empiezan en 1, y no en 0.
             $rendered .= '
-    <label for="'.$eleName . $key.'"'.$cssClass.'><input type="radio"'.$checked.' id="'.$eleName . $key. '" name="'.$this->getName().'" value="'.$key.'"> ' .
+    <label for="'.$eleName . $key.'"'.$cssClass.'><input type="radio"'.$checked.' id="'.$eleName . $key. '" name="'.$this->getName().'" value="'.($key+1).'"> ' .
                 $label . '</label>' ;
         }
 
