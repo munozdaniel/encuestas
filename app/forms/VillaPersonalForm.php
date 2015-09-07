@@ -20,12 +20,12 @@ class VillaPersonalForm extends \Phalcon\Forms\Form{
         {
             array_push($descripcionPuntaje,$item->puntaje_descripcion."&nbsp; &nbsp;");
         }
-        /*----------------- PERSONAL -------------------*/
-        $personal = new RadioGroup("personal", [
+        /*----------------- PERSONAL DE ADMINISTRACION -------------------*/
+        $personal = new RadioGroup("personal_tratoAdministrativo", [
             'elements' => $descripcionPuntaje,
             'class' => 'pure-button button-white segment-item'
         ]);
-
+        /*
         $personal->setFilters([
             'striptags',
             'trim'
@@ -45,17 +45,18 @@ class VillaPersonalForm extends \Phalcon\Forms\Form{
                 'cancelOnFail' => true
             ]),
         ]);
-
+*/
+        $personal->setChecked(2);
 
         $this->add($personal);
         /*----------------- MUCAMAS -------------------*/
 
 
-        $mucamas = new RadioGroup("mucamas", [
+        $mucamas = new RadioGroup("personal_tratoMucamas", [
             'elements' => $descripcionPuntaje,
             'class' => 'pure-button button-white segment-item'
         ]);
-
+/*
         $mucamas->setFilters([
             'striptags',
             'trim'
@@ -75,11 +76,12 @@ class VillaPersonalForm extends \Phalcon\Forms\Form{
                 'cancelOnFail' => true
             ]),
         ]);
-
+*/
+        $mucamas->setChecked(2);
 
         $this->add($mucamas);
         /*----------------- COMENTARIOS -------------------*/
-        $comentarios = new \Phalcon\Forms\Element\TextArea("comentarios",
+        $comentarios = new \Phalcon\Forms\Element\TextArea("personal_comentarios",
             array(
                 'maxlength'   => 150,
                 'placeholder' => 'Ingrese su comentario...',
