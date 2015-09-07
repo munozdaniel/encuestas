@@ -36,11 +36,11 @@ class VillaRecepcionForm extends \Phalcon\Forms\Form{
         {
             array_push($descripcionPuntaje,$item->puntaje_descripcion."&nbsp; &nbsp;");
         }
-        $nivelDesempeno = new RadioGroup("nivelDesempeno", [
+        $nivelDesempeno = new RadioGroup("recepcion_nivelDesempeno", [
             'elements' => $descripcionPuntaje,
             'class' => 'pure-button button-white segment-item'
         ]);
-
+/*
         $nivelDesempeno->setFilters([
             'striptags',
             'trim'
@@ -60,89 +60,40 @@ class VillaRecepcionForm extends \Phalcon\Forms\Form{
                 'cancelOnFail' => true
             ]),
         ]);
-
-
+*/
+        $nivelDesempeno->setChecked(2);
         $this->add($nivelDesempeno);
+
         /*----------------- TIEMPO DE RESPUESTA -------------------*/
-        $tiempoRespuesta = new RadioGroup("tiempoRespuesta", [
+        $tiempoRespuesta = new RadioGroup("recepcion_tiempoRespuesta", [
             'elements' => $descripcionPuntaje,
             'class' => 'pure-button button-white segment-item'
         ]);
 
-        $tiempoRespuesta->setFilters([
-            'striptags',
-            'trim'
-        ]);
-
-        $tiempoRespuesta->addValidators([
-            new \Phalcon\Mvc\Model\Validator\StringLength([
-                'min' => 1,
-                'max' => 1,
-                'messageMaximum' => 'Too many characters for Post Type field',
-                'messageMinimum' => 'Post Type field cannot be empty',
-                'cancelOnFail' => true
-            ]),
-            new \Phalcon\Mvc\Model\Validator\Regex([
-                'pattern' => '/[a-z]/',
-                'message' => 'Post Type contained out of bounds characters',
-                'cancelOnFail' => true
-            ]),
-        ]);
-
+        $tiempoRespuesta->setChecked(2);
 
         $this->add($tiempoRespuesta);
-        /*$tiempoRespuesta = new Select('tiempoRespuesta', Puntaje::find(), array(
-            'using'      => array('puntaje_id', 'puntaje_descripcion'),
-            'useEmpty'   => true,
-            'emptyText'  => 'Seleccionar',
-            'emptyValue' => ''
-        ));
-        $tiempoRespuesta->setLabel('Tiempo de Respuesta');
-        $this->add($tiempoRespuesta);*/
 
         /*----------------- TRATO Y CORDIALIDAD -------------------*/
-        $tratoCordialidad = new RadioGroup("tratoCordialidad", [
+        $tratoCordialidad = new RadioGroup("recepcion_tratoYCordialidad", [
             'elements' => $descripcionPuntaje,
             'class' => 'pure-button button-white segment-item'
         ]);
 
-        $tratoCordialidad->setFilters([
-            'striptags',
-            'trim'
-        ]);
-
-        $tratoCordialidad->addValidators([
-            new \Phalcon\Mvc\Model\Validator\StringLength([
-                'min' => 1,
-                'max' => 1,
-                'messageMaximum' => 'Too many characters for Post Type field',
-                'messageMinimum' => 'Post Type field cannot be empty',
-                'cancelOnFail' => true
-            ]),
-            new \Phalcon\Mvc\Model\Validator\Regex([
-                'pattern' => '/[a-z]/',
-                'message' => 'Post Type contained out of bounds characters',
-                'cancelOnFail' => true
-            ]),
-        ]);
-
-
+        $tratoCordialidad->setChecked(2);
         $this->add($tratoCordialidad);
 
         /*----------------- INCONVENIENTES -------------------*/
-        $rbtInconvenienteSi = new Radio('rbtInconvenienteSi', array(
-            'name' => 'inconvenientesRecepcion',
-            'value' => 0
-        ));
-        $this->add($rbtInconvenienteSi);
-        $rbtInconvenienteNo= new Radio('rbtInconvenienteNo', array(
-            'name' => 'inconvenientesRecepcion',
-            'value' => 1
-        ));
-        $this->add($rbtInconvenienteNo);
+        $recepcion_inconvenientes = new RadioGroup("recepcion_inconvenientes", [
+            'elements' => array('SI','NO'),
+            'class' => 'pure-button button-white segment-item sub-items'
+        ]);
+
+        $recepcion_inconvenientes->setChecked(1);
+        $this->add($recepcion_inconvenientes);
 
         /*----------------- COMENTARIOS -------------------*/
-        $comentarios = new \Phalcon\Forms\Element\TextArea("comentarios",
+        $comentarios = new \Phalcon\Forms\Element\TextArea("recepcion_comentarios",
             array(
                 'maxlength'   => 240,
                 'placeholder' => 'Ingrese su comentario...',
