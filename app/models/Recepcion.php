@@ -31,7 +31,7 @@ class Recepcion extends \Phalcon\Mvc\Model
      *
      * @var integer
      */
-    public $recepcion_incovenientes;
+    public $recepcion_inconvenientes;
 
     /**
      *
@@ -45,9 +45,9 @@ class Recepcion extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->hasMany('recepcion_id', 'Encuesta', 'recepcion_id', array('alias' => 'Encuesta'));
-        $this->belongsTo('recepcion_tratoYCordialidad', 'Puntaje', 'puntaje_id', array('alias' => 'Puntaje'));
         $this->belongsTo('recepcion_nivelDesempeno', 'Puntaje', 'puntaje_id', array('alias' => 'Puntaje'));
         $this->belongsTo('recepcion_tiempoRespuesta', 'Puntaje', 'puntaje_id', array('alias' => 'Puntaje'));
+        $this->belongsTo('recepcion_tratoYCordialidad', 'Puntaje', 'puntaje_id', array('alias' => 'Puntaje'));
     }
 
     /**
