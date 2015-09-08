@@ -13,7 +13,10 @@ class IndexController extends ControllerBase
     }
     public function indexAction()
     {
-
+        $this->view->encuestaForm = new VillaEncuestaForm;
+        $this->view->unidadForm = new VillaUnidadForm();
+        $this->view->recepcionForm = new VillaRecepcionForm();
+        $this->view->personalForm = new VillaPersonalForm();
     }
 
 }
