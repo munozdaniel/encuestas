@@ -947,6 +947,23 @@ ul.nostyle i {
 }
 
 /*Mensajes*/
-.absoluto{    position: absolute;}
+.absoluto{    position: absolute;display: block;}
 .estilo{margin-bottom: 0px !important;  left:0 !important; z-index: 144 !important; }
 .sub-items{    font-weight: 300 !important;}
+.ss-form-container, .ss-resp-card {
+    border-color: rgb(212, 212, 212);
+}
+.ss-form-container, .ss-resp-card {
+    background-color: rgb(255,255,255);
+}
+.ss-form-container {
+    border-radius: 2px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    box-sizing: border-box;
+
+
+}
+.ss-form-container {
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
