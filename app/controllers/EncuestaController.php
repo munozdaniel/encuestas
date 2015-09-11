@@ -24,7 +24,14 @@ class EncuestaController extends ControllerBase
         $this->view->recepcionForm = new VillaRecepcionForm();
         $this->view->personalForm = new VillaPersonalForm();
     }
+    /**
+     *
+     *
+     */
+    public function sorteoAction()
+    {
 
+    }
     /**
      * Villa La Angostura: Se guardan los datos que se ingresaron en la encuesta.
      *
@@ -35,6 +42,7 @@ class EncuestaController extends ControllerBase
         if (!$this->request->isPost()) {
             return $this->redireccionar("index/index");
         }
+
         //Verifico que los datos ingresados cumplan con las validaciones.
         $data = $this->request->getPost();
         try
@@ -49,156 +57,144 @@ class EncuestaController extends ControllerBase
             $recepcion->setTransaction($transaction);
             if(!$recepcionForm->isValid($data,$recepcion)){
                 foreach($recepcionForm->getMessages() as $message){
-                    $this->flash->warning($message);
+                    $this->flash->error($message);
                 }
+                $continuar      = false;
             }
-            else{
+            else {
                 if ($recepcion->save() == false) {//guuaaaaaattsss?? como corno obtuvo los valores del form?? magia negra.
                     foreach ($recepcion->getMessages() as $message) {
                         $this->flash->error($message);
                     }
-                    $transaction->rollback();
-                }
-                else{
-                    /*--------------------- VALIDAR UNIDAD ------------------------*/
-                    $unidadForm     =   new VillaUnidadForm();
-                    $unidad         =   new Unidad();
-                    $unidad->setTransaction($transaction);
-                    if(!$unidadForm->isValid($data,$unidad)){
-                        foreach($unidadForm->getMessages() as $message){
-                            $this->flash->warning($message);
-                        }
-                        $transaction->rollback();
-                    }else{
-                        if ($unidad->save() == false) {
-                            foreach ($unidad->getMessages() as $message) {
-                                $this->flash->error($message);
-                            }
-                            $transaction->rollback();
-                        }else{
-                            /*--------------------- VALIDAR PERSONAL ------------------------*/
-                            $personalForm   =   new VillaPersonalForm();
-                            $personal       =   new Personal();
-                            $personal->setTransaction($transaction);
-                            if(!$personalForm->isValid($data,$personal)){
-                                foreach($personalForm->getMessages() as $message){
-                                    $this->flash->warning($message);
-                                }
-                                $transaction->rollback();
-                            }else {
-                                if ($personal->save() == false) {
-                                    foreach ($personal->getMessages() as $message) {
-                                        $this->flash->error($message);
-                                    }
-                                    $transaction->rollback();
-                                }else {
-                                    /*--------------------- VALIDAR ENCUESTA ------------------------*/
-                                    $encuestaForm = new VillaEncuestaForm();
-                                    $encuesta = new Encuesta();
-                                    $encuesta->setTransaction($transaction);
-                                    if (!$encuestaForm->isValid($data, $encuesta)) {
-                                        foreach ($encuestaForm->getMessages() as $message) {
-                                            $this->flash->warning($message);
-                                        }
-                                        $transaction->rollback();
-                                    }
-                                    else{
-                                        if($data['reservacion_id']==1 && ($data['reservacion_idOtro']==null || $data['reservacion_idOtro']==''))
-                                        {
-                                            $this->flash->error("Ingrese en que otro lugar realizó la reserva.");
-                                            $transaction->rollback();
-                                        }
-                                        else
-                                        {
-                                            $encuesta->recepcion_id     =   $recepcion->recepcion_id;
-                                            $encuesta->unidad_id        =   $unidad->unidad_id;
-                                            $encuesta->personal_id      =   $personal->personal_id;
-                                            if ($encuesta->save() == false) {
-                                                foreach ($encuesta->getMessages() as $message) {
-                                                    $this->flash->error($message);
-                                                }
-                                                $transaction->rollback();
-                                            }
-                                            else{
-                                                /*--------------------- RELACIONES ------------------------*/
-
-                                                //relacion entre encuesta e informacion
-                                                $encuestaInformacion = new Encuestainformacion();
-                                                $encuestaInformacion->setTransaction($transaction);
-                                                $listaInformacion    = $this->request->getPost("informacion_id");
-                                                if(!empty($listaInformacion)){
-                                                    foreach($listaInformacion as $informacion_id) {//Recorro la lista de checkbox
-                                                        $encuestaInformacion->encuesta_id   =$encuesta->encuesta_id;
-                                                        $encuestaInformacion->informacion_id=$informacion_id;
-                                                        if ($encuestaInformacion->save() == false) {
-                                                            foreach ($encuestaInformacion->getMessages() as $message) {
-                                                                $this->flash->error($message);
-                                                            }
-                                                            $transaction->rollback();
-                                                        }
-                                                        else
-                                                        {
-                                                            //relacion entre encuesta y complejo
-                                                            $encuestaComplejo = new Encuestacomplejo();
-                                                            $encuestaComplejo->setTransaction($transaction);
-                                                            $listaComplejo    = $this->request->getPost("complejo_id");
-                                                            if(!empty($listaComplejo)){
-                                                                foreach($listaComplejo as $complejo_id) {//Recorro la lista de checkbox
-                                                                    $encuestaComplejo->encuesta_id   =$encuesta->encuesta_id;
-                                                                    $encuestaComplejo->complejo_id=$complejo_id;
-                                                                    if ($encuestaComplejo->save() == false) {
-                                                                        foreach ($encuestaComplejo->getMessages() as $message) {
-                                                                            $this->flash->error($message);
-                                                                        }
-                                                                        $transaction->rollback();
-                                                                    }
-                                                                    else{
-                                                                        $recepcionForm->clear();
-                                                                        $unidadForm->clear();
-                                                                        $personalForm->clear();
-                                                                        $encuestaForm->clear();
-                                                                        $this->flash->success("OPERACION EXITOSA" );
-                                                                        $transaction->commit();
-                                                                        return $this->redireccionar("encuesta/sorteo");
-                                                                    }
-                                                                }
-                                                            }
-                                                            else
-                                                            {
-                                                                $this->flash->error("Ingrese campo complejo");
-                                                                $transaction->rollback();
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    $this->flash->error("Ingrese campo informacion");
-                                                    $transaction->rollback();
-                                                }
-
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            $recepcionForm->clear();
-                            $this->flash->success("OPERACION EXITOSA" );
-                            $transaction->commit();
-                        }
-                    }
-
+                    $continuar      = false;
                 }
             }
+            /*--------------------- VALIDAR UNIDAD ------------------------*/
+            if($continuar) {
+                $unidadForm = new VillaUnidadForm();
+                $unidad = new Unidad();
+                $unidad->setTransaction($transaction);
+                if (!$unidadForm->isValid($data, $unidad)) {
+                    foreach ($unidadForm->getMessages() as $message) {
+                        $this->flash->warning($message);
+                    }
+                    $continuar      = false;
+                } else {
+                    if ($unidad->save() == false) {
+                        foreach ($unidad->getMessages() as $message) {
+                            $this->flash->error($message);
+                        }
+                        $continuar      = false;
+                        $transaction->rollback("Falta completar los datos");
+                    }
+                }
+            }
+            /*--------------------- VALIDAR PERSONAL ------------------------*/
+            if($continuar) {
+                $personalForm = new VillaPersonalForm();
+                $personal = new Personal();
+                $personal->setTransaction($transaction);
+                if (!$personalForm->isValid($data, $personal)) {
+                    foreach ($personalForm->getMessages() as $message) {
+                        $this->flash->warning($message);
+                    }
+                    $continuar      = false;
+                } else {
+                    if ($personal->save() == false) {
+                        foreach ($personal->getMessages() as $message) {
+                            $this->flash->error($message);
+                        }
+                        $continuar      = false;
+                        $transaction->rollback("Falta completar los datos");
+                    }
+                }
+            }
+            /*--------------------- VALIDAR ENCUESTA ------------------------*/
+            if($continuar) {
+                $encuestaForm = new VillaEncuestaForm();
+                $encuesta = new Encuesta();
+                $encuesta->setTransaction($transaction);
 
-        }
-        catch(Phalcon\Mvc\Model\Transaction\Failed $e) {
-            $this->flash->error('Transaccion Fallida: ', $e->getMessage());
+                if (!$encuestaForm->isValid($data, $encuesta)) {
+                    foreach ($encuestaForm->getMessages() as $message) {
+                        $this->flash->error($message);
+                    }
+                }
+                else {
+                    if ($data['reservacion_id'] == 1 && ($data['reservacion_idOtro'] == null || $data['reservacion_idOtro'] == '')) {
+                        $this->flash->error("Ingrese en que otro lugar realizó la reserva.");
+                        $transaction->rollback("Falta completar los datos");
+                    } else {
+                        $encuesta->recepcion_id = $recepcion->recepcion_id;
+                        $encuesta->unidad_id = $unidad->unidad_id;
+                        $encuesta->personal_id = $personal->personal_id;
+                        if ($encuesta->save() == false) {
+                            foreach ($encuesta->getMessages() as $message) {
+                                $this->flash->error($message);
+                            }
+                            $transaction->rollback("Falta completar los datos");
+                        } else
+                        {
+                            /*--------------------- RELACIONES ------------------------*/
+
+                            //relacion entre encuesta e informacion
+                            $encuestaInformacion = new Encuestainformacion();
+                            $encuestaInformacion->setTransaction($transaction);
+                            $listaInformacion = $this->request->getPost("informacion_id");
+                            if (!empty($listaInformacion)) {
+                                foreach ($listaInformacion as $informacion_id) {//Recorro la lista de checkbox
+                                    $encuestaInformacion->encuesta_id = $encuesta->encuesta_id;
+                                    $encuestaInformacion->informacion_id = $informacion_id;
+                                    if ($encuestaInformacion->save() == false) {
+                                        foreach ($encuestaInformacion->getMessages() as $message) {
+                                            $this->flash->error($message);
+                                        }
+                                        $transaction->rollback("Falta completar los datos");
+                                    } else {
+                                        //relacion entre encuesta y complejo
+                                        $encuestaComplejo = new Encuestacomplejo();
+                                        $encuestaComplejo->setTransaction($transaction);
+                                        $listaComplejo = $this->request->getPost("complejo_id");
+                                        if (!empty($listaComplejo)) {
+                                            foreach ($listaComplejo as $complejo_id) {//Recorro la lista de checkbox
+                                                $encuestaComplejo->encuesta_id = $encuesta->encuesta_id;
+                                                $encuestaComplejo->complejo_id = $complejo_id;
+                                                if ($encuestaComplejo->save() == false) {
+                                                    foreach ($encuestaComplejo->getMessages() as $message) {
+                                                        $this->flash->error($message);
+                                                    }
+                                                    $transaction->rollback("Falta completar los datos");
+                                                } else {
+                                                    $recepcionForm->clear();
+                                                    $unidadForm->clear();
+                                                    $personalForm->clear();
+                                                    $encuestaForm->clear();
+                                                    $this->flash->success("OPERACION EXITOSA");
+                                                    $transaction->commit();
+                                                    return $this->redireccionar("encuesta/sorteo");
+                                                }
+                                            }
+                                        } else {
+                                            $this->flash->error("Seleccione que complejo visito");
+                                            $transaction->rollback("Falta completar los datos");
+                                        }
+                                    }
+                                }
+                            } else {
+                                $this->flash->error("Ingrese campo informacion");
+                                $transaction->rollback("Falta completar los datos");
+                            }
+                        }
+                    }
+                }
+            }
+            $this->flash->error("Ingrese campo informacion");
             return $this->redireccionar("index/index");
         }
-
-
+        catch(Phalcon\Mvc\Model\Transaction\Failed $e) {
+            $this->flash->error('Transaccion Fallida: ', $e->getMessage());$transaction->rollback("Falta completar los datos");
+            return $this->redireccionar("index/index");
+        }
     }
 
     /**

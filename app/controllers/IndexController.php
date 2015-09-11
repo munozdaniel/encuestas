@@ -17,6 +17,7 @@ class IndexController extends ControllerBase
         $this->view->unidadForm = new VillaUnidadForm();
         $this->view->recepcionForm = new VillaRecepcionForm();
         $this->view->personalForm = new VillaPersonalForm();
+
     }
 
 }
