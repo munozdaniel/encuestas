@@ -1,5 +1,5 @@
 <?php
-
+use \Phalcon\Mvc\Model\Transaction\Manager;
 class EncuestaController extends ControllerBase
 {
     public function initialize()
@@ -33,14 +33,186 @@ class EncuestaController extends ControllerBase
     {
         //Si no viene del submit retorno al inicio.
         if (!$this->request->isPost()) {
-            return $this->redireccionar("encuesta/villa");
+            return $this->redireccionar("index/index");
         }
         //Verifico que los datos ingresados cumplan con las validaciones.
         $data = $this->request->getPost();
         try
         {
-            $manager = new \Phalcon\Mvc\Model\Transaction\Manager();
-            $transaction = $manager->get();
+            $manager        = new Manager();
+            $transaction    = $manager->get();
+
+            $continuar      = true;
+            /*--------------------- VALIDAR RECEPCION ------------------------*/
+            $recepcionForm  =   new VillaRecepcionForm();
+            $recepcion      =   new Recepcion();
+            $recepcion->setTransaction($transaction);
+            if(!$recepcionForm->isValid($data,$recepcion)){
+                foreach($recepcionForm->getMessages() as $message){
+                    $this->flash->warning($message);
+                }
+            }
+            else{
+                if ($recepcion->save() == false) {//guuaaaaaattsss?? como corno obtuvo los valores del form?? magia negra.
+                    foreach ($recepcion->getMessages() as $message) {
+                        $this->flash->error($message);
+                    }
+                    $transaction->rollback();
+                }
+                else{
+                    /*--------------------- VALIDAR UNIDAD ------------------------*/
+                    $unidadForm     =   new VillaUnidadForm();
+                    $unidad         =   new Unidad();
+                    $unidad->setTransaction($transaction);
+                    if(!$unidadForm->isValid($data,$unidad)){
+                        foreach($unidadForm->getMessages() as $message){
+                            $this->flash->warning($message);
+                        }
+                        $transaction->rollback();
+                    }else{
+                        if ($unidad->save() == false) {
+                            foreach ($unidad->getMessages() as $message) {
+                                $this->flash->error($message);
+                            }
+                            $transaction->rollback();
+                        }else{
+                            /*--------------------- VALIDAR PERSONAL ------------------------*/
+                            $personalForm   =   new VillaPersonalForm();
+                            $personal       =   new Personal();
+                            $personal->setTransaction($transaction);
+                            if(!$personalForm->isValid($data,$personal)){
+                                foreach($personalForm->getMessages() as $message){
+                                    $this->flash->warning($message);
+                                }
+                                $transaction->rollback();
+                            }else {
+                                if ($personal->save() == false) {
+                                    foreach ($personal->getMessages() as $message) {
+                                        $this->flash->error($message);
+                                    }
+                                    $transaction->rollback();
+                                }else {
+                                    /*--------------------- VALIDAR ENCUESTA ------------------------*/
+                                    $encuestaForm = new VillaEncuestaForm();
+                                    $encuesta = new Encuesta();
+                                    $encuesta->setTransaction($transaction);
+                                    if (!$encuestaForm->isValid($data, $encuesta)) {
+                                        foreach ($encuestaForm->getMessages() as $message) {
+                                            $this->flash->warning($message);
+                                        }
+                                        $transaction->rollback();
+                                    }
+                                    else{
+                                        if($data['reservacion_id']==1 && ($data['reservacion_idOtro']==null || $data['reservacion_idOtro']==''))
+                                        {
+                                            $this->flash->error("Ingrese en que otro lugar realizó la reserva.");
+                                            $transaction->rollback();
+                                        }
+                                        else
+                                        {
+                                            $encuesta->recepcion_id     =   $recepcion->recepcion_id;
+                                            $encuesta->unidad_id        =   $unidad->unidad_id;
+                                            $encuesta->personal_id      =   $personal->personal_id;
+                                            if ($encuesta->save() == false) {
+                                                foreach ($encuesta->getMessages() as $message) {
+                                                    $this->flash->error($message);
+                                                }
+                                                $transaction->rollback();
+                                            }
+                                            else{
+                                                /*--------------------- RELACIONES ------------------------*/
+
+                                                //relacion entre encuesta e informacion
+                                                $encuestaInformacion = new Encuestainformacion();
+                                                $encuestaInformacion->setTransaction($transaction);
+                                                $listaInformacion    = $this->request->getPost("informacion_id");
+                                                if(!empty($listaInformacion)){
+                                                    foreach($listaInformacion as $informacion_id) {//Recorro la lista de checkbox
+                                                        $encuestaInformacion->encuesta_id   =$encuesta->encuesta_id;
+                                                        $encuestaInformacion->informacion_id=$informacion_id;
+                                                        if ($encuestaInformacion->save() == false) {
+                                                            foreach ($encuestaInformacion->getMessages() as $message) {
+                                                                $this->flash->error($message);
+                                                            }
+                                                            $transaction->rollback();
+                                                        }
+                                                        else
+                                                        {
+                                                            //relacion entre encuesta y complejo
+                                                            $encuestaComplejo = new Encuestacomplejo();
+                                                            $encuestaComplejo->setTransaction($transaction);
+                                                            $listaComplejo    = $this->request->getPost("complejo_id");
+                                                            if(!empty($listaComplejo)){
+                                                                foreach($listaComplejo as $complejo_id) {//Recorro la lista de checkbox
+                                                                    $encuestaComplejo->encuesta_id   =$encuesta->encuesta_id;
+                                                                    $encuestaComplejo->complejo_id=$complejo_id;
+                                                                    if ($encuestaComplejo->save() == false) {
+                                                                        foreach ($encuestaComplejo->getMessages() as $message) {
+                                                                            $this->flash->error($message);
+                                                                        }
+                                                                        $transaction->rollback();
+                                                                    }
+                                                                    else{
+                                                                        $recepcionForm->clear();
+                                                                        $unidadForm->clear();
+                                                                        $personalForm->clear();
+                                                                        $encuestaForm->clear();
+                                                                        $this->flash->success("OPERACION EXITOSA" );
+                                                                        $transaction->commit();
+                                                                        return $this->redireccionar("encuesta/sorteo");
+                                                                    }
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                $this->flash->error("Ingrese campo complejo");
+                                                                $transaction->rollback();
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    $this->flash->error("Ingrese campo informacion");
+                                                    $transaction->rollback();
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            $recepcionForm->clear();
+                            $this->flash->success("OPERACION EXITOSA" );
+                            $transaction->commit();
+                        }
+                    }
+
+                }
+            }
+
+        }
+        catch(Phalcon\Mvc\Model\Transaction\Failed $e) {
+            $this->flash->error('Transaccion Fallida: ', $e->getMessage());
+            return $this->redireccionar("index/index");
+        }
+
+
+    }
+
+    /**
+     * Ingresan los datos enviados por post desde el formulario, validamos y persistimos una instancia de Recepcion.
+     * @param $data
+     * @return bool
+     */
+    private function persistirRecepcion($data)
+    {
+        $manager = new Manager();
+        $transaction = $manager->get();
+        $continuar = true;
+        try
+        {
             /*--------------------- VALIDAR RECEPCION ------------------------*/
             $recepcionForm  =   new VillaRecepcionForm();
             $recepcion = new Recepcion();
@@ -48,36 +220,78 @@ class EncuestaController extends ControllerBase
                 foreach($recepcionForm->getMessages() as $message){
                     $this->flash->warning($message);
                 }
-                return $this->redireccionar('encuesta/villa');
+                $continuar = false;
+                $transaction->rollback();
             }
-            if ($recepcion->save() == false) {//guuaaaaaattsss?? como corno obtuvo los valores del form?? magia negra.
-                $transaction->rollback("No se pùdo guardar recepcion");
-                foreach ($recepcion->getMessages() as $message) {
-                    $this->flash->error($message);
+            else{
+                if ($recepcion->save() == false) {//guuaaaaaattsss?? como corno obtuvo los valores del form?? magia negra.
+                    foreach ($recepcion->getMessages() as $message) {
+                        $this->flash->error($message);
+                    }
+                    $continuar = false;
+                    $transaction->rollback();
                 }
-                return $this->redireccionar("encuesta/villa");
             }
             $recepcionForm->clear();
-            /*--------------------- VALIDAR UNIDAD ------------------------*/
+            $transaction->commit();
+            return $continuar;
+        }
+        catch(Phalcon\Mvc\Model\Transaction\Failed $e)
+        {$this->flash->error('Transaccion Fallida: ', $e->getMessage());
+            return false;
+        }
+    }
+    /**
+     * Ingresan los datos enviados por post desde el formulario, validamos y persistimos una instancia de Unidad.
+     * @param $data
+     * @return bool
+     */
+    private function persistirUnidad($data)
+    {
+        $manager = new Manager();
+        $transaction = $manager->get();
+        $continuar = true;
+        try
+        {
             $unidadForm     =   new VillaUnidadForm();
             $unidad         =   new Unidad();
-
             if(!$unidadForm->isValid($data,$unidad)){
                 foreach($unidadForm->getMessages() as $message){
                     $this->flash->warning($message);
                 }
-                return $this->redireccionar('encuesta/villa');
+                $continuar = false;
+                $transaction->rollback();
             }
-            if ($unidad->save() == false) {//guuaaaaaattsss?? como corno obtuvo los valores del form?? magia negra.
-                $transaction->rollback("No se pùdo guardar unidad");
-                foreach ($unidad->getMessages() as $message) {
-                    $this->flash->error($message);
+            else{
+                if ($unidad->save() == false) {
+                    foreach ($unidad->getMessages() as $message) {
+                        $this->flash->error($message);
+                    }
+                    $continuar = false;
+                    $transaction->rollback();
                 }
-                return $this->redireccionar("encuesta/villa");
             }
-            //$this->flash->error("INSERTADO: ID: ".$unidad->unidad_id );
             $unidadForm->clear();
-
+            $transaction->commit();
+            return $continuar;
+        }
+        catch(Phalcon\Mvc\Model\Transaction\Failed $e)
+        {$this->flash->error('Transaccion Fallida: ', $e->getMessage());
+            return false;
+        }
+    }
+    /**
+ * Ingresan los datos enviados por post desde el formulario, validamos y persistimos una instancia de Personal.
+ * @param $data
+ * @return bool
+ */
+    private function persistirPersonal($data)
+    {
+        $manager = new Manager();
+        $transaction = $manager->get();
+        $continuar = true;
+        try
+        {
             /*--------------------- VALIDAR PERSONAL ------------------------*/
             $personalForm   =   new VillaPersonalForm();
             $personal       =   new Personal();
@@ -85,19 +299,42 @@ class EncuestaController extends ControllerBase
                 foreach($personalForm->getMessages() as $message){
                     $this->flash->warning($message);
                 }
-                return $this->redireccionar('encuesta/villa');
+                $continuar = false;
+                $transaction->rollback();
             }
-            if ($personal->save() == false) {
-                $transaction->rollback("No se pùdo guardar personal");
-                foreach ($personal->getMessages() as $message) {
-                    $this->flash->error($message);
+            else{
+                if ($personal->save() == false) {
+                    foreach ($personal->getMessages() as $message) {
+                        $this->flash->error($message);
+                    }
+                    $continuar = false;
+                    $transaction->rollback();
                 }
-                return $this->redireccionar("encuesta/villa");
             }
             $personalForm->clear();
-
+            $transaction->commit();
+            return $continuar;
+        }
+        catch(Phalcon\Mvc\Model\Transaction\Failed $e)
+        {$this->flash->error('Transaccion Fallida: ', $e->getMessage());
+            return false;
+        }
+    }
+    /**
+     * Ingresan los datos enviados por post desde el formulario, validamos y persistimos una instancia de Encuesta
+     * y sus relaciones.
+     * @param $data
+     * @return bool
+     */
+    private function persistirEncuesta($data,$recepcion, $unidad,$personal)
+    {
+        $manager = new Manager();
+        $transaction = $manager->get();
+        $continuar = true;
+        try
+        {
             /*--------------------- VALIDAR ENCUESTA ------------------------*/
-             $encuestaForm   =   new VillaEncuestaForm();
+            $encuestaForm   =   new VillaEncuestaForm();
             $encuesta = new Encuesta();
 
             //$data = $this->request->getPost();
@@ -105,18 +342,28 @@ class EncuestaController extends ControllerBase
                 foreach($encuestaForm->getMessages() as $message){
                     $this->flash->warning($message);
                 }
-                return $this->redireccionar('encuesta/villa');
+                $transaction->rollback();
             }
-
-            $encuesta->recepcion_id     =   $recepcion->recepcion_id;
-            $encuesta->unidad_id        =   $unidad->unidad_id;
-            $encuesta->personal_id      =   $personal->personal_id;
-            if ($encuesta->save() == false) {
-                $transaction->rollback("No se pudo guardar encuesta");
-                foreach ($encuesta->getMessages() as $message) {
-                    $this->flash->error($message);
+            else
+            {
+                if($data['reservacion_id']==1 && ($data['reservacion_idOtro']==null || $data['reservacion_idOtro']==''))
+                {
+                    //return $this->redireccionar('index/index');
+                    $transaction->rollback();
                 }
-                return $this->redireccionar("encuesta/villa");
+                else
+                {
+                    $encuesta->recepcion_id     =   $recepcion->recepcion_id;
+                    $encuesta->unidad_id        =   $unidad->unidad_id;
+                    $encuesta->personal_id      =   $personal->personal_id;
+                    if ($encuesta->save() == false) {
+                        foreach ($encuesta->getMessages() as $message) {
+                            $this->flash->error($message);
+                        }
+                        $transaction->rollback();
+                        //return $this->redireccionar("index/index");
+                    }
+                }
             }
             $encuestaForm->clear();
 
@@ -125,41 +372,51 @@ class EncuestaController extends ControllerBase
             //relacion entre encuesta e informacion
             $encuestaInformacion = new Encuestainformacion();
             $listaInformacion    = $this->request->getPost("informacion_id");
-            foreach($listaInformacion as $informacion_id) {
-                $encuestaInformacion->encuesta_id   =$encuesta->encuesta_id;
-                $encuestaInformacion->informacion_id=$informacion_id;
-                if ($encuestaInformacion->save() == false) {
-                    $transaction->rollback("No se pudo guardar encuestaInformacion");
-                    foreach ($encuestaInformacion->getMessages() as $message) {
-                        $this->flash->error($message);
+            if(!empty($listaInformacion)){
+                foreach($listaInformacion as $informacion_id) {//Recorro la lista de checkbox
+                    $encuestaInformacion->encuesta_id   =$encuesta->encuesta_id;
+                    $encuestaInformacion->informacion_id=$informacion_id;
+                    if ($encuestaInformacion->save() == false) {
+                        foreach ($encuestaInformacion->getMessages() as $message) {
+                            $this->flash->error($message);
+                        }
+                        $transaction->rollback();
                     }
-                    return $this->redireccionar("encuesta/villa");
                 }
+            }
+            else
+            {
+                $this->flash->error("Ingrese campo informacion");
+                $transaction->rollback();
             }
             //relacion entre encuesta y complejo
             $encuestaComplejo = new Encuestacomplejo();
             $listaComplejo    = $this->request->getPost("complejo_id");
-            foreach($listaComplejo as $complejo_id) {
-                $encuestaComplejo->encuesta_id   =$encuesta->encuesta_id;
-                $encuestaComplejo->complejo_id=$complejo_id;
-                if ($encuestaComplejo->save() == false) {
-                    $transaction->rollback("No se pudo guardar encuestaComplejo");
-                    foreach ($encuestaComplejo->getMessages() as $message) {
-                        $this->flash->error($message);
+            if(!empty($listaComplejo)){
+                foreach($listaComplejo as $complejo_id) {//Recorro la lista de checkbox
+                    $encuestaComplejo->encuesta_id   =$encuesta->encuesta_id;
+                    $encuestaComplejo->complejo_id=$complejo_id;
+                    if ($encuestaComplejo->save() == false) {
+                        foreach ($encuestaComplejo->getMessages() as $message) {
+                            $this->flash->error($message);
+                        }
+                        $transaction->rollback();
                     }
-                    return $this->redireccionar("encuesta/villa");
                 }
             }
+            else
+            {
+                $this->flash->error("Ingrese campo complejo");
+                $transaction->rollback();
+            }
 
-            $this->flash->success("OPERACION EXITOSA" );
             $transaction->commit();
-            return $this->redireccionar("encuesta/villa");
+            return $continuar;
         }
-        catch(Phalcon\Mvc\Model\Transaction\Failed $e) {
-            echo 'Transaccion Fallida.: ', $e->getMessage();
+        catch(Phalcon\Mvc\Model\Transaction\Failed $e)
+        {$this->flash->error('Transaccion Fallida: ', $e->getMessage());
+            return false;
         }
-
     }
-
 }
 
