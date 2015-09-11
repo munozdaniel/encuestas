@@ -17,7 +17,10 @@ use Phalcon\Session\Adapter\Files as SessionAdapter;
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
  */
 $di = new FactoryDefault();
-
+/**
+ * Setup up config & di (or ensure, you did this at application bootstrap ;) :
+ */
+$di->set('config', $config);
 /**
  * The URL component is used to generate all kind of urls in the application
  */
@@ -94,10 +97,10 @@ $di->set('elemento', function(){
 $di->set('flash', function()
 {
     return new Phalcon\Flash\Direct(array(
-        'error'     => 'alert alert-danger absoluto estilo',
-        'success'   => 'alert alert-success absoluto estilo',
-        'notice'    => 'alert alert-info absoluto estilo',
-        'warning'   => 'alert alert-warning absoluto estilo',
+        'error'     => 'alert alert-danger multiple col-md-8',
+        'success'   => 'alert alert-success',
+        'notice'    => 'alert alert-info ',
+        'warning'   => 'alert alert-warning ',
     ));
 });
 

@@ -1,4 +1,3 @@
-{{ content() }}
 
 <div class="container">
     <div class="row">
@@ -11,6 +10,7 @@
 
             {{ form('encuesta/guardar',"class":"","method":"post") }}
 
+            {{ content() }}
 
             <div class ="col-md-12">
                 <div class="center scaffold">
@@ -114,15 +114,18 @@
                     <!-- ----------------------- ENCUESTA FORM PART II -------------------------- -->
 
                     <div class="espacio-form">
-                        <label>Como estuvo compuesto su grupo?</label><br>
-                        {{ encuestaForm.render('composicion_id') }}<br>
-                        {{ encuestaForm.render('composicion_idOtro') }}
+                        <span id="colC">
+                            <label>Como estuvo compuesto su grupo?</label><br>
+                            {{ encuestaForm.render('composicion_id') }}<br>
+                            {{ encuestaForm.render('composicion_idOtro') }}
+                        </span>
                     </div>
                     <div class="espacio-form">
-                        <label>Donde hizo la reserva?</label><br>
-                        {{ encuestaForm.render('reservacion_id') }}<br>
-                        {{ encuestaForm.render('reservacion_idOtro') }}
-
+                        <span id="colR">
+                            <label>Donde hizo la reserva?</label><br>
+                            {{ encuestaForm.render('reservacion_id') }}<br>
+                            {{ encuestaForm.render('reservacion_idOtro') }}
+                        </span>
                     </div>
                     <div class="col-md-6 espacio-form">
                         <label>De que manera recibe información?</label>
@@ -156,7 +159,9 @@
                     <div class="espacio-form">
                         {{ encuestaForm.render('encuesta_observacion') }}
                     </div>
-
+                    <div>
+                        {{ encuestaForm.render('recaptcha') }}
+                    </div>
                 </div>
                 <!-- ---------------------------------------------------- -->
                 <ul class="pager">
@@ -175,7 +180,8 @@
 <!-- Script para habilitar/deshabilitar el textbox -->
 <script type="text/javascript">
     function habilitarOtro(id,valor) {
-        //alert(id+"- "+valor);
+       // alert(id+"- "+valor);
         $('#'+id+'Otro').prop('disabled',valor != 1);
     }
+
 </script>

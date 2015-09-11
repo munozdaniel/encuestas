@@ -29,5 +29,11 @@ return new \Phalcon\Config(array(
         'cacheDir'       => APP_PATH . '/app/cache/',
         'formsDir'       => APP_PATH . '/app/forms/',
         'baseUri'        => '/encuestas/',
+    ),
+    "recaptcha" => array(
+        'publicKey' => '6LfhrgwTAAAAAAElQ1S7BJOvjFCHPQvKMxP3WO6e',
+        'secretKey' => '6LfhrgwTAAAAAIjzQj9G4yCuJWBsAoPoF1bOyBau',
+        'jsApiUrl' => 'https://www.google.com/recaptcha/api.js',
+        'verifyUrl' => 'https://www.google.com/recaptcha/api/siteverify',
     )
 ));

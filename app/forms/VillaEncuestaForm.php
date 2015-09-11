@@ -18,7 +18,7 @@ use \Phalcon\Forms\Element\Check;
 
 class VillaEncuestaForm extends \Phalcon\Forms\Form{
     /**
-     * Inicializando el formulario de Villa La Angostura.
+     * Inicializando el formulario.
      * ( Con los datos de la tabla encuesta )
      */
     public function initialize($entity = null, $options = array())
@@ -71,24 +71,26 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
                 'message' => 'Seleccione una opcion'
             ))
         ));
-        $grupoCompuesto->setLabel('Como esta compuesto?');
+
         $this->add($grupoCompuesto);
 
-        $composicionGrupoOtro = new Text('composicionGrupoOtro');
+        $composicionGrupoOtro = new Text('composicion_idOtro');
         $composicionGrupoOtro->setFilters(array('string'));
         $this->add($composicionGrupoOtro);
+
+
         /*--------------- DONDE RESERVÓ? Radio Button------------*/
         $dondeReservo = new Select('reservacion_id', Reservacion::find(), array(
             'using'      => array('reservacion_id', 'reservacion_nombre'),
             'useEmpty'   => false,
             'emptyText'  => '---',
             'emptyValue' => '',
-            'onchange'  =>"habilitarOtro(this.id,this.value)"
+            'onchange'  =>"habilitarOtro(this.id,this.value)",
+
         ));
-        $dondeReservo->setLabel('Donde hizo la Reserva?');
         $this->add($dondeReservo);
 
-        $dondeReservoOtro = new Text('dondeReservoOtro');
+        $dondeReservoOtro = new Text('reservacion_idOtro');
         $dondeReservoOtro->setFilters(array('string'));
         $this->add($dondeReservoOtro);
         /*------------- COMO SE INFORMÓ? Checkbox  ------------*/
@@ -101,14 +103,7 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
             ));
             $this->add($groupInformacion);
         }
-        /*$comoSeInformo = new Select('comoSeInformo', Informacion::find(), array(
-            'using'      => array('informacion_id', 'informacion_nombre'),
-            'useEmpty'   => false,
-            'emptyText'  => '---',
-            'emptyValue' => ''
-        ));
-        $comoSeInformo->setLabel('De que manera recibe informacion?');
-        $this->add($comoSeInformo);*/
+
         /*------------- CONOCE OTRO MELEWE? Checkbox ------------*/
         $complejos = Complejo::find();
         $this->view->complejos = $complejos;
@@ -120,14 +115,7 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
 
             $this->add($group);
         }
-        /*$complejo = new Select('complejo', Complejo::find(), array(
-            'using'      => array('complejo_id', 'complejo_nombre'),
-            'useEmpty'   => true,
-            'emptyText'  => '---',
-            'emptyValue' => ''
-        ));
-        $complejo->setLabel('Conoce algun otro Melewe? Cual?');
-        $this->add($complejo);*/
+
         /*------------- MOTIVO DE ELECCION DE MELEWE? Select ------------*/
         $motivoDeEleccion = new Select('motivo_id', Motivo::find(), array(
             'using'      => array('motivo_id', 'motivo_nombre'),
@@ -135,7 +123,6 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
             'emptyText'  => '---',
             'emptyValue' => ''
         ));
-        $motivoDeEleccion->setLabel('Conoce algun otro Melewe? Cual?');
         $this->add($motivoDeEleccion);
         /*------------- OBSERVACIONES ------------*/
 
@@ -148,6 +135,11 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
         $comentarios->setFilters(array('string'));
         $this->add($comentarios);
 
+        $recaptcha = new Recaptcha('recaptcha');
+        $recaptcha->addValidator(new RecaptchaValidator(array(
+            'message' => "Are you human? (custom message)"
+        )));
 
+        $this->add($recaptcha);
     }
 }
