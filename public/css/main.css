@@ -967,3 +967,11 @@ ul.nostyle i {
     background-color: #fff;
     border: 1px solid #ccc;
 }
+.multiple{
+    padding: 1px 0px 0 10px;
+    float: none;
+    /* padding: 0px !important; */
+    /* margin-bottom: 0px !important; */
+    z-index: 144 !important;
+    margin: 4px 1px 2px 3px;
+}
