@@ -30,13 +30,34 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
         $unidad->setFilters(array('int'));
         $unidad->addValidators(array(
             new PresenceOf(array(
-                'message' => 'La UNIDAD es Requerida.'
+                'message' => 'La UNIDAD es requerida.'
             )),
             new Numericality(array(
                 'message' => 'La UNIDAD debe ser un valor numerico.'
             ))
         ));
         $this->add($unidad);
+        /*-------------CANTIDAD DE DIAS ------------*/
+        $cantidad = new Text("encuesta_cantDias");
+        $cantidad->setLabel("Cantidad de Días");
+        $cantidad->setFilters(array('int'));
+        $cantidad->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'La CANTIDAD DE DIAS es requerida.'
+            )),
+            new Numericality(array(
+                'message' => 'La CANTIDAD DE DIAS debe ser un valor numerico.'
+            ))
+        ));
+        $this->add($cantidad);
+        /*------------- COMPOSICION DEL GRUPO ------------*/
+
+        $tipoPax = new Select('encuesta_tipoPax', Tipopax::find(), array(
+            'using'      => array('tipoPax_id', 'tipoPax_nombre'),
+        ));
+
+        $this->add($tipoPax);
+
         /*------------- FECHA ESTADIA ------------*/
 
         $fechaEstadia = new \Phalcon\Forms\Element\Date("encuesta_fechaEstadia");
