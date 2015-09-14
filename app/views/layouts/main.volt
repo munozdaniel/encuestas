@@ -32,7 +32,11 @@
             </div>
             <div class="col-sm-6">
                 <ul class="social-icons">
-                    <li><a href="https://www.facebook.com/complejos.melewe?fref=ts"><i class="fa fa-facebook"></i></a></li>
+                    <li>
+                        <a href="https://www.facebook.com/complejos.melewe?fref=ts" target="_blank">
+                        {{ image('images/redsocial.png','alt':'logo facebook') }}
+                       </a>
+                    </li>
                 </ul>
             </div>
         </div>
