@@ -8,17 +8,19 @@ class IndexController extends ControllerBase
         parent::initialize();
         //cargar los js para la vista de esta función
         $this->assets
-            ->collection('footer')
-            ->addJs('js/main.js');
+            ->collection('footer');
     }
     public function indexAction()
     {
+        $this->assets
+            ->addJs('js/main.js');
         $this->view->encuestaForm = new VillaEncuestaForm;
         $this->view->unidadForm = new VillaUnidadForm();
         $this->view->recepcionForm = new VillaRecepcionForm();
         $this->view->personalForm = new VillaPersonalForm();
 
     }
+
 
 }
 
