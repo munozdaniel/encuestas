@@ -18,14 +18,14 @@
                     <!-- ----------------------- ENCUESTA FORM PART I -------------------------- -->
 
                     <div class="espacio-form">
-                        <label>Estuve alojando en la unidad Nº</label><br>
-                        {{ encuestaForm.render('encuesta_nroUnidad') }}
+                        <label></i>Estuve alojando en la unidad Nº</label><br>
+                        {{ encuestaForm.render('encuesta_nroUnidad') }} <span class="obligatorio"> *</span>
                     </div>
 
 
                     <div class="espacio-form">
                         <label>Fecha de Estadía</label><br>
-                        {{ encuestaForm.render('encuesta_fechaEstadia') }}
+                        {{ encuestaForm.render('encuesta_fechaEstadia') }}<span class="obligatorio"> *</span>
                     </div>
 
                     <div class="espacio-form">
@@ -115,20 +115,20 @@
 
                     <div class="espacio-form">
                         <span id="colC">
-                            <label>Como estuvo compuesto su grupo?</label><br>
+                            <label>Como estuvo compuesto su grupo?</label><span class="obligatorio"> *</span><br>
                             {{ encuestaForm.render('composicion_id') }}<br>
                             {{ encuestaForm.render('composicion_idOtro') }}
                         </span>
                     </div>
                     <div class="espacio-form">
                         <span id="colR">
-                            <label>Donde hizo la reserva?</label><br>
+                            <label>Donde hizo la reserva?</label><span class="obligatorio"> *</span><br>
                             {{ encuestaForm.render('reservacion_id') }}<br>
                             {{ encuestaForm.render('reservacion_idOtro') }}
                         </span>
                     </div>
                     <div class="col-md-6 espacio-form">
-                        <label>De que manera recibe información?</label>
+                        <label>De que manera recibe información?</label><span class="obligatorio"> *</span>
                         {% for info in informacion %}
                             <div>
                                 <label class="sub-items">
@@ -140,7 +140,7 @@
                         {% endfor %}
                     </div>
                     <div class="col-md-6 espacio-form">
-                        <label>Conoce algún otro Melewe? Cuál?</label>
+                        <label>Conoce algún otro Melewe? Cuál?</label><span class="obligatorio"> *</span>
                         {% for unComplejo in complejos %}
                             <div>
                                 <label class="sub-items">
@@ -151,7 +151,7 @@
                             </div>
                         {% endfor %}
                     </div>
-                    <label>Porque eligió este destino?</label>
+                    <label>Porque eligió este destino?</label><span class="obligatorio"> *</span>
                     <div class="espacio-form">
                         {{ encuestaForm.render('motivo_id') }}
                     </div>
