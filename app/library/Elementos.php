@@ -8,17 +8,11 @@ class Elementos extends \Phalcon\Mvc\User\Component
                 'controlador'=>'',
                 'accion'    =>'#home'
         ),
-        'encuesta'  =>  array(
-                'class'     =>  'scroll',
-                'titulo'    =>'Encuesta',
-                'controlador'=>'',
-                'accion'    =>'index#features'
-        ),
         'contacto'  =>  array(
                 'class'     =>  'scroll',
                 'titulo'    =>'Contacto',
-                'controlador'=>'',
-                'accion'    =>'index#contact'
+                'controlador'=>'contacto',
+                'accion'    =>'index'
         )
     );
     private $_sesion = array(
