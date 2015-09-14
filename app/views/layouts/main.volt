@@ -12,7 +12,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="index.html">
-                    {{ image('images/logo.png','alt':'logo melewe') }}
+                    {{ image('images/logogral.png','alt':'logo melewe') }}
                 </a>
             </div>
             <div class="collapse navbar-collapse navbar-right">
