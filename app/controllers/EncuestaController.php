@@ -122,6 +122,7 @@ class EncuestaController extends ControllerBase
                 }
                 else {
                     $cadena = $this->validarEncuesta($data);
+
                     if(!empty($cadena) || trim($cadena)!=""){
                         $this->flash->error($cadena);
                         $transaction->rollback("Falta completar los datos");
@@ -153,51 +154,50 @@ class EncuestaController extends ControllerBase
                                             $this->flash->error($message);
                                         }
                                         $transaction->rollback("Falta completar los datos");
-                                    } else {
-                                        //relacion entre encuesta y complejo
-                                        $encuestaComplejo = new Encuestacomplejo();
-                                        $encuestaComplejo->setTransaction($transaction);
-                                        $listaComplejo = $this->request->getPost("complejo_id");
-                                        if (!empty($listaComplejo)) {
-                                            foreach ($listaComplejo as $complejo_id) {//Recorro la lista de checkbox
-                                                $encuestaComplejo->encuesta_id = $encuesta->encuesta_id;
-                                                $encuestaComplejo->complejo_id = $complejo_id;
-                                                if ($encuestaComplejo->save() == false) {
-                                                    foreach ($encuestaComplejo->getMessages() as $message) {
-                                                        $this->flash->error($message);
-                                                    }
-                                                    $transaction->rollback("Falta completar los datos");
-                                                } else {
-                                                    $recepcionForm->clear();
-                                                    $unidadForm->clear();
-                                                    $personalForm->clear();
-                                                    $encuestaForm->clear();
-                                                    $this->flash->success("OPERACION EXITOSA");
-                                                    $transaction->commit();
-                                                    return $this->redireccionar("encuesta/sorteo");
-                                                }
-                                            }
-                                        }
-                                        else{
-                                            //Si no selecciono ningun complejo, se guardara la primera opcion "NO"
-                                            $encuestaComplejo->encuesta_id = $encuesta->encuesta_id;
-                                            $encuestaComplejo->complejo_id = 1;
-                                            if ($encuestaComplejo->save() == false) {
-                                                foreach ($encuestaComplejo->getMessages() as $message) {
-                                                    $this->flash->error($message);
-                                                }
-                                                $transaction->rollback("Falta completar los datos");
-                                            } else {
-                                                $recepcionForm->clear();
-                                                $unidadForm->clear();
-                                                $personalForm->clear();
-                                                $encuestaForm->clear();
-                                                $this->flash->success("OPERACION EXITOSA");
-                                                $transaction->commit();
-                                                return $this->redireccionar("encuesta/sorteo");
-                                            }
-                                        }
                                     }
+                                }
+                            }
+                            //relacion entre encuesta y complejo
+                            $encuestaComplejo = new Encuestacomplejo();
+                            $encuestaComplejo->setTransaction($transaction);
+                            $listaComplejo = $this->request->getPost("complejo_id");
+                            if (!empty($listaComplejo)) {
+                                foreach ($listaComplejo as $complejo_id) {//Recorro la lista de checkbox
+                                    $encuestaComplejo->encuesta_id = $encuesta->encuesta_id;
+                                    $encuestaComplejo->complejo_id = $complejo_id;
+                                    if ($encuestaComplejo->save() == false) {
+                                        foreach ($encuestaComplejo->getMessages() as $message) {
+                                            $this->flash->error($message);
+                                        }
+                                        $transaction->rollback("Falta completar los datos");
+                                    } else {
+                                        $recepcionForm->clear();
+                                        $unidadForm->clear();
+                                        $personalForm->clear();
+                                        $encuestaForm->clear();
+                                        $this->flash->success("OPERACION EXITOSA");
+                                        $transaction->commit();
+                                        return $this->redireccionar("encuesta/sorteo");
+                                    }
+                                }
+                            }
+                            else{
+                                //Si no selecciono ningun complejo, se guardara la primera opcion "NO"
+                                $encuestaComplejo->encuesta_id = $encuesta->encuesta_id;
+                                $encuestaComplejo->complejo_id = 1;
+                                if ($encuestaComplejo->save() == false) {
+                                    foreach ($encuestaComplejo->getMessages() as $message) {
+                                        $this->flash->error($message);
+                                    }
+                                    $transaction->rollback("Falta completar los datos");
+                                } else {
+                                    $recepcionForm->clear();
+                                    $unidadForm->clear();
+                                    $personalForm->clear();
+                                    $encuestaForm->clear();
+                                    $this->flash->success("OPERACION EXITOSA");
+                                    $transaction->commit();
+                                    return $this->redireccionar("encuesta/sorteo");
                                 }
                             }
                         }

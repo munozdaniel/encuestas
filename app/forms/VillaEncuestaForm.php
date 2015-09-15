@@ -98,6 +98,7 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
         $composicionGrupoOtro = new Text('encuesta_otroComposicionGrupo');
         $composicionGrupoOtro->setAttribute('disabled','');
         $composicionGrupoOtro->setFilters(array('string'));
+
         $this->add($composicionGrupoOtro);
 
 
@@ -119,6 +120,7 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
 
         $dondeReservoOtro = new Text('encuesta_otroDondeReservo');
         $dondeReservoOtro->setFilters(array('string'));
+
         $dondeReservoOtro->setAttribute('disabled','');
         $this->add($dondeReservoOtro);
         /*------------- COMO SE INFORMÓ? Checkbox  ------------*/
