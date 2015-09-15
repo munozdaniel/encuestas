@@ -82,20 +82,21 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
 
         $grupoCompuesto = new Select('composicion_id', Composicion::find(), array(
             'using'      => array('composicion_id', 'composicion_nombre'),
-            'useEmpty'   => false,
-            'emptyText'  => '---',
+            'useEmpty'   => true,
+            'emptyText'  => 'Seleccione una opción',
             'emptyValue' => '',
             'onchange'  =>"habilitarOtro('encuesta_otroComposicionGrupo',this.id,this.value)"
         ));
         $grupoCompuesto->addValidators(array(
             new PresenceOf(array(
-                'message' => 'Seleccione una opcion'
+                'message' => 'Como estuvo <strong>compuesto</strong> su grupo? '
             ))
         ));
 
         $this->add($grupoCompuesto);
 
         $composicionGrupoOtro = new Text('encuesta_otroComposicionGrupo');
+        $composicionGrupoOtro->setAttribute('disabled','');
         $composicionGrupoOtro->setFilters(array('string'));
         $this->add($composicionGrupoOtro);
 
@@ -103,16 +104,22 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
         /*--------------- DONDE RESERVÓ? Radio Button------------*/
         $dondeReservo = new Select('reservacion_id', Reservacion::find(), array(
             'using'      => array('reservacion_id', 'reservacion_nombre'),
-            'useEmpty'   => false,
-            'emptyText'  => '---',
+            'useEmpty'   => true,
+            'emptyText'  => 'Seleccione una opción',
             'emptyValue' => '',
             'onchange'  =>"habilitarOtro('encuesta_otroDondeReservo',this.id,this.value)",
 
+        ));
+        $dondeReservo->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'Donde hizo la <strong>reserva</strong>? '
+            ))
         ));
         $this->add($dondeReservo);
 
         $dondeReservoOtro = new Text('encuesta_otroDondeReservo');
         $dondeReservoOtro->setFilters(array('string'));
+        $dondeReservoOtro->setAttribute('disabled','');
         $this->add($dondeReservoOtro);
         /*------------- COMO SE INFORMÓ? Checkbox  ------------*/
         $informacion = Informacion::find();
@@ -122,11 +129,12 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
                 "name" => "informacion_id[]",
                 "value" => $informacion[$i]->informacion_id
             ));
-            if($i==0)
+            if($i==(count($informacion)-1))
                 $groupInformacion->setAttribute('onclick','habilitarDeshabilitarCampo("encuesta_otroComoSeInforma",this.id,this.value)');
             $this->add($groupInformacion);
         }
         $otraInformacion = new Text('encuesta_otroComoSeInforma');
+        $otraInformacion->setAttribute('disabled','');
         $this->add($otraInformacion);
         /*------------- CONOCE OTRO MELEWE? Checkbox ------------*/
         $complejos = Complejo::find();
@@ -161,7 +169,7 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
 
         $recaptcha = new Recaptcha('recaptcha');
         $recaptcha->addValidator(new RecaptchaValidator(array(
-            'message' => "Es usted un humano? <small>Complete el CAPTCHA.</small> "
+            'message' => "Es usted un humano? <small><strong>Complete el CAPTCHA.</strong></small> "
         )));
 
         $this->add($recaptcha);
