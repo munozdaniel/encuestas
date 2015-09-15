@@ -78,7 +78,7 @@ class EncuestaController extends ControllerBase
                 if (!$unidadForm->isValid($data, $unidad)) {
                     foreach ($unidadForm->getMessages() as $message) {
                         $this->flash->warning($message);
-                    }
+                    }echo "º2";
                     $continuar      = false;
                 } else {
                     if ($unidad->save() == false) {
@@ -122,7 +122,7 @@ class EncuestaController extends ControllerBase
                 }
                 else {
                     $cadena = $this->validarEncuesta($data);
-                    if(!empty($cadena) || trim($cadena)==""){
+                    if(!empty($cadena) || trim($cadena)!=""){
                         $this->flash->error($cadena);
                         $transaction->rollback("Falta completar los datos");
                     }
@@ -207,7 +207,7 @@ class EncuestaController extends ControllerBase
             return $this->redireccionar("index/index");
         }
         catch(Phalcon\Mvc\Model\Transaction\Failed $e) {
-            $this->flash->error('Transaccion Fallida: ', $e->getMessage());$transaction->rollback("Falta completar los datos");
+            $this->flash->error('Transaccion Fallida: ', $e->getMessage());
             return $this->redireccionar("index/index");
         }
     }

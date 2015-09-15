@@ -30,10 +30,10 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
         $unidad->setFilters(array('int'));
         $unidad->addValidators(array(
             new PresenceOf(array(
-                'message' => 'La UNIDAD es requerida.'
+                'message' => 'La <strong>UNIDAD</strong> es requerida.'
             )),
             new Numericality(array(
-                'message' => 'La UNIDAD debe ser un valor numerico.'
+                'message' => '<small><strong>La UNIDAD debe ser un valor numerico.</strong></small>'
             ))
         ));
         $this->add($unidad);
@@ -43,14 +43,14 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
         $cantidad->setFilters(array('int'));
         $cantidad->addValidators(array(
             new PresenceOf(array(
-                'message' => 'La CANTIDAD DE DIAS es requerida.'
+                'message' => 'La <strong>CANTIDAD DE DIAS</strong> es requerida.'
             )),
             new Numericality(array(
-                'message' => 'La CANTIDAD DE DIAS debe ser un valor numerico.'
+                'message' => '<small><strong>La CANTIDAD DE DIAS debe ser un valor numerico.</strong></small>'
             ))
         ));
         $this->add($cantidad);
-        /*------------- COMPOSICION DEL GRUPO ------------*/
+        /*------------- TIPO PAX ------------*/
 
         $tipoPax = new Select('encuesta_tipoPax', Tipopax::find(), array(
             'using'      => array('tipoPax_id', 'tipoPax_nombre')
@@ -65,7 +65,7 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
         //$fechaEstadia->setFilters(array('int'));
         $fechaEstadia->addValidators(array(
             new PresenceOf(array(
-                'message' => 'La FECHA de estadía es Requerida.'
+                'message' => 'La <strong>FECHA</strong> de estadía es Requerida.'
             ))
         ));
         $this->add($fechaEstadia);
@@ -127,9 +127,6 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
             $this->add($groupInformacion);
         }
         $otraInformacion = new Text('encuesta_otroComoSeInforma');
-        $otraInformacion->setAttribute('disabled','');
-
-
         $this->add($otraInformacion);
         /*------------- CONOCE OTRO MELEWE? Checkbox ------------*/
         $complejos = Complejo::find();
@@ -146,8 +143,8 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
         /*------------- MOTIVO DE ELECCION DE MELEWE? Select ------------*/
         $motivoDeEleccion = new Select('motivo_id', Motivo::find(), array(
             'using'      => array('motivo_id', 'motivo_nombre'),
-                'useEmpty'   => true,
-            'emptyText'  => '---',
+            'useEmpty'   => false,
+            'emptyText'  => 'Seleccione un motivo',
             'emptyValue' => ''
         ));
         $this->add($motivoDeEleccion);
@@ -164,7 +161,7 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
 
         $recaptcha = new Recaptcha('recaptcha');
         $recaptcha->addValidator(new RecaptchaValidator(array(
-            'message' => "Are you human? (custom message)"
+            'message' => "Es usted un humano? <small>Complete el CAPTCHA.</small> "
         )));
 
         $this->add($recaptcha);

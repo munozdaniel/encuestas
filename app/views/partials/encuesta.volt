@@ -18,7 +18,7 @@
                     <!-- ----------------------- ENCUESTA FORM PART I -------------------------- -->
                     <div class="col-md-4">
                         <div class="espacio-form">
-                            <label></i>Estuve alojando en la unidad Nº</label><br>
+                            <label>Estuve alojando en la unidad Nº</label><br>
                             {{ encuestaForm.render('encuesta_nroUnidad') }} <span class="obligatorio"> *</span>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
 
                                 <div>
                                     {% set nombre = "informacion_id"~(info.informacion_id-1) %}
-                                    {% if loop.first %}
+                                    {% if loop.last %}
                                         <label class="sub-items">
                                             {{ encuestaForm.render(nombre) }}
                                             {{ info.informacion_nombre }}
