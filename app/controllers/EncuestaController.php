@@ -15,14 +15,14 @@ class EncuestaController extends ControllerBase
 
     /**
      * Villa La Angostura: Muestra la vista para ingresar los datos de la encuesta con
-     * componentes elaborados en VillaEncuestaForm.
+     * componentes elaborados en EncuestaForm.
      */
     public function villaAction()
     {
-        $this->view->encuestaForm = new VillaEncuestaForm;
-        $this->view->unidadForm = new VillaUnidadForm();
-        $this->view->recepcionForm = new VillaRecepcionForm();
-        $this->view->personalForm = new VillaPersonalForm();
+        $this->view->encuestaForm = new EncuestaForm;
+        $this->view->unidadForm = new UnidadForm();
+        $this->view->recepcionForm = new RecepcionForm();
+        $this->view->personalForm = new PersonalForm();
     }
     /**
      *
@@ -53,7 +53,7 @@ class EncuestaController extends ControllerBase
             $personal = new Personal();
             $continuar      = true;
             /*--------------------- VALIDAR RECEPCION ------------------------*/
-            $recepcionForm  =   new VillaRecepcionForm();
+            $recepcionForm  =   new RecepcionForm();
             $recepcion      =   new Recepcion();
             $recepcion->setTransaction($transaction);
             if(!$recepcionForm->isValid($data,$recepcion)){
@@ -72,7 +72,7 @@ class EncuestaController extends ControllerBase
             }
             /*--------------------- VALIDAR UNIDAD ------------------------*/
             if($continuar) {
-                $unidadForm = new VillaUnidadForm();
+                $unidadForm = new UnidadForm();
 
                 $unidad->setTransaction($transaction);
                 if (!$unidadForm->isValid($data, $unidad)) {
@@ -92,7 +92,7 @@ class EncuestaController extends ControllerBase
             }
             /*--------------------- VALIDAR PERSONAL ------------------------*/
             if($continuar) {
-                $personalForm = new VillaPersonalForm();
+                $personalForm = new PersonalForm();
                 $personal->setTransaction($transaction);
                 if (!$personalForm->isValid($data, $personal)) {
                     foreach ($personalForm->getMessages() as $message) {
@@ -111,7 +111,7 @@ class EncuestaController extends ControllerBase
             }
             /*--------------------- VALIDAR ENCUESTA ------------------------*/
             if($continuar) {
-                $encuestaForm = new VillaEncuestaForm();
+                $encuestaForm = new EncuestaForm();
                 $encuesta = new Encuesta();
                 $encuesta->setTransaction($transaction);
 
@@ -290,7 +290,7 @@ class EncuestaController extends ControllerBase
     private function validarEncuesta2($data,$recepcion,$unidad,$personal,$encuesta)
     {
         /*--------------------- VALIDAR RECEPCION ------------------------*/
-        $recepcionForm  =   new VillaRecepcionForm();
+        $recepcionForm  =   new RecepcionForm();
         if(!$recepcionForm->isValid($data,$recepcion)){
             foreach($recepcionForm->getMessages() as $message){
                 $this->flash->error($message);
@@ -298,7 +298,7 @@ class EncuestaController extends ControllerBase
             return null;
         }
         /*--------------------- VALIDAR UNIDAD ------------------------*/
-        $unidadForm = new VillaUnidadForm();
+        $unidadForm = new UnidadForm();
         if (!$unidadForm->isValid($data, $unidad)) {
             foreach ($unidadForm->getMessages() as $message) {
                 $this->flash->warning($message);
@@ -306,7 +306,7 @@ class EncuestaController extends ControllerBase
             return null;
         }
         /*--------------------- VALIDAR PERSONAL ------------------------*/
-        $personalForm = new VillaPersonalForm();
+        $personalForm = new PersonalForm();
         if (!$personalForm->isValid($data, $personal)) {
             foreach ($personalForm->getMessages() as $message) {
                 $this->flash->warning($message);

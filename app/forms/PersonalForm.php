@@ -7,7 +7,7 @@
  */
 use \Phalcon\Forms\Element\Text;
 use \Phalcon\Forms\Element\Radio;
-class VillaPersonalForm extends \Phalcon\Forms\Form{
+class PersonalForm extends \Phalcon\Forms\Form{
     /**
      * Inicializando el formulario de Villa La Angostura.
      * ( Con los datos de la tabla unidad )

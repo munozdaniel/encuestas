@@ -14,10 +14,10 @@ class IndexController extends ControllerBase
     {
         $this->assets
             ->addJs('js/main.js');
-        $this->view->encuestaForm = new VillaEncuestaForm;
-        $this->view->unidadForm = new VillaUnidadForm();
-        $this->view->recepcionForm = new VillaRecepcionForm();
-        $this->view->personalForm = new VillaPersonalForm();
+        $this->view->encuestaForm = new EncuestaForm;
+        $this->view->unidadForm = new UnidadForm();
+        $this->view->recepcionForm = new RecepcionForm();
+        $this->view->personalForm = new PersonalForm();
 
     }
 

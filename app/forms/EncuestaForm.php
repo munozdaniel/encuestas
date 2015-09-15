@@ -16,7 +16,7 @@ use \Phalcon\Forms\Element\Check;
  * Time: 10:00
  */
 
-class VillaEncuestaForm extends \Phalcon\Forms\Form{
+class EncuestaForm extends \Phalcon\Forms\Form{
     /**
      * Inicializando el formulario.
      * ( Con los datos de la tabla encuesta )

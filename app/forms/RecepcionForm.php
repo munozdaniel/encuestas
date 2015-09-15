@@ -14,7 +14,7 @@ use \Phalcon\Forms\Element\Radio;
  * Time: 9:57
  */
 
-class VillaRecepcionForm extends \Phalcon\Forms\Form{
+class RecepcionForm extends \Phalcon\Forms\Form{
     /**
      * Inicializando el formulario de Villa La Angostura.
      * ( Con los datos de la tabla recepcion )
