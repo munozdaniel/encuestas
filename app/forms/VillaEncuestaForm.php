@@ -53,7 +53,7 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
         /*------------- COMPOSICION DEL GRUPO ------------*/
 
         $tipoPax = new Select('encuesta_tipoPax', Tipopax::find(), array(
-            'using'      => array('tipoPax_id', 'tipoPax_nombre'),
+            'using'      => array('tipoPax_id', 'tipoPax_nombre')
         ));
 
         $this->add($tipoPax);
@@ -85,7 +85,7 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
             'useEmpty'   => false,
             'emptyText'  => '---',
             'emptyValue' => '',
-            'onchange'  =>"habilitarOtro(this.id,this.value)"
+            'onchange'  =>"habilitarOtro('encuesta_otroComposicionGrupo',this.id,this.value)"
         ));
         $grupoCompuesto->addValidators(array(
             new PresenceOf(array(
@@ -95,7 +95,7 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
 
         $this->add($grupoCompuesto);
 
-        $composicionGrupoOtro = new Text('composicion_idOtro');
+        $composicionGrupoOtro = new Text('encuesta_otroComposicionGrupo');
         $composicionGrupoOtro->setFilters(array('string'));
         $this->add($composicionGrupoOtro);
 
@@ -106,12 +106,12 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
             'useEmpty'   => false,
             'emptyText'  => '---',
             'emptyValue' => '',
-            'onchange'  =>"habilitarOtro(this.id,this.value)",
+            'onchange'  =>"habilitarOtro('encuesta_otroDondeReservo',this.id,this.value)",
 
         ));
         $this->add($dondeReservo);
 
-        $dondeReservoOtro = new Text('reservacion_idOtro');
+        $dondeReservoOtro = new Text('encuesta_otroDondeReservo');
         $dondeReservoOtro->setFilters(array('string'));
         $this->add($dondeReservoOtro);
         /*------------- COMO SE INFORMÓ? Checkbox  ------------*/
@@ -122,9 +122,15 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
                 "name" => "informacion_id[]",
                 "value" => $informacion[$i]->informacion_id
             ));
+            if($i==0)
+                $groupInformacion->setAttribute('onclick','habilitarDeshabilitarCampo("encuesta_otroComoSeInforma",this.id,this.value)');
             $this->add($groupInformacion);
         }
+        $otraInformacion = new Text('encuesta_otroComoSeInforma');
+        $otraInformacion->setAttribute('disabled','');
 
+
+        $this->add($otraInformacion);
         /*------------- CONOCE OTRO MELEWE? Checkbox ------------*/
         $complejos = Complejo::find();
         $this->view->complejos = $complejos;
@@ -140,7 +146,7 @@ class VillaEncuestaForm extends \Phalcon\Forms\Form{
         /*------------- MOTIVO DE ELECCION DE MELEWE? Select ------------*/
         $motivoDeEleccion = new Select('motivo_id', Motivo::find(), array(
             'using'      => array('motivo_id', 'motivo_nombre'),
-            'useEmpty'   => true,
+                'useEmpty'   => true,
             'emptyText'  => '---',
             'emptyValue' => ''
         ));

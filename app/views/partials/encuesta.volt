@@ -52,15 +52,15 @@
                             <table class="table">
                                 <tbody>
                                 <tr>
-                                    <td>Nivel de desmpeño</td>
+                                    <td>Nivel de desmpeño<span class="obligatorio"> *</span></td>
                                     <td>{{ recepcionForm.render('recepcion_nivelDesempeno') }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Tiempo de respuesta</td>
+                                    <td>Tiempo de respuesta<span class="obligatorio"> *</span></td>
                                     <td>{{ recepcionForm.render('recepcion_tiempoRespuesta') }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Trato y Cordialidad</td>
+                                    <td>Trato y Cordialidad<span class="obligatorio"> *</span></td>
                                     <td>{{ recepcionForm.render('recepcion_tratoYCordialidad') }}</td>
                                 </tr>
                                 </tbody>
@@ -80,15 +80,15 @@
                             <table class="table">
                                 <tbody>
                                 <tr>
-                                    <td>Higiene de las instalaciones</td>
+                                    <td>Higiene de las instalaciones<span class="obligatorio"> *</span></td>
                                     <td>{{ unidadForm.render('puntaje_higiene') }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Equipamiento</td>
+                                    <td>Equipamiento<span class="obligatorio"> *</span></td>
                                     <td>{{ unidadForm.render('puntaje_equipamiento') }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Confort</td>
+                                    <td>Confort<span class="obligatorio"> *</span></td>
                                     <td>{{ unidadForm.render('puntaje_confort') }}</td>
                                 </tr>
                                 </tbody>
@@ -109,11 +109,11 @@
                             <table class="table">
                                 <tbody>
                                 <tr>
-                                    <td>Personal de Administración</td>
+                                    <td>Personal de Administración<span class="obligatorio"> *</span></td>
                                     <td>{{ personalForm.render('personal_tratoAdministrativo') }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Mucamas</td>
+                                    <td>Mucamas<span class="obligatorio"> *</span></td>
                                     <td>{{ personalForm.render('personal_tratoMucamas') }}</td>
                                 </tr>
                                 </tbody>
@@ -130,25 +130,34 @@
                             <span id="colC">
                                 <label>Como estuvo compuesto su grupo?</label><span class="obligatorio"> *</span><br>
                                 {{ encuestaForm.render('composicion_id') }}<br>
-                                {{ encuestaForm.render('composicion_idOtro') }}
+                                {{ encuestaForm.render('encuesta_otroComposicionGrupo') }}
                             </span>
                         </div>
                         <div class="espacio-form">
                             <span id="colR">
                                 <label>Donde hizo la reserva?</label><span class="obligatorio"> *</span><br>
                                 {{ encuestaForm.render('reservacion_id') }}<br>
-                                {{ encuestaForm.render('reservacion_idOtro') }}
+                                {{ encuestaForm.render('encuesta_otroDondeReservo') }}
                             </span>
                         </div>
                         <div class="col-md-6 espacio-form">
-                            <label>De que manera recibe información?</label><span class="obligatorio"> *</span>
+                            <label>De que manera recibe información?</label>
                             {% for info in informacion %}
+
                                 <div>
-                                    <label class="sub-items">
-                                        {% set nombre = "informacion_id"~(info.informacion_id-1) %}
-                                        {{ encuestaForm.render(nombre) }}
-                                        {{ info.informacion_nombre }}
-                                    </label>
+                                    {% set nombre = "informacion_id"~(info.informacion_id-1) %}
+                                    {% if loop.first %}
+                                        <label class="sub-items">
+                                            {{ encuestaForm.render(nombre) }}
+                                            {{ info.informacion_nombre }}
+                                        </label>
+                                        {{ encuestaForm.render('encuesta_otroComoSeInforma') }}
+                                    {% else %}
+                                        <label class="sub-items">
+                                            {{ encuestaForm.render(nombre) }}
+                                            {{ info.informacion_nombre }}
+                                        </label>
+                                    {% endif %}
                                 </div>
                             {% endfor %}
                         </div>
@@ -164,7 +173,7 @@
                                 </div>
                             {% endfor %}
                         </div>
-                        <label>Porque eligió este destino?</label><span class="obligatorio"> *</span>
+                        <label>Porque eligió este destino?</label>
                         <div class="espacio-form">
                             {{ encuestaForm.render('motivo_id') }}
                         </div>
@@ -193,9 +202,22 @@
 </div>
 <!-- Script para habilitar/deshabilitar el textbox -->
 <script type="text/javascript">
-    function habilitarOtro(id,valor) {
-       // alert(id+"- "+valor);
-        $('#'+id+'Otro').prop('disabled',valor != 1);
+    function habilitarOtro(campo,id,valor) {
+       //alert(campo+"-"+id+"- "+valor);
+        $('#'+campo).prop('disabled',valor != 1);
     }
+    function habilitarDeshabilitarCampo(campo,id,valor) {
 
+
+        if($('#'+id).prop('checked'))
+        {
+            $('#'+campo).prop('disabled',false);
+        }
+        else
+        {
+            $('#'+campo).prop('disabled',true);
+        }
+        //$('#'+campo).prop('disabled',valor != 1);
+
+    }
 </script>
