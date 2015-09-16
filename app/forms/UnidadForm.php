@@ -100,7 +100,7 @@ class UnidadForm extends \Phalcon\Forms\Form{
              'elements' => array('SI','NO'),
              'class' => 'pure-button button-white segment-item sub-items'
          ]);
-
+        $unidad_inconveniente->setLabel('Hubo algún inconveniente?');
          $unidad_inconveniente->setChecked(1);
          $this->add($unidad_inconveniente);
         /*----------------- COMENTARIOS -------------------*/
@@ -110,6 +110,7 @@ class UnidadForm extends \Phalcon\Forms\Form{
                 'placeholder' => 'Ingrese su comentario...',
                 'rows'=>'4' ,'cols'=>'50'
             ));
+        $comentarios->setLabel('Comentarios');
         $comentarios->setFilters(array('string'));
         $this->add($comentarios);
     }

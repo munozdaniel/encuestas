@@ -88,7 +88,7 @@ class RecepcionForm extends \Phalcon\Forms\Form{
             'elements' => array('SI','NO'),
             'class' => 'pure-button button-white segment-item sub-items'
         ]);
-
+        $recepcion_inconvenientes->setLabel('Hubo algún inconveniente?');
         $recepcion_inconvenientes->setChecked(1);
         $this->add($recepcion_inconvenientes);
 
@@ -99,6 +99,7 @@ class RecepcionForm extends \Phalcon\Forms\Form{
                 'placeholder' => 'Ingrese su comentario...',
                 'rows'=>'4' ,'cols'=>'50'
             ));
+        $comentarios->setLabel('Comentarios');
         $comentarios->setFilters(array('string'));
         $this->add($comentarios);
     }

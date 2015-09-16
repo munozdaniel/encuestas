@@ -87,6 +87,7 @@ class PersonalForm extends \Phalcon\Forms\Form{
                 'placeholder' => 'Ingrese su comentario...',
                 'rows'=>'4' ,'cols'=>'50'
             ));
+        $comentarios->setLabel('Comentarios');
         $comentarios->setFilters(array('string'));
         $this->add($comentarios);
     }
