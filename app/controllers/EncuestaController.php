@@ -45,12 +45,20 @@ class EncuestaController extends ControllerBase
                     'sorteo_ciudad' =>  $this->request->getPost('sorteo_ciudad')
                 ));
                 if ($sorteo->save()) {
-                    return $this->redireccionar('index/index');
+                    return $this->redireccionar('encuesta/registrado');
                 }
                 $this->flash->error($sorteo->getMessages());
             }
         }
         $this->view->form = $form;
+    }
+    /**
+     *
+     *
+     */
+    public function registradoAction()
+    {
+
     }
     /**
      * Villa La Angostura: Se guardan los datos que se ingresaron en la encuesta.

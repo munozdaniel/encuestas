@@ -20,12 +20,14 @@
                         <div class="espacio-form">
                             <label>{{ encuestaForm.label('encuesta_nroUnidad') }}</label><br>
                             {{ encuestaForm.render('encuesta_nroUnidad') }} <span class="obligatorio"> *</span>
+
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="espacio-form">
                             <label>{{ encuestaForm.label('encuesta_cantDias') }}</label><br>
                             {{ encuestaForm.render('encuesta_cantDias') }} <span class="obligatorio"> *</span>
+
                         </div>
                     </div>
                     <div class="col-md-4 espacio-form">
