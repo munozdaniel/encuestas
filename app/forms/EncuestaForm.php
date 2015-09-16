@@ -39,7 +39,7 @@ class EncuestaForm extends \Phalcon\Forms\Form{
         $this->add($unidad);
         /*-------------CANTIDAD DE DIAS ------------*/
         $cantidad = new Text("encuesta_cantDias");
-        $cantidad->setLabel("Cantidad de Días");
+        $cantidad->setLabel("Cantidad de Días que estuvo alojado");
         $cantidad->setFilters(array('int'));
         $cantidad->addValidators(array(
             new PresenceOf(array(
@@ -55,7 +55,7 @@ class EncuestaForm extends \Phalcon\Forms\Form{
         $tipoPax = new Select('encuesta_tipoPax', Tipopax::find(), array(
             'using'      => array('tipoPax_id', 'tipoPax_nombre')
         ));
-
+        $tipoPax->setLabel("Tipo de Inquilino");
         $this->add($tipoPax);
 
         /*------------- FECHA ESTADIA ------------*/
@@ -74,6 +74,7 @@ class EncuestaForm extends \Phalcon\Forms\Form{
             'elements' => array('SI','NO'),
             'class' => 'pure-button button-white segment-item sub-items'
         ]);
+        $primeraVisita->setLabel("Es su primer visita?");
 
         $primeraVisita->setChecked(1);
         $this->add($primeraVisita);
@@ -175,5 +176,21 @@ class EncuestaForm extends \Phalcon\Forms\Form{
         )));
 
         $this->add($recaptcha);
+
+
+    }
+    /**
+     * Prints messages for a specific element
+     */
+    public function messages($name)
+    {
+        echo "MUESTRO MI ERROR: $name";
+        if ($this->hasMessagesFor($name)) {
+            foreach ($this->getMessagesFor($name) as $message) {
+                $this->flash->error($message);
+                return "MJE:". $message;
+            }
+        }
+
     }
 }

@@ -18,31 +18,31 @@
                     <!-- ----------------------- ENCUESTA FORM PART I -------------------------- -->
                     <div class="col-md-4">
                         <div class="espacio-form">
-                            <label>Estuve alojando en la unidad Nº</label><br>
+                            <label>{{ encuestaForm.label('encuesta_nroUnidad') }}</label><br>
                             {{ encuestaForm.render('encuesta_nroUnidad') }} <span class="obligatorio"> *</span>
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="espacio-form">
-                            <label></i>Cantidad de Días que estuvo alojado</label><br>
+                            <label>{{ encuestaForm.label('encuesta_cantDias') }}</label><br>
                             {{ encuestaForm.render('encuesta_cantDias') }} <span class="obligatorio"> *</span>
                         </div>
                     </div>
                     <div class="col-md-4 espacio-form">
                         <div class="">
-                            <label></i>Tipo de Inquilino</label><br>
+                            <label></i>{{ encuestaForm.label('encuesta_tipoPax') }}</label><br>
                             {{ encuestaForm.render('encuesta_tipoPax') }} <span class="obligatorio"> *</span>
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="espacio-form">
-                            <label>Fecha de Estadía</label><br>
+                            <label> {{ encuestaForm.label('encuesta_fechaEstadia') }}</label><br>
                             {{ encuestaForm.render('encuesta_fechaEstadia') }}<span class="obligatorio"> *</span>
                         </div>
                     </div>
                     <div class ="col-md-12">
                         <div class="espacio-form">
-                            <label>Es su primer visita?</label><br>
+                            <label>{{ encuestaForm.label('encuesta_primeraVisita') }}</label><br>
                             {{ encuestaForm.render('encuesta_primeraVisita') }}<br>
                         </div>
 
@@ -204,10 +204,10 @@
 <script type="text/javascript">
     function habilitarOtro(campo,id,valor) {
        //alert(campo+"-"+id+"- "+valor);
-        $('#'+campo).prop('disabled',valor != 1);
+        $('#'+campo).prop('disabled',valor != 4);
     }
     function habilitarDeshabilitarCampo(campo,id,valor) {
-
+        alert("campo: "+campo + " - id: "+id + " - valor: "+valor);
 
         if($('#'+id).prop('checked'))
         {

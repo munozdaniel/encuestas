@@ -17,6 +17,18 @@ class Encuesta extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var integer
+     */
+    public $encuesta_cantDias;
+
+    /**
+     *
+     * @var integer
+     */
+    public $encuesta_tipoPax;
+
+    /**
+     *
      * @var string
      */
     public $encuesta_fechaEstadia;
@@ -95,10 +107,11 @@ class Encuesta extends \Phalcon\Mvc\Model
         $this->hasMany('encuesta_id', 'Encuestacomplejo', 'encuesta_id', array('alias' => 'Encuestacomplejo'));
         $this->hasMany('encuesta_id', 'Encuestainformacion', 'encuesta_id', array('alias' => 'Encuestainformacion'));
         $this->belongsTo('recepcion_id', 'Recepcion', 'recepcion_id', array('alias' => 'Recepcion'));
-        $this->belongsTo('unidad_id', 'Unidad', 'unidad_id', array('alias' => 'Unidad'));
         $this->belongsTo('personal_id', 'Personal', 'personal_id', array('alias' => 'Personal'));
+        $this->belongsTo('unidad_id', 'Unidad', 'unidad_id', array('alias' => 'Unidad'));
         $this->belongsTo('composicion_id', 'Composicion', 'composicion_id', array('alias' => 'Composicion'));
         $this->belongsTo('reservacion_id', 'Reservacion', 'reservacion_id', array('alias' => 'Reservacion'));
+        $this->belongsTo('motivo_id', 'Motivo', 'motivo_id', array('alias' => 'Motivo'));
     }
 
     /**
