@@ -1,4 +1,5 @@
 <?php
+use Phalcon\Forms\Element\Submit;
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Hidden;
@@ -8,7 +9,7 @@ use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\Numericality;
 use \Phalcon\Forms\Element\Radio;
 use \Phalcon\Forms\Element\Check;
- use Phalcon\Mvc\Model\Validator\StringLength;
+use Phalcon\Mvc\Model\Validator\StringLength;
 /**
  * Created by PhpStorm.
  * User: dmunioz
@@ -23,6 +24,7 @@ class EncuestaForm extends \Phalcon\Forms\Form{
      */
     public function initialize($entity = null, $options = array())
     {
+
         /*------------- Nº UNIDAD ------------*/
 
         $unidad = new Text("encuesta_nroUnidad");
@@ -30,11 +32,9 @@ class EncuestaForm extends \Phalcon\Forms\Form{
         $unidad->setFilters(array('int'));
         $unidad->addValidators(array(
             new PresenceOf(array(
-                'message' => 'La <strong>UNIDAD</strong> es requerida.'
+                'message' => 'El <strong>nombre y el apellido</strong> son requeridos.'
             )),
-            new Numericality(array(
-                'message' => '<small><strong>La UNIDAD debe ser un valor numerico.</strong></small>'
-            ))
+            new Numericality(array('message'=> 'Solo se admiten números.'))
         ));
         $this->add($unidad);
         /*-------------CANTIDAD DE DIAS ------------*/
@@ -46,7 +46,7 @@ class EncuestaForm extends \Phalcon\Forms\Form{
                 'message' => 'La <strong>CANTIDAD DE DIAS</strong> es requerida.'
             )),
             new Numericality(array(
-                'message' => '<small><strong>La CANTIDAD DE DIAS debe ser un valor numerico.</strong></small>'
+                'message' => '<strong>La CANTIDAD DE DIAS debe ser un valor numerico.</strong>'
             ))
         ));
         $this->add($cantidad);
@@ -88,9 +88,10 @@ class EncuestaForm extends \Phalcon\Forms\Form{
             'emptyValue' => '',
             'onchange'  =>"habilitarOtro('encuesta_otroComposicionGrupo',this.id,this.value)"
         ));
+        $grupoCompuesto->setLabel('Como estuvo compuesto su grupo?');
         $grupoCompuesto->addValidators(array(
             new PresenceOf(array(
-                'message' => 'Como estuvo <strong>compuesto</strong> su grupo? '
+                'message' => 'Seleccione como está <strong>compuesto</strong> su grupo. '
             ))
         ));
 
@@ -112,9 +113,10 @@ class EncuestaForm extends \Phalcon\Forms\Form{
             'onchange'  =>"habilitarOtro('encuesta_otroDondeReservo',this.id,this.value)",
 
         ));
+        $dondeReservo->setLabel('Donde hizo la reserva?');
         $dondeReservo->addValidators(array(
             new PresenceOf(array(
-                'message' => 'Donde hizo la <strong>reserva</strong>? '
+                'message' => 'Seleccione en donde hizo la <strong>reserva.</strong>.'
             ))
         ));
         $this->add($dondeReservo);
@@ -158,6 +160,7 @@ class EncuestaForm extends \Phalcon\Forms\Form{
             'emptyText'  => 'Seleccione un motivo',
             'emptyValue' => ''
         ));
+        $motivoDeEleccion->setLabel('Porque eligió este destino?');
         $this->add($motivoDeEleccion);
         /*------------- OBSERVACIONES ------------*/
 
@@ -167,16 +170,23 @@ class EncuestaForm extends \Phalcon\Forms\Form{
                 'placeholder' => 'Ingrese su comentario...',
                 'rows'=>'4' ,'cols'=>'50'
             ));
+        $comentarios->setLabel('Observaciones');
         $comentarios->setFilters(array('string'));
         $this->add($comentarios);
 
         $recaptcha = new Recaptcha('recaptcha');
         $recaptcha->addValidator(new RecaptchaValidator(array(
-            'message' => "Es usted un humano? <small><strong>Complete el CAPTCHA.</strong></small> "
+            'message' => "Es usted un humano? <strong>Complete el CAPTCHA.</strong> "
         )));
 
         $this->add($recaptcha);
+        /*--------------- Boton ---------*/
+        $participar = new Submit('Continuar', array(
+            'class' => 'btn btn-success btn-block'
+        ));
+        $participar->setLabel('Participar');
 
+        $this->add($participar);
 
     }
     /**
@@ -184,13 +194,13 @@ class EncuestaForm extends \Phalcon\Forms\Form{
      */
     public function messages($name)
     {
-        echo "MUESTRO MI ERROR: $name";
+        $cadena= "";
         if ($this->hasMessagesFor($name)) {
             foreach ($this->getMessagesFor($name) as $message) {
-                $this->flash->error($message);
-                return "MJE:". $message;
+                //$this->flash->error($message);
+                $cadena.= $message ."<br>";//para mostrar con tooltip
             }
         }
-
+        return $cadena;
     }
 }
