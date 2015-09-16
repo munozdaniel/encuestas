@@ -48,9 +48,10 @@ class SorteoForm extends \Phalcon\Forms\Form{
                 'message' => 'El <strong>telefono</strong> es requerido.'
             )),
             new StringLength(array(
-                'min' => 4,
-                'messageMinimum' => '<small>El <strong>telefono</strong> es muy corto.</small>'
-            ))
+                'min' => 6,
+                'messageMinimum' => 'El <strong>telefono</strong> es muy corto.'
+            )),
+            new \Phalcon\Validation\Validator\Numericality(array('message'=> 'Solo se admiten números.'))
         ));
         $this->add($telefono);
         /*------------- Ciudad ------------*/
@@ -62,7 +63,7 @@ class SorteoForm extends \Phalcon\Forms\Form{
             )),
             new StringLength(array(
                 'min' => 4,
-                'messageMinimum' => '<small>La <strong>ciudad</strong> es muy corta.</small>'
+                'messageMinimum' => 'La <strong>ciudad</strong> es muy corta.'
             ))
         ));
         $this->add($ciudad);
