@@ -977,6 +977,11 @@ ul.nostyle i {
 }
 .obligatorio{
     color : #c9302c;
+
+}
+.mizquierda{
+    left: 0;
+    position: absolute;
 }
 /*Tabla de Sorteo*/
 table.signup td {
