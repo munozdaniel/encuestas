@@ -13,7 +13,7 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
         $this->assets
-            ->addJs('js/main.js');
+            ->collection('footer')->addJs('js/main.js');;
         $this->view->encuestaForm = new EncuestaForm;
         $this->view->unidadForm = new UnidadForm();
         $this->view->recepcionForm = new RecepcionForm();
