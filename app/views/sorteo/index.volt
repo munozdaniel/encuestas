@@ -67,7 +67,7 @@
                     <td>{{ form.render('Participar') }}</td>
                 </tr>
             </table>
-                <br><br><br><br>
+            <br><br><br><br>
         </div>
         <hr>
     </div>
