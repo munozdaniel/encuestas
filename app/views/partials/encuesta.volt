@@ -8,9 +8,9 @@
         </div>
         <div class ="col-md-10 col-md-offset-1 ss-form-container">
 
-            {{ form('encuesta/guardar',"class":"","method":"post") }}
+            {{ form('index/index',"class":"","method":"post") }}
 
-            {{ content() }}
+
 
             <div class ="col-md-12">
                 <div class="center scaffold">
@@ -18,37 +18,58 @@
                     <!-- ----------------------- ENCUESTA FORM PART I -------------------------- -->
                     <div class="col-md-4">
                         <div class="espacio-form">
-                            <label>{{ encuestaForm.label('encuesta_nroUnidad') }}</label><br>
-                            {{ encuestaForm.render('encuesta_nroUnidad') }} <span class="obligatorio"> *</span>
 
+                            <span class="obligatorio mizquierda">*</span>{{ encuestaForm.label('encuesta_nroUnidad') }}<br>
+                            {{ encuestaForm.render('encuesta_nroUnidad') }}
+                            {% if encuestaForm.messages('encuesta_nroUnidad') != "" %}
+                                <a href="#" data-toggle="tooltip" data-placement="right" data-html="true" data-original-title="{{ encuestaForm.messages('encuesta_nroUnidad')}}">
+                                    <i class="fa fa-exclamation-circle obligatorio"></i>
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="espacio-form">
-                            <label>{{ encuestaForm.label('encuesta_cantDias') }}</label><br>
-                            {{ encuestaForm.render('encuesta_cantDias') }} <span class="obligatorio"> *</span>
-
+                            <span class="obligatorio mizquierda">*</span>{{ encuestaForm.label('encuesta_cantDias') }}<br>
+                            {{ encuestaForm.render('encuesta_cantDias') }}
+                            {% if encuestaForm.messages('encuesta_cantDias') != "" %}
+                                <a href="#" data-toggle="tooltip" data-placement="right" data-html="true" data-original-title="{{ encuestaForm.messages('encuesta_cantDias')}}">
+                                    <i class="fa fa-exclamation-circle obligatorio"></i>
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-md-4 espacio-form">
                         <div class="">
-                            <label></i>{{ encuestaForm.label('encuesta_tipoPax') }}</label><br>
-                            {{ encuestaForm.render('encuesta_tipoPax') }} <span class="obligatorio"> *</span>
+                            <span class="obligatorio mizquierda">*</span>{{ encuestaForm.label('encuesta_tipoPax') }}<br>
+                            {{ encuestaForm.render('encuesta_tipoPax') }}
+                            {% if encuestaForm.messages('encuesta_tipoPax') != "" %}
+                                <a href="#" data-toggle="tooltip" data-placement="right" data-html="true" data-original-title="{{ encuestaForm.messages('encuesta_tipoPax')}}">
+                                    <i class="fa fa-exclamation-circle obligatorio"></i>
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="espacio-form">
-                            <label> {{ encuestaForm.label('encuesta_fechaEstadia') }}</label><br>
-                            {{ encuestaForm.render('encuesta_fechaEstadia') }}<span class="obligatorio"> *</span>
+                            <span class="obligatorio mizquierda">*</span> {{ encuestaForm.label('encuesta_fechaEstadia') }}<br>
+                            {{ encuestaForm.render('encuesta_fechaEstadia') }}
+                            {% if encuestaForm.messages('encuesta_fechaEstadia') != "" %}
+                                <a href="#" data-toggle="tooltip" data-placement="right" data-html="true" data-original-title="{{ encuestaForm.messages('encuesta_fechaEstadia')}}">
+                                    <i class="fa fa-exclamation-circle obligatorio"></i>
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
+
                     <div class ="col-md-12">
                         <div class="espacio-form">
                             <label>{{ encuestaForm.label('encuesta_primeraVisita') }}</label><br>
                             {{ encuestaForm.render('encuesta_primeraVisita') }}<br>
                         </div>
-
-                        <!-- ----------------------- RECEPCION FORM -------------------------- -->
+                    </div>
+                    <!-- ----------------------- RECEPCION FORM -------------------------- -->
+                    <div class="col-md-12">
                         <div class="table-responsive espacio-form"><hr>
                             <h4>RECEPCIÓN <br> <small>Cual es su opinión con respecto a:</small></h4>
                             <table class="table">
@@ -69,14 +90,17 @@
                             </table>
                         </div>
                         <div class="espacio-form">
-                            <label>Hubo algún inconveniente?</label><br>
+                            {{ recepcionForm.label('recepcion_inconvenientes') }}<br>
                             {{ recepcionForm.render('recepcion_inconvenientes') }}
                             <br>
-                            <label>Comentarios</label><br>
+                            {{ recepcionForm.label('recepcion_comentarios') }}
+                            <br>
                             {{ recepcionForm.render('recepcion_comentarios') }}
                             <br>
                         </div>
-                        <!-- ----------------------- UNIDAD FORM -------------------------- -->
+                    </div>
+                    <!-- ----------------------- UNIDAD FORM -------------------------- -->
+                    <div class="col-md-12">
                         <div class="table-responsive espacio-form"><hr>
                             <h4>UNIDADES <br> <small>Cual es su opinión con respecto a:</small></h4>
                             <table class="table">
@@ -97,14 +121,17 @@
                             </table>
                         </div>
                         <div class="espacio-form">
-                            <label>Hubo algún inconveniente?</label><br>
-
+                            {{ unidadForm.label('unidad_inconveniente') }}
+                            <br>
                             {{ unidadForm.render('unidad_inconveniente') }}
                             <br>
-                            <label>Comentarios</label><br>
+                            {{ unidadForm.label('unidad_comentarios') }}
+                            <br>
                             {{ unidadForm.render('unidad_comentarios') }}
                             <br>
                         </div>
+                    </div>
+                    <div class="col-md-12">
                         <!-- ----------------------- PERSONAL FORM -------------------------- -->
                         <div class="table-responsive espacio-form"><hr>
                             <h4>PERSONAL <br> <small>Cual es su opinión con respecto al Trato y Cordialidad de:</small></h4>
@@ -122,23 +149,40 @@
                             </table>
                         </div>
                         <div class="espacio-form">
-                            <label>Comentarios</label><br>
+                            {{ personalForm.label('personal_comentarios') }}
+                            <br>
                             {{ personalForm.render('personal_comentarios') }}
                             <br>
                         </div>
-                        <!-- ----------------------- ENCUESTA FORM PART II -------------------------- -->
+                        <hr>
+                    </div>
 
-                        <div class="espacio-form">
+                    <!-- ----------------------- ENCUESTA FORM PART II -------------------------- -->
+                    <div class="col-md-12">
+                        <div class="col-md-6 espacio-form">
                             <span id="colC">
-                                <label>Como estuvo compuesto su grupo?</label><span class="obligatorio"> *</span><br>
-                                {{ encuestaForm.render('composicion_id') }}<br>
+                                <span class="obligatorio mizquierda"> *</span>{{ encuestaForm.label('composicion_id') }}<br>
+                                {{ encuestaForm.render('composicion_id') }}
+                                {% if encuestaForm.messages('composicion_id') != "" %}
+                                    <a href="#" data-toggle="tooltip" data-placement="right" data-html="true" data-original-title="{{ encuestaForm.messages('composicion_id')}}">
+                                        <i class="fa fa-exclamation-circle obligatorio"></i>
+                                    </a>
+                                {% endif %}
+                                <br>
                                 {{ encuestaForm.render('encuesta_otroComposicionGrupo') }}
+
                             </span>
                         </div>
-                        <div class="espacio-form">
+                        <div class="col-md-6 espacio-form">
                             <span id="colR">
-                                <label>Donde hizo la reserva?</label><span class="obligatorio"> *</span><br>
-                                {{ encuestaForm.render('reservacion_id') }}<br>
+                                <span class="obligatorio mizquierda"> *</span>{{ encuestaForm.label('reservacion_id') }}<br>
+                                {{ encuestaForm.render('reservacion_id') }}
+                                {% if encuestaForm.messages('reservacion_id') != "" %}
+                                    <a href="#" data-toggle="tooltip" data-placement="right" data-html="true" data-original-title="{{ encuestaForm.messages('reservacion_id')}}">
+                                        <i class="fa fa-exclamation-circle obligatorio"></i>
+                                    </a>
+                                {% endif %}
+                                <br>
                                 {{ encuestaForm.render('encuesta_otroDondeReservo') }}
                             </span>
                         </div>
@@ -175,25 +219,30 @@
                                 </div>
                             {% endfor %}
                         </div>
-                        <label>Porque eligió este destino?</label>
+
+                        {{ encuestaForm.label('motivo_id') }}
                         <div class="espacio-form">
                             {{ encuestaForm.render('motivo_id') }}
                         </div>
-                        <label>Observaciones</label>
+                        {{ encuestaForm.label('encuesta_observacion') }}
                         <div class="espacio-form">
                             {{ encuestaForm.render('encuesta_observacion') }}
                         </div>
-                        <div>
+                        <div class="espacio-form ">
+                            {% if encuestaForm.messages('recaptcha') != "" %}
+                                <a href="#" data-toggle="tooltip" data-placement="right" data-html="true" data-original-title="{{ encuestaForm.messages('recaptcha')}}">
+                                    <i class="fa fa-exclamation-circle obligatorio"></i>
+                                </a>
+                            {% endif %}
                             {{ encuestaForm.render('recaptcha') }}
+
                         </div>
                     </div>
                 </div>
                 <!-- ---------------------------------------------------- -->
-                <ul class="pager">
-                    <li class="col-md-12">
-                        {{ submit_button("Continuar >>", "class": "btn btn-success") }}
-                    </li>
-                </ul>
+                <div class="espacio-form col-md-6 col-md-offset-3" align="center">
+                    {{ encuestaForm.render('Continuar') }}
+                </div>
             </div><!--Fin: col-md-12 -->
 
             {{ end_form() }}
@@ -209,7 +258,7 @@
         $('#'+campo).prop('disabled',valor != 4);
     }
     function habilitarDeshabilitarCampo(campo,id,valor) {
-        alert("campo: "+campo + " - id: "+id + " - valor: "+valor);
+        //alert("campo: "+campo + " - id: "+id + " - valor: "+valor);
 
         if($('#'+id).prop('checked'))
         {
