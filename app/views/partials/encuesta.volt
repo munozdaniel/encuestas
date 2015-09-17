@@ -10,7 +10,7 @@
 
             {{ form('index/index',"class":"","method":"post") }}
 
-
+            {{ content() }}
 
             <div class ="col-md-12">
                 <div class="center scaffold">
