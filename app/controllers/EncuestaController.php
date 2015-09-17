@@ -13,18 +13,11 @@ class EncuestaController extends ControllerBase
     {
 
     }
-    /**
-     * Muestra un formulario cuyo datos se guardan la tabla Sorteo.
-     */
-    public function sorteoAction()
-    {
-        $form = new SorteoForm();
-        $this->view->form = $form;
-    }
+
     /**
       * Muestra un formulario cuyo datos se guardan la tabla Sorteo.
      */
-    public function participarAction()
+    public function sorteoAction()
     {
         $this->assets
             ->collection('footer')->addJs('js/tooltip.js');
@@ -32,6 +25,7 @@ class EncuestaController extends ControllerBase
         $form = new SorteoForm();
         if ($this->request->isPost()) {
             if ($form->isValid($this->request->getPost()) != false) {
+                try{
                 $sorteo = new Sorteo();
                 $sorteo->assign(array(
                     'sorteo_nombreApellido' => $this->request->getPost('sorteo_nombreApellido', 'striptags'),
@@ -43,9 +37,18 @@ class EncuestaController extends ControllerBase
                     return $this->redireccionar('encuesta/registrado');
                 }
                 $this->flash->error($sorteo->getMessages());
+                }
+                catch(PDOException $e){
+                    switch($e->getCode()){
+                        case 23000:
+                            $this->flash->error("El Correo ya se encuentra registrado. No puede participar más de una vez.");
+                            break;
+                    }
+                }
             }
         }
         $this->view->form = $form;
+
     }
     /**
      *  Muestra la vista felicitando al usuario por su logro por participar en el sorteo.

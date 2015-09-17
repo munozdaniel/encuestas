@@ -6,14 +6,15 @@
             <p class="text-center wow fadeInDown"></p>
         </div>
 
-            <div class="col-md-4">
+
+        <div class ="col-md-10 col-md-offset-1 ss-form-container espacio-form">
+            <div>
                 {{ content() }}
             </div>
-            <div class="col-md-12" align="center">
-
-
-            {{ form('encuesta/participar','class': 'form-search') }}
-            <table class="signup">
+            <br>
+            <br>
+            {{ form('class': 'form-search') }}
+            <table class="signup" align="center">
                 <tr>
                     <td align="right">{{ form.label('sorteo_nombreApellido') }}</td>
                     <td>

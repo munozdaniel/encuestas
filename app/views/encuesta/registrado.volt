@@ -1,4 +1,4 @@
-{{ content() }}
+
 <br><br><br>
 <div class="container">
     <div class="row">
@@ -12,7 +12,7 @@
         </div>
         <div align="center">
             {{ link_to('index/index','INICIO','class':'btn btn-primary btn-lg "') }}
-
+            {{ content() }}
         </div>
         <br><br><br><br><br><br><br><br>
     </div>
