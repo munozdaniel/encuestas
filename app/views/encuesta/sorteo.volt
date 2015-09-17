@@ -1,16 +1,18 @@
 <div class="container">
     <div class="row">
-
+        <br>
         <div class="section-header">
             <h2 class="section-title text-center wow fadeInDown">Dejanos tus datos para el sorteo!</h2>
             <p class="text-center wow fadeInDown"></p>
         </div>
 
+            <div class="col-md-4">
+                {{ content() }}
+            </div>
+            <div class="col-md-12" align="center">
 
-            <div class="col-md-8 col-md-offset-3">
 
-            {{ content() }}
-            {{ form('class': 'form-search') }}
+            {{ form('encuesta/participar','class': 'form-search') }}
             <table class="signup">
                 <tr>
                     <td align="right">{{ form.label('sorteo_nombreApellido') }}</td>
