@@ -136,7 +136,6 @@ class IndexController extends ControllerBase
                                             $this->flash->error("ENCUESTA_INFORMACION");
                                             //$transaction->rollback("La relacion Encuesta Informacion no pudo ser persistida");
                                         }
-                                        echo "vuelta";
                                     }
                                 }
 
@@ -154,10 +153,6 @@ class IndexController extends ControllerBase
                                             $this->flash->error("ENCUESTA_COMPLEJO");
                                            //$transaction->rollback("La relacion Encuesta Complejo no pudo ser persistida");
                                         }
-                                        else{
-                                            echo "OK ENCUESTA_ID: ".$complejo_id;
-                                        }
-
                                     }
                                 }
                                 else{

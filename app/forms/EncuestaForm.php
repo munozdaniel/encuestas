@@ -99,6 +99,7 @@ class EncuestaForm extends \Phalcon\Forms\Form{
 
         $composicionGrupoOtro = new Text('encuesta_otroComposicionGrupo');
         $composicionGrupoOtro->setAttribute('disabled','');
+        $composicionGrupoOtro->setDefault('');
         $composicionGrupoOtro->setFilters(array('string'));
 
         $this->add($composicionGrupoOtro);
@@ -112,6 +113,7 @@ class EncuestaForm extends \Phalcon\Forms\Form{
             'emptyValue' => '',
             'onchange'  =>"habilitarOtro('encuesta_otroDondeReservo',this.id,this.value)",
 
+
         ));
         $dondeReservo->setLabel('Donde hizo la reserva?');
         $dondeReservo->addValidators(array(
@@ -123,8 +125,8 @@ class EncuestaForm extends \Phalcon\Forms\Form{
 
         $dondeReservoOtro = new Text('encuesta_otroDondeReservo');
         $dondeReservoOtro->setFilters(array('string'));
-
         $dondeReservoOtro->setAttribute('disabled','');
+        $dondeReservo->setDefault('');
         $this->add($dondeReservoOtro);
         /*------------- COMO SE INFORMÓ? Checkbox  ------------*/
         $informacion = Informacion::find();
@@ -173,6 +175,8 @@ class EncuestaForm extends \Phalcon\Forms\Form{
         $comentarios->setLabel('Observaciones');
         $comentarios->setFilters(array('string'));
         $this->add($comentarios);
+
+        /*------------- Recaptcha ------------*/
 
         $recaptcha = new Recaptcha('recaptcha');
         $recaptcha->addValidator(new RecaptchaValidator(array(
