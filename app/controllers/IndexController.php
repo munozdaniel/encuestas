@@ -162,6 +162,7 @@ class IndexController extends ControllerBase
                                 }
                                 else{
                                     //Si no selecciono ningun complejo, se guardara la primera opcion "NO"
+                                    $encuestaComplejo = new Encuestacomplejo();
                                     $encuestaComplejo->encuesta_id = $encuesta->encuesta_id;
                                     $encuestaComplejo->complejo_id = 1;
                                     if ($encuestaComplejo->save() == false) {
