@@ -11,8 +11,9 @@
 
         </div>
         <div align="center">
-            {{ link_to('index/index','INICIO','class':'btn btn-primary btn-lg "') }}
             {{ content() }}
+            {{ link_to('index/index','INICIO','class':'btn btn-primary btn-lg "') }}
+
         </div>
         <br><br><br><br><br><br><br><br>
     </div>
