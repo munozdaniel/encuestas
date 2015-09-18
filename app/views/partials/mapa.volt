@@ -1,33 +1,35 @@
+<div align="center">
+    <button class="btn btn-primary btn-lg" onclick="activarDesactivarMapa()">Activar/Desactivar Mapa</button>
+</div>
+<br>
 <section id="contact">
-    <div id="google-map" style="height:650px" data-latitude="52.365629" data-longitude="4.871331"></div>
+    <div id="google-map" style="height:650px" data-latitude="-38.9538913" data-longitude="-68.06898039999999" ></div>
     <div class="container-wrapper">
         <div class="container">
             <div class="row">
                 <div class="col-sm-4 col-sm-offset-8">
-                    <div class="contact-form">
-                        <h3>Contacto</h3>
+                    <div id="formulario" class="contact-form">
+                        <h3>Contact Info</h3>
 
-                        <address>
-                            <strong>Twitter, Inc.</strong><br>
-                            795 Folsom Ave, Suite 600<br>
-                            San Francisco, CA 94107<br>
-                            <abbr title="Phone">P:</abbr> (123) 456-7890
+                        <address id="address_id">
+                            <strong>Turismo Central Neuquén</strong><br>
+                            Fotheringham 107, (8300) Neuquén<br>
+                            <strong>turismo@imps.tur.ar</strong><br>
+                            <abbr title="Phone">Teléfono:</abbr> (0299) 4479921
                         </address>
 
                         <form id="main-contact-form" name="contact-form" method="post" action="#">
-                            <div class="form-group">
-                                <input type="text" name="name" class="form-control" placeholder="Nombre" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" name="email" class="form-control" placeholder="Email" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="subject" class="form-control" placeholder="Asunto" required>
-                            </div>
-                            <div class="form-group">
-                                <textarea name="message" class="form-control" rows="8" placeholder="Mensaje" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                            {% for item in contacto%}
+                                {% if loop.last %}
+                                    {{ item }}
+                                {% else %}
+                                    <div class="form-group">
+                                        {{ item }}
+                                    </div>
+                                {% endif %}
+
+                            {% endfor %}
+
                         </form>
                     </div>
                 </div>
@@ -35,3 +37,10 @@
         </div>
     </div>
 </section><!--/#bottom-->
+<script type="text/javascript">
+
+    function activarDesactivarMapa() {
+        $('#google-map').toggleClass('mostrar-mapa');
+        $('#formulario').toggleClass('ocultar-consulta-form');
+    }
+</script>
