@@ -995,3 +995,12 @@ table.signup .alert {
 div.tooltip-inner {
     max-width: 350px;
 }
+.ocultar-consulta-form
+{
+    display: none;
+    z-index: -100;
+}
+.mostrar-mapa
+{
+    z-index:102;
+}
