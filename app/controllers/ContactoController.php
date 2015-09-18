@@ -8,11 +8,12 @@ class ContactoController extends ControllerBase
         parent::initialize();
         //cargar los js para la vista de esta función
         $this->assets
-            ->collection('footer');
+            ->collection('footer')
+            ->addJs('js/contacto.js');
     }
     public function indexAction()
     {
-
+        $this->view->contacto = new ContactoForm();
     }
 
 }
