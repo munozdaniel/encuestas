@@ -20,11 +20,11 @@ class SorteoForm extends \Phalcon\Forms\Form{
         $nombreYApellido->setLabel("Nombre y Apellido");
         $nombreYApellido->addValidators(array(
             new PresenceOf(array(
-                'message' => 'El <strong>nombre y el apellido</strong> son requeridos.'
+                'message' => 'Ingrese <strong>nombre y el apellido</strong>.'
             )),
             new StringLength(array(
                 'min' => 4,
-                'messageMinimum' => 'El <strong>nombre y el apellido</strong> es muy corto.'
+                'messageMinimum' => 'El <strong>nombre y el apellido</strong> deben tener por lo menos 4 letras.'
             ))
         ));
         $this->add($nombreYApellido);
@@ -33,10 +33,10 @@ class SorteoForm extends \Phalcon\Forms\Form{
         $email->setLabel('E-Mail');
         $email->addValidators(array(
             new PresenceOf(array(
-                'message' => 'El <strong>email</strong> es requerido.'
+                'message' => 'Ingrese <strong>email</strong>.'
             )),
             new Email(array(
-                'message' => 'El <strong>email</strong> no es valido.'
+                'message' => 'Formato ejemplo de un <strong>email</strong> valido: turismo@imps.tur.ar.'
             ))
         ));
         $this->add($email);
@@ -45,13 +45,13 @@ class SorteoForm extends \Phalcon\Forms\Form{
         $telefono->setLabel('Telefono');
         $telefono->addValidators(array(
             new PresenceOf(array(
-                'message' => 'El <strong>telefono</strong> es requerido.'
+                'message' => 'Ingrese el <strong>telefono</strong>.'
             )),
             new StringLength(array(
                 'min' => 6,
-                'messageMinimum' => 'El <strong>telefono</strong> es muy corto.'
+                'messageMinimum' => 'El <strong>telefono</strong> debe ser mayor a 6 digitos.'
             )),
-            new \Phalcon\Validation\Validator\Numericality(array('message'=> 'Solo se admiten Números.'))
+            new \Phalcon\Validation\Validator\Numericality(array('message'=> 'Ingrese unicamente los numeros.'))
         ));
         $this->add($telefono);
         /*------------- Ciudad ------------*/
@@ -59,11 +59,11 @@ class SorteoForm extends \Phalcon\Forms\Form{
         $ciudad->setLabel('Ciudad');
         $ciudad->addValidators(array(
             new PresenceOf(array(
-                'message' => 'La <strong>ciudad</strong> es requerida.'
+                'message' => 'Ingrese la <strong>ciudad</strong>.'
             )),
             new StringLength(array(
-                'min' => 4,
-                'messageMinimum' => 'La <strong>ciudad</strong> es muy corta.'
+                'min' => 6,
+                'messageMinimum' => 'La <strong>ciudad</strong> debe tener mas de 6 digitos.'
             ))
         ));
         $this->add($ciudad);
