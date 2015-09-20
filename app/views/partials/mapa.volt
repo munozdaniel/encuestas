@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-sm-4 col-sm-offset-8">
                     <div id="formulario" class="contact-form">
-                        <h3>Contact Info</h3>
+                        <h3>Información de Contacto</h3>
 
                         <address id="address_id">
                             <strong>Turismo Central Neuquén</strong><br>
