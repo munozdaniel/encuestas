@@ -170,7 +170,7 @@ class IndexController extends ControllerBase
                         }
                     }
                     /*------------------------------------------ COMMIT/ROLLBACK-------------------------------------------------*/
-                    if($continuar){echo "SAVE!!";
+                    if($continuar){
                         $recepcionForm->clear();
                         $unidadForm->clear();
                         $personalForm->clear();
@@ -179,7 +179,7 @@ class IndexController extends ControllerBase
                         $this->db->commit();
                         return $this->redireccionar("sorteo/index");
                     }
-                    else{ echo "NO SAVE";
+                    else{
                         $this->db->rollback();
 
                     }
