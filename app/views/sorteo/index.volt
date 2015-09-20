@@ -8,6 +8,9 @@
 
 
         <div class ="col-md-10 col-md-offset-1 ss-form-container espacio-form">
+            <div class="pull-right" style="margin-top: 2%;">
+                {{ link_to('index/index','No Participar','class':'btn btn-warning') }}
+            </div>
             <div>
                 {{ content() }}
             </div>
