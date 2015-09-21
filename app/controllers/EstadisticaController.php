@@ -6,11 +6,13 @@ class EstadisticaController extends ControllerBase
     {
         $this->tag->setTitle('Estadisticas');
         parent::initialize();
+        $this->assets
+            ->collection('footer')->addJs('js/jquery.canvasjs.min.js');
     }
 
     public function indexAction()
     {
-
+        $this->view->formulario = new BusquedaEstadisticaForm();
     }
 
 }
