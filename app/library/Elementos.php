@@ -38,7 +38,7 @@ class Elementos extends \Phalcon\Mvc\User\Component
                 'estadisticas'     =>  array(
                     'class'     =>  '',
                     'titulo'    =>'Estadisticas',
-                    'controlador'=>'index',
+                    'controlador'=>'estadistica',
                     'accion'    =>'index'
                 )
             );
