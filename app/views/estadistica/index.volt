@@ -5,34 +5,33 @@
             <h2 class="section-title text-center wow fadeInDown">Estadisticas </h2>
             <p class="text-center wow fadeInDown">Solo usuarios administradores pueden acceder a esta sección.</p>
         </div>
-        <div>{{ formulario.render('complejo_id') }}</div>
-        <div id="chartContainer" style="height: 300px; width: 100%;">
-        </div>
+        {{ content() }}
+       {{ link_to('estadistica/generar','class':'btn btn-success',"Generar") }}
+        <select id="complejo_id" name="complejo_id">
+            <option value="1">NO</option>
+            <option value="2">SAN MARTIN DE LOS ANDES</option>
+            <option value="3">VILLA LA ANGOSTURA</option>
+            <option value="4">MOQUEHUE</option>
+            <option value="5">LAS GRUTAS</option>
+        </select>
+        <div id="chartContainer" style="width: 800px; height: 380px;"></div>
+
     </div>
 </div>
-        <script type="text/javascript">
-    window.onload = function () {
-        var chart = new CanvasJS.Chart("chartContainer", {
+<script type="text/javascript">
+    $(document).ready(function () {
 
-            title:{
-                text: "Fruits sold in First Quarter"
-            },
-            data: [//array of dataSeries
-                { //dataSeries object
+        $.getJSON("EstadisticaController.php", function (result) {
 
-                    /*** Change type "column" to "bar", "area", "line" or "pie"***/
-                    type: "column",
-                    dataPoints: [
-                        { label: "banana", y: 18 },
-                        { label: "orange", y: 29 },
-                        { label: "apple", y: 40 },
-                        { label: "mango", y: 34 },
-                        { label: "grape", y: 24 }
-                    ]
-                }
-            ]
+            var chart = new CanvasJS.Chart("chartContainer", {
+                data: [
+                    {
+                        dataPoints: result
+                    }
+                ]
+            });
+
+            chart.render();
         });
-
-        chart.render();
-    }
+    });
 </script>
