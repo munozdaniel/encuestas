@@ -1,2 +1,0 @@
-{#RECORRER EL FORMULARIO ENCUESTA#}
-{{ content() }}
