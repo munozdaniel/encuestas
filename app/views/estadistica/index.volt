@@ -7,31 +7,26 @@
         </div>
         {{ content() }}
        {{ link_to('estadistica/generar','class':'btn btn-success',"Generar") }}
-        <select id="complejo_id" name="complejo_id">
-            <option value="1">NO</option>
-            <option value="2">SAN MARTIN DE LOS ANDES</option>
-            <option value="3">VILLA LA ANGOSTURA</option>
-            <option value="4">MOQUEHUE</option>
-            <option value="5">LAS GRUTAS</option>
-        </select>
-        <div id="chartContainer" style="width: 800px; height: 380px;"></div>
+
+        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        <table id="datatable" hidden="" >
+            <thead>
+            <tr>
+                <th></th>
+                {% for punto in puntaje %}
+                    <th>{{ punto.puntaje_descripcion}}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>Personal Administrativo</th>
+                {% for personal in administrativo %}
+                    <td>{{  personal.TRATO }}</td>
+                {% endfor %}
+            </tr>
+            </tbody>
+        </table>
 
     </div>
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        $.getJSON("EstadisticaController.php", function (result) {
-
-            var chart = new CanvasJS.Chart("chartContainer", {
-                data: [
-                    {
-                        dataPoints: result
-                    }
-                ]
-            });
-
-            chart.render();
-        });
-    });
-</script>
