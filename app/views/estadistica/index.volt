@@ -6,10 +6,15 @@
             <p class="text-center wow fadeInDown">Solo usuarios administradores pueden acceder a esta sección.</p>
         </div>
         {{ content() }}
-       {{ link_to('estadistica/generar','class':'btn btn-success',"Generar") }}
+        <select>
+            <option value="1" >Personal</option>
+            <option value="2">Recepcion</option>
+            <option value="3">Unidades</option>
+        </select>
+       {{ link_to('estadistica/unidad','class':'btn btn-success',"Generar") }}
 
         <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        <table id="datatable" hidden="" >
+        <table id="datatable" hidden="">
             <thead>
             <tr>
                 <th></th>
@@ -19,12 +24,18 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th>Personal Administrativo</th>
-                {% for personal in administrativo %}
-                    <td>{{  personal.TRATO }}</td>
-                {% endfor %}
-            </tr>
+            {% for elemento in arregloIndexado %}
+                <tr>
+                    {% for unGrafico in elemento %}
+                        {% if loop.first %}
+                            <th>{{  unGrafico.NOMBRE }}</th>
+                        {% endif %}
+                            <td>{{  unGrafico.PUNTAJE }}</td>
+
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+
             </tbody>
         </table>
 
