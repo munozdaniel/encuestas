@@ -33,11 +33,15 @@ class SorteoController extends ControllerBase
                         return $this->redireccionar('sorteo/registrado');
                     }
                     $this->flash->error($sorteo->getMessages());
+
                 }
                 catch(PDOException $e){
                     switch($e->getCode()){
                         case 23000:
-                            $this->flash->error("El Correo ya se encuentra registrado. No puede participar más de una vez.");
+                            $this->flash->error("El Correo ya se encuentra registrado. No puede participar mÃ¡s de una vez.");
+                            break;
+                        default:
+                            $this->flash->error("ERROR:".$e->getMessage());
                             break;
                     }
                 }
