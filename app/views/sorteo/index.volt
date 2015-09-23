@@ -16,7 +16,7 @@
             </div>
             <br>
             <br>
-            {{ form('class': 'form-search') }}
+            {{ form('sorteo/index','class': 'form-search') }}
             <table class="signup" align="center">
                 <tr>
                     <td align="right">{{ form.label('sorteo_nombreApellido') }}</td>
