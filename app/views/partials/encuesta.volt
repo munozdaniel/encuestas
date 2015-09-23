@@ -75,7 +75,7 @@
                             <table class="table">
                                 <tbody>
                                 <tr>
-                                    <td>Nivel de desmpeño<span class="obligatorio"> *</span></td>
+                                    <td>Nivel de desempeño<span class="obligatorio"> *</span></td>
                                     <td>{{ recepcionForm.render('recepcion_nivelDesempeno') }}</td>
                                 </tr>
                                 <tr>
