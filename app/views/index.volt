@@ -52,7 +52,8 @@
     {%  if (assets.collection("footer")) %}
         {{  assets.outputJs("footer") }}
     {% endif %}
-    <script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
+    {#Firefox: Para ver el calendario en los input type=date #}
+    {{ javascript_include('js/firefox/polyfiller.js') }}
     <script>
         webshims.setOptions('forms-ext', {types: 'date'});
         webshims.polyfill('forms forms-ext');
