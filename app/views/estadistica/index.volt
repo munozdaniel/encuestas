@@ -3,15 +3,17 @@
         <br>
         <div class="section-header">
             <h2 class="section-title text-center wow fadeInDown">Estadisticas </h2>
-            <p class="text-center wow fadeInDown">Solo usuarios administradores pueden acceder a esta sección.</p>
+            <div class="btn-group" role="group" aria-label="..." align="center">
+                {{ link_to('estadistica/unidad','type':'button','class':'btn btn-default',"Recepción") }}
+                {{ link_to('estadistica/personal','type':'button','class':'btn btn-default',"Unidad") }}
+                {{ link_to('estadistica/index','type':'button','class':'btn btn-default',"Personal") }}
+
+            </div>
+
+
         </div>
         {{ content() }}
-        <select>
-            <option value="1" >Personal</option>
-            <option value="2">Recepcion</option>
-            <option value="3">Unidades</option>
-        </select>
-       {{ link_to('estadistica/unidad','class':'btn btn-success',"Generar") }}
+
 
         <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
         <table id="datatable" hidden="">
