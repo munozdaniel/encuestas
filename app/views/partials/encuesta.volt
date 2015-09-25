@@ -271,4 +271,8 @@
         //$('#'+campo).prop('disabled',valor != 1);
 
     }
+    {#Firefox: Para ver el calendario en los input type=date #}
+    {{ javascript_include('js/firefox/polyfiller.js') }}
+    webshims.setOptions('forms-ext', {types: 'date'});
+    webshims.polyfill('forms forms-ext');
 </script>
