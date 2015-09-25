@@ -35,5 +35,15 @@ return new \Phalcon\Config(array(
         'secretKey' => '6LfhrgwTAAAAAIjzQj9G4yCuJWBsAoPoF1bOyBau',
         'jsApiUrl' => 'https://www.google.com/recaptcha/api.js',
         'verifyUrl' => 'https://www.google.com/recaptcha/api/siteverify',
+    ),
+    'mail' => array(
+        'host'     => 'mail.imps.org.ar',
+        'username'        => 'desarrollo@imps.org.ar',
+        'password'    => 'sis$%&--temas',
+        'security'    => '',
+        'port'      => '26',
+        'charset'     => 'UTF-8',
+        'email'     => 'desarrollo@imps.org.ar',
+        'name'     => 'desarrollo@imps.org.ar',
     )
 ));

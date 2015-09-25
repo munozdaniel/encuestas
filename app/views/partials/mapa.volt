@@ -17,11 +17,12 @@
                             <strong>turismo@imps.tur.ar</strong><br>
                             <abbr title="Phone">Teléfono:</abbr> (0299) 4479921
                         </address>
+                        {{ form('contacto/enviar',"class":"","method":"post") }}
 
-                        <form id="main-contact-form" name="contact-form" method="post" action="#">
+                        <!--form id="main-contact-form" name="contact-form" method="post" action="#"-->
                             {% for item in contacto%}
                                 {% if loop.last %}
-                                    {{ item }}
+                                    {{ item }}{#Boton Submit#}
                                 {% else %}
                                     <div class="form-group">
                                         {{ item }}

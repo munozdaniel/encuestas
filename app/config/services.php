@@ -13,6 +13,7 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 
+
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
  */
@@ -68,7 +69,29 @@ $di->set('db', function () use ($config) {
 $di->set('dbUsuarios', function () use ($config) {
     return new DbAdapter($config->gestionusuarios->toArray());
 
-});;
+});
+
+$di->set('mail', function () use ($config) {
+    //sleep(2);
+    //require "../libraries/PHPMailer/PHPMailer.php";
+    $mail = new PHPMailer;
+    //Muestra Mensajes de error con detalles 3 o 4.
+    //$mail->SMTPDebug = 2;
+    $mail->isSMTP();
+    $mail->isHTML(true);
+
+    $mail->CharSet      = $config->mail->charset;
+    $mail->Host         = $config->mail->host;
+    $mail->SMTPAuth     = true;
+    $mail->Username     = $config->mail->username;
+    $mail->Password     = $config->mail->password;
+    $mail->SMTPSecure   = $config->mail->security;
+    $mail->Port         = $config->mail->port;
+
+    $mail->addAddress($config->mail->email, $config->mail->name);
+
+    return $mail;
+});
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
  */

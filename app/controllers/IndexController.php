@@ -95,7 +95,7 @@ class IndexController extends ControllerBase
                             $continuar = false;
                             $this->flash->error($cadena);
 
-                        }else{
+                        }else{echo "VALIDO";
                            // $encuesta->setTransaction($transaction);
                             $encuesta->assign(array(
                                 'encuesta_nroUnidad' => $this->request->getPost('encuesta_nroUnidad'),

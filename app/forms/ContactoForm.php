@@ -25,7 +25,7 @@ class ContactoForm  extends \Phalcon\Forms\Form{
         $complejo->setLabel("Tipo de Inquilino");
         $this->add($complejo);---------*/
         /*--------------- Nombre ---------*/
-        $nombre = new Text('contacto_id',array(
+        $nombre = new Text('contacto_nombre',array(
             'maxlength'   => 50,
             'placeholder' => 'Nombre',
         ));
@@ -88,7 +88,7 @@ class ContactoForm  extends \Phalcon\Forms\Form{
             'class' => 'btn btn-success btn-block'
         ));
         $participar->setLabel('Enviar');
-
+        //$participar->setAttribute('disabled','');
         $this->add($participar);
 
     }
