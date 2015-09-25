@@ -17,13 +17,19 @@ class ContactoForm  extends \Phalcon\Forms\Form{
 
     public function initialize($entity = null, $options = array())
     {
-        /*--------------- Complejo
+        /*--------------- Complejo ---------*/
         //Seleccionar un complejo y solicitar correo.
-        $complejo = new Select('complejo_id', Complejo::find(), array(
-            'using'      => array('complejo_id', 'complejo_nombre')
+        $complejo = new Select('contacto_destino', array(
+            'turismo@imps.tur.ar'      => 'Central de Turismo',
+            'complejovla@melewe.com.ar'      => 'Villa La Angostura',
+            'complejocvh@melewe.com.ar'      => 'Caviahue',
+            'complejomqh@melewe.com.ar'      => 'Moquehue',
+            'complejosma@melewe.com.ar'      => 'San Martin de los Andes',
+            'complejolg@melewe.com.ar'      => 'Las Grutas',
+
         ));
-        $complejo->setLabel("Tipo de Inquilino");
-        $this->add($complejo);---------*/
+        $complejo->setLabel("Complejo");
+        $this->add($complejo);
         /*--------------- Nombre ---------*/
         $nombre = new Text('contacto_nombre',array(
             'maxlength'   => 50,

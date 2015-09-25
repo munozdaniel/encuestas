@@ -19,20 +19,20 @@ class ContactoController extends ControllerBase
     {
         if($this->request->isPost()){
             $datos = $this->request->getPost();
-            $this->
+
             $this->mail->CharSet        = 'UTF-8' ;
             $this->mail->Host           = 'mail.imps.org.ar';
             $this->mail->SMTPAuth       = true;
-            $this->mail->Username       = 'dmunioz@imps.org.ar';
-            $this->mail->Password       = 'dan$%&--iel';
+            $this->mail->Username       = 'desarrollo@imps.org.ar';
+            $this->mail->Password       = 'sis$%&--temas';
             $this->mail->SMTPSecure     = '';
             $this->mail->Port           = 26;
+            echo "Destino : ".$datos['contacto_destino'];
+            $this->mail->addAddress($datos['contacto_destino']);
 
 
-
-
-            $this->mail->From  = $datos['contacto_nombre'];
-            $this->mail->FromName   =  $datos['contacto_email'];
+            $this->mail->From  = $datos['contacto_email'];
+            $this->mail->FromName   =  $datos['contacto_nombre'];
             //$this->mail->addReplyTo("munozda87@hotmail.com", "user");
             $this->mail->Subject        =   $datos['contacto_asunto'];
             $this->mail->Body           =   $datos['contacto_mensaje'];
