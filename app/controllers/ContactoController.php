@@ -27,7 +27,7 @@ class ContactoController extends ControllerBase
             $this->mail->Password       = 'sis$%&--temas';
             $this->mail->SMTPSecure     = '';
             $this->mail->Port           = 26;
-            echo "Destino : ".$datos['contacto_destino'];
+//            echo "Destino : ".$datos['contacto_destino'];
             $this->mail->addAddress($datos['contacto_destino']);
 
 
