@@ -92,10 +92,12 @@ class IndexController extends ControllerBase
                         //Validando aquellos datos de los formularios que no estan en los Validators
                         $cadena = $this->validarEncuesta($data);
                         if(!empty($cadena) || trim($cadena)!=""){
+                            //$encuestaForm->clear('reservacion_id');
+                            //$encuestaForm->clear('composicion_id');
                             $continuar = false;
                             $this->flash->error($cadena);
 
-                        }else{echo "VALIDO";
+                        }else{
                            // $encuesta->setTransaction($transaction);
                             $encuesta->assign(array(
                                 'encuesta_nroUnidad' => $this->request->getPost('encuesta_nroUnidad'),
@@ -180,10 +182,14 @@ class IndexController extends ControllerBase
                         return $this->redireccionar("sorteo/index");
                     }
                     else{
-                        $this->db->rollback();
 
+                        $encuestaForm->clear(array('composicion_id','reservacion_id'));
+                        $this->db->rollback();
                     }
 
+                }
+                else{
+                    $encuestaForm->clear(array('composicion_id','reservacion_id'));
                 }
             }
             catch(Phalcon\Mvc\Model\Transaction\Failed $e) {
@@ -205,7 +211,8 @@ class IndexController extends ControllerBase
     private function validarEncuesta($data)
     {//4 es OTRO
         $retorno ="";
-        if ($data['reservacion_id'] == 4 && ($data['encuesta_otroDondeReservo'] == null || $data['encuesta_otroDondeReservo'] == '')) {
+
+        if ($data['reservacion_id'] == 4 &&(empty($data['encuestaDondeReservo'])||($data['encuesta_otroDondeReservo'] == null || $data['encuesta_otroDondeReservo'] == ''))) {
             $retorno.="<div class='obligatorio'><strong>[*] Ingrese el lugar en donde realizó la reserva. </strong></div>";
         }
         if($data['composicion_id'] == 4 && ($data['encuesta_otroComposicionGrupo'] == null || $data['encuesta_otroComposicionGrupo'] == '')) {

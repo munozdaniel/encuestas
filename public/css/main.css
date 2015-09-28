@@ -976,7 +976,10 @@ ul.nostyle i {
     margin: 4px 1px 2px 3px;
 }
 .obligatorio{
-    color : #c9302c;
+     color : #c9302c;
+}
+.warning{
+    color : #F96700;
 
 }
 .mizquierda{
