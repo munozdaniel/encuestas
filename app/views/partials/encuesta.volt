@@ -71,7 +71,9 @@
                     <!-- ----------------------- RECEPCION FORM -------------------------- -->
                     <div class="col-md-12">
                         <div class="table-responsive espacio-form"><hr>
-                            <h4>RECEPCIÓN <br> <small>Cual es su opinión con respecto a:</small></h4>
+                            <h4>RECEPCIÓN <br>
+                                <small>Cual es su opinión con respecto a:</small>
+                            </h4>
                             <table class="table">
                                 <tbody>
                                 <tr>

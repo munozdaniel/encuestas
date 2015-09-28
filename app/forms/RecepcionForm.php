@@ -103,4 +103,18 @@ class RecepcionForm extends \Phalcon\Forms\Form{
         $comentarios->setFilters(array('string'));
         $this->add($comentarios);
     }
+    /**
+     * Prints messages for a specific element
+     */
+    public function messages($name)
+    {
+        $cadena= "";
+        if ($this->hasMessagesFor($name)) {
+            foreach ($this->getMessagesFor($name) as $message) {
+                //$this->flash->error($message);
+                $cadena.= $message ."<br>";//para mostrar con tooltip
+            }
+        }
+        return $cadena;
+    }
 }
