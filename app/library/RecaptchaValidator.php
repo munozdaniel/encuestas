@@ -20,7 +20,7 @@ class RecaptchaValidator extends Validator implements ValidatorInterface
 		if (!$this->verify($value, $ip)) {
 			$message = $this->getOption('message');
 			if (!$message) {
-				$message = 'Please, confirm you are human';
+				$message = 'Por favor, confirme que es humano';
 			}
 
 			$validation->appendMessage(new Message($message, $attribute, 'Recaptcha'));
