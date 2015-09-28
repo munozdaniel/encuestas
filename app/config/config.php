@@ -46,4 +46,13 @@ return new \Phalcon\Config(array(
         'email'     => 'dmunioz@imps.org.ar',
         'name'     => 'dmunioz@imps.org.ar',
     )
+    /*
+     *  RECAPTCHA PARA EL SERVIDOR 75
+     ,
+    "recaptcha" => array(
+        'publicKey' => '6LebYA0TAAAAAOIyncl_pHz7LcgKw_Bsrs6WzyO9',
+        'secretKey' => '6LebYA0TAAAAAMPzGFDTJbd4LfPjoOCclIJupyWY',
+        'jsApiUrl' => 'https://www.google.com/recaptcha/api.js',
+        'verifyUrl' => 'https://www.google.com/recaptcha/api/siteverify',
+    ),*/
 ));
