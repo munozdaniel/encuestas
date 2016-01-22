@@ -132,7 +132,7 @@ class AlojamientoController extends ControllerBase
 
         return $this->dispatcher->forward(array(
             "controller" => "recepcion",
-            "action" => "index"
+            "action" => "new"
         ));
 
     }
