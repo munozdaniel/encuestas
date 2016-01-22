@@ -101,7 +101,7 @@ class EncuestaForm extends \Phalcon\Forms\Form{
         $composicionGrupoOtro->setAttribute('disabled','');
         $composicionGrupoOtro->setDefault('');
         $composicionGrupoOtro->setFilters(array('string'));
-
+        $composicionGrupoOtro->addValidators(array());
         $this->add($composicionGrupoOtro);
 
 
