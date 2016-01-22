@@ -66,7 +66,7 @@ class RecepcionForm extends \Phalcon\Forms\Form{
         $this->add($nivelDesempeno);
 
         /*----------------- TIEMPO DE RESPUESTA -------------------*/
-        $tiempoRespuesta = new RadioGroup("recepcion_puntajeTiempo", [
+        $tiempoRespuesta = new RadioGroup("recepcion_puntajeTiempoId", [
             'elements' => $descripcionPuntaje,
             'class' => 'pure-button button-white segment-item',
             'required'=>'true'
@@ -76,7 +76,7 @@ class RecepcionForm extends \Phalcon\Forms\Form{
         $this->add($tiempoRespuesta);
 
         /*----------------- TRATO Y CORDIALIDAD -------------------*/
-        $tratoCordialidad = new RadioGroup("recepcion_puntajeTrato", [
+        $tratoCordialidad = new RadioGroup("recepcion_puntajeTratoId", [
             'elements' => $descripcionPuntaje,
             'class' => 'pure-button button-white segment-item',
             'required'=>'true'
@@ -98,7 +98,7 @@ class RecepcionForm extends \Phalcon\Forms\Form{
         $comentarios = new \Phalcon\Forms\Element\TextArea("recepcion_comentario",
             array(
                 'maxlength'   => 240,
-                'placeholder' => 'Ingrese su comentario...',
+                'placeholder' => 'INGRESE SU COMENTARIO [200 caracteres]',
                 'rows'=>'4' ,'cols'=>'50'
             ));
         $comentarios->setLabel('Comentarios');
