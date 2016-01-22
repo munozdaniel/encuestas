@@ -8,7 +8,13 @@ class Seguridad extends \Phalcon\Mvc\User\Plugin
     {
         $auth = $this->session->get('auth');
         if(!$auth)
+        {
             $role = 'INVITADO';
+            $this->session->set('auth',array('usuario_id'   =>  3,
+                'usuario_nombreCompleto'  =>  "USUARIO INVITADO",
+                'usuario_nick'  =>  "INVITADO",
+                'rol_nombre'   =>  "INVITADO"));
+        }
         else
             $role = $auth["rol_nombre"];
 
@@ -61,23 +67,13 @@ class Seguridad extends \Phalcon\Mvc\User\Plugin
                 $acl->addRole(new \Phalcon\Acl\Role($rol->rol_nombre));
 
                 //Recupero todas las paginas de cada rol
-                $query = $this->modelsManager->createQuery("SELECT pagina.* FROM acceso,pagina,rol WHERE rol.rol_id=".$rol->rol_id." and rol.rol_id=acceso.rol_id and acceso.pagina_id=pagina.pagina_id");
+                $query = $this->modelsManager->createQuery("SELECT pagina.* FROM Acceso AS acceso,Pagina AS pagina,Rol AS rol WHERE rol.rol_id=".$rol->rol_id." and rol.rol_id=acceso.rol_id and acceso.pagina_id=pagina.pagina_id");
                 $listaPaginasPorRol = $query->execute();
+
                 foreach($listaPaginasPorRol as $pagina)
                 {
-                    //Recupero todas las acciones de cada pagina
-                    $query = $this->modelsManager->createQuery("SELECT pagina.pagina_nombreAccion FROM pagina WHERE pagina.pagina_nombreControlador='".$pagina->pagina_nombreControlador."'");
-                    $arregloAcciones= $query->execute();
-                    $recursos = array();
-                    foreach($arregloAcciones as $accion)
-                    {
-                        $recursos[] = $accion->pagina_nombreAccion;//convierto las acciones en un arreglo para pasar por parametro al addResource.
-                    }
-                    $acl->addResource(new Resource($pagina->pagina_nombreControlador),$recursos);
-                    foreach($arregloAcciones as $accion)
-                    {
-                        $acl->allow($rol->rol_nombre,$pagina->pagina_nombreControlador,$accion['pagina_nombreAccion']);//No se puede dar permisos (allow) antes de agregar el recurso (addResource)
-                    }
+                    $acl->addResource(new Resource($pagina->pagina_nombreControlador),$pagina->pagina_nombreAccion);
+                    $acl->allow($rol->rol_nombre,$pagina->pagina_nombreControlador,$pagina->pagina_nombreAccion);
                 }
             }
             //El acl queda almacenado en sesión
