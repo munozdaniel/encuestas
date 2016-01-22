@@ -28,7 +28,7 @@ class AlojamientoForm extends \Phalcon\Forms\Form{
         $cantidad->setFilters(array('int'));
         $this->add($cantidad);
         /*------------- TIPO PAX ------------*/
-        $tipoPax = new Select('alojamiento_tipoPax', Tipopax::find(), array(
+        $tipoPax = new Select('alojamiento_tipoPaxId', Tipopax::find(), array(
             'using'      => array('tipoPax_id', 'tipoPax_nombre'),
             'class'=>'form-control ','required'=>'true'
         ));

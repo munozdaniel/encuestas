@@ -4,13 +4,17 @@
 
         <div class="col-md-10 col-md-offset-1 ss-form-container">
 
-            {{ form('alojamiento/saveAlojamiento',"class":"","method":"post") }}
+            {{ form('alojamiento/create',"class":"","method":"post") }}
 
             {{ content() }}
 
             <div class="col-xs-12 col-md-12">
                 <div class="center scaffold">
-                    <h2>Paso 1/5</h2><br>
+                    <div class="col-xs-12 col-md-12" style="margin-bottom: 25px;">
+                        <h2 class="pull-left">El Alojamiento</h2>
+                        <h3  class="pull-right"><small>Paso 1/5</small></h3>
+                    </div>
+
                     <!-- ----------------------- ENCUESTA FORM PART I -------------------------- -->
                     <div class="col-xs-12 col-md-6 form-group">
                         <span class="obligatorio pull-left">[<i class="fa fa-asterisk"></i>]&nbsp;</span>
@@ -39,7 +43,7 @@
                         {{ alojamientoForm.render('alojamiento_primeraVisita') }}
                     </div>
                     <div class="col-xs-12 col-md-12 form-group">
-                        {{ submit_button('CONTINUAR','class':'form-control btn btn-success ') }}
+                        {{ submit_button('CONTINUAR','class':'form-control btn btn-info ') }}
                     </div>
                 </div>
             </div>

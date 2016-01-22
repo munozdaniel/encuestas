@@ -20,13 +20,7 @@ class IndexController extends ControllerBase
         $this->view->alojamientoForm = new AlojamientoForm();
     }
 
-    /**
-     * Etapa Nº2
-     */
-    public function recepcionAction()
-    {
-        $this->view->recepcionForm = new RecepcionForm();
-    }
+
 
     public function indexOriginalAction()
     {

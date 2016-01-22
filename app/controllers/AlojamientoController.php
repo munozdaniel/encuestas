@@ -114,7 +114,7 @@ class AlojamientoController extends ControllerBase
         $alojamiento->setAlojamientoTipopaxid($this->request->getPost("alojamiento_tipoPaxId"));
         $alojamiento->setAlojamientoFechaestadia($this->request->getPost("alojamiento_fechaEstadia"));
         $alojamiento->setAlojamientoPrimeravisita($this->request->getPost("alojamiento_primeraVisita"));
-        $alojamiento->setAlojamientoHabilitado($this->request->getPost("alojamiento_habilitado"));
+        $alojamiento->setAlojamientoHabilitado(1);
         
 
         if (!$alojamiento->save()) {
@@ -128,10 +128,10 @@ class AlojamientoController extends ControllerBase
             ));
         }
 
-        $this->flash->success("alojamiento was created successfully");
+        $this->flash->notice(" <i class='fa fa-thumbs-o-up' style='font-size: 45px !important;'></i> PASO Nº 1 COMPLETADO CON EXITO! ");
 
         return $this->dispatcher->forward(array(
-            "controller" => "alojamiento",
+            "controller" => "recepcion",
             "action" => "index"
         ));
 
@@ -235,7 +235,6 @@ class AlojamientoController extends ControllerBase
      * Encargado de guardar una nueva instancia de alojamiento.
      */
     public function saveAlojamientoAction(){
-        $this->view->disable();
         $alojamientoForm = new AlojamientoForm();
         if ($this->request->isPost()) {
             $data           = $this->request->getPost();
@@ -246,16 +245,13 @@ class AlojamientoController extends ControllerBase
                 }
                 $this->redireccionar('index/index');
             }
-            if($this->request->getPost('alojamiento_primeraVisita')=="SI")
-                $primeraVisita = 1;
-            else
-                $primeraVisita = 0;
+
             $alojamiento->assign(array(
                 'alojamiento_nroUnidad'     => $this->request->getPost('alojamiento_nroUnidad'),
                 'alojamiento_cantDias'      =>  $this->request->getPost('alojamiento_cantDias'),
                 'alojamiento_tipoPaxId'     =>  $this->request->getPost('alojamiento_tipoPaxId'),
                 'alojamiento_fechaEstadia'  =>  $this->request->getPost('alojamiento_fechaEstadia'),
-                'alojamiento_primeraVisita' =>  $primeraVisita,
+                'alojamiento_primeraVisita' =>  $this->request->getPost('alojamiento_primeraVisita'),
                 'alojamiento_habilitado'    =>  1,
             ));
             if ($alojamiento->save() == false) {
@@ -265,8 +261,10 @@ class AlojamientoController extends ControllerBase
                 }
                 $this->redireccionar('index/index');
             }
-            $this->response->redirect('index/recepcion');
+            $this->flash->notice(" <i class='fa fa-thumbs-o-up' style='font-size: 45px !important;'></i> PASO Nº 1 COMPLETADO CON EXITO! ");
+            $this->redireccionar('recepcion/index');
         }
         $this->redireccionar('index/index');
     }
+
 }
