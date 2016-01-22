@@ -34,12 +34,14 @@ class RecepcionForm extends \Phalcon\Forms\Form{
         $descripcionPuntaje = array();
         foreach($listaPuntaje as $item)
         {
-            array_push($descripcionPuntaje,$item->puntaje_descripcion."&nbsp; &nbsp;");
+            array_push($descripcionPuntaje,$item->getPuntajeNombre()."&nbsp; &nbsp;");
         }
-        $nivelDesempeno = new RadioGroup("recepcion_nivelDesempeno", [
+        $nivelDesempeno = new RadioGroup("recepcion_puntajeNivelId", [
             'elements' => $descripcionPuntaje,
-            'class' => 'pure-button button-white segment-item'
+            'class' => 'pure-button button-white segment-item',
+            'required'=>'true'
         ]);
+        $nivelDesempeno->setLabel('Nivel de Desempeño');
 /*
         $nivelDesempeno->setFilters([
             'striptags',
@@ -61,30 +63,30 @@ class RecepcionForm extends \Phalcon\Forms\Form{
             ]),
         ]);
 */
-        $nivelDesempeno->setChecked(2);
         $this->add($nivelDesempeno);
 
         /*----------------- TIEMPO DE RESPUESTA -------------------*/
-        $tiempoRespuesta = new RadioGroup("recepcion_tiempoRespuesta", [
+        $tiempoRespuesta = new RadioGroup("recepcion_puntajeTiempo", [
             'elements' => $descripcionPuntaje,
-            'class' => 'pure-button button-white segment-item'
+            'class' => 'pure-button button-white segment-item',
+            'required'=>'true'
         ]);
 
-        $tiempoRespuesta->setChecked(2);
-
+        $tiempoRespuesta->setLabel('Tiempo de Respuesta');
         $this->add($tiempoRespuesta);
 
         /*----------------- TRATO Y CORDIALIDAD -------------------*/
-        $tratoCordialidad = new RadioGroup("recepcion_tratoYCordialidad", [
+        $tratoCordialidad = new RadioGroup("recepcion_puntajeTrato", [
             'elements' => $descripcionPuntaje,
-            'class' => 'pure-button button-white segment-item'
+            'class' => 'pure-button button-white segment-item',
+            'required'=>'true'
         ]);
 
-        $tratoCordialidad->setChecked(2);
+        $tratoCordialidad->setLabel('Trato y Cordialidad');
         $this->add($tratoCordialidad);
 
         /*----------------- INCONVENIENTES -------------------*/
-        $recepcion_inconvenientes = new RadioGroup("recepcion_inconvenientes", [
+        $recepcion_inconvenientes = new RadioGroup("recepcion_puntajeInconvenientes", [
             'elements' => array('SI','NO'),
             'class' => 'pure-button button-white segment-item sub-items'
         ]);
@@ -93,7 +95,7 @@ class RecepcionForm extends \Phalcon\Forms\Form{
         $this->add($recepcion_inconvenientes);
 
         /*----------------- COMENTARIOS -------------------*/
-        $comentarios = new \Phalcon\Forms\Element\TextArea("recepcion_comentarios",
+        $comentarios = new \Phalcon\Forms\Element\TextArea("recepcion_comentario",
             array(
                 'maxlength'   => 240,
                 'placeholder' => 'Ingrese su comentario...',

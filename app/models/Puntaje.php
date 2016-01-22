@@ -13,7 +13,7 @@ class Puntaje extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    protected $puntaje;
+    protected $puntaje_nombre;
 
     /**
      * Method to set the value of field puntaje_id
@@ -29,14 +29,14 @@ class Puntaje extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field puntaje
+     * Method to set the value of field puntaje_nombre
      *
-     * @param string $puntaje
+     * @param string $puntaje_nombre
      * @return $this
      */
-    public function setPuntaje($puntaje)
+    public function setPuntajeNombre($puntaje_nombre)
     {
-        $this->puntaje = $puntaje;
+        $this->puntaje_nombre = $puntaje_nombre;
 
         return $this;
     }
@@ -52,13 +52,13 @@ class Puntaje extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns the value of field puntaje
+     * Returns the value of field puntaje_nombre
      *
      * @return string
      */
-    public function getPuntaje()
+    public function getPuntajeNombre()
     {
-        return $this->puntaje;
+        return $this->puntaje_nombre;
     }
 
     /**
