@@ -1,14 +1,7 @@
 <div class="container" align="center">
     <div class="row">
+        {{ partial('index/parcial/header') }}
 
-        <div class="section-header">
-            <h2 class="section-title text-center wow fadeInDown">ENCUESTA COMPLEJO MELEWE </h2>
-
-            <p class="text-center wow fadeInDown">Contesta la encuesta y <strong>participa del sorteo </strong> de una
-                estadia en Melewe!!
-                <ins>3 Noches para 2 Personas</ins>
-            </p>
-        </div>
         <div class="col-md-10 col-md-offset-1 ss-form-container">
 
             {{ form('alojamiento/saveAlojamiento',"class":"","method":"post") }}
