@@ -182,14 +182,16 @@ class IndexController extends ControllerBase
                         return $this->redireccionar("sorteo/index");
                     }
                     else{
-
+                        
                         $encuestaForm->clear(array('composicion_id','reservacion_id'));
                         $this->db->rollback();
+
                     }
 
                 }
                 else{
                     $encuestaForm->clear(array('composicion_id','reservacion_id'));
+
                 }
             }
             catch(Phalcon\Mvc\Model\Transaction\Failed $e) {
