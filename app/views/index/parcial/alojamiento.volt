@@ -11,7 +11,7 @@
         </div>
         <div class="col-md-10 col-md-offset-1 ss-form-container">
 
-            {{ form('index/saveAlojamiento',"class":"","method":"post") }}
+            {{ form('alojamiento/saveAlojamiento',"class":"","method":"post") }}
 
             {{ content() }}
 
@@ -31,8 +31,8 @@
                     </div>
                     <div class="col-xs-12 col-md-6 form-group">
                         <span class="obligatorio  pull-left">[<i class="fa fa-asterisk"></i>] &nbsp;</span>
-                        {{ alojamientoForm.label('alojamiento_tipoPax',['class':'pull-left']) }}
-                        {{ alojamientoForm.render('alojamiento_tipoPax') }}
+                        {{ alojamientoForm.label('alojamiento_tipoPaxId',['class':'pull-left']) }}
+                        {{ alojamientoForm.render('alojamiento_tipoPaxId') }}
                     </div>
                     <div class="col-xs-12 col-md-6 form-group">
                         <span class="obligatorio  pull-left">[<i class="fa fa-asterisk"></i>] &nbsp;</span>

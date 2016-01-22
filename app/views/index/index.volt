@@ -1,7 +1,7 @@
 
 
 <section id="features">
-    {{ partial('partials/encuesta') }}
+    {{ partial('index/parcial/alojamiento') }}
 </section>
 
 <section id="get-in-touch">
