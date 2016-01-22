@@ -42,7 +42,10 @@ class RadioGroup  extends \Phalcon\Forms\Element{
         $cssClass = isset($attr['class']) ? ' class="'.$attr['class'].'"' : '';
 
         $eleName = $this->getName() . '_';
-
+        if(isset($attr['required']))
+            $required = "required";
+        else
+            $required ="";
         foreach($attr['elements'] as $key => $label) {
 
             $checked = '';
@@ -51,7 +54,7 @@ class RadioGroup  extends \Phalcon\Forms\Element{
             }
         //NOTA!!! : en el atributo value el valor va a ser key+1 porque en la bd las tablas siempre empiezan en 1, y no en 0.
             $rendered .= '
-    <label for="'.$eleName . $key.'"'.$cssClass.'><input type="radio"'.$checked.' id="'.$eleName . $key. '" name="'.$this->getName().'" value="'.($key+1).'"> ' .
+    <label for="'.$eleName . $key.'"'.$cssClass.'><input type="radio"'.$checked.' id="'.$eleName . $key. '" '.$required . ' name="'.$this->getName().'" value="'.($key+1).'" > ' .
                 $label . '</label>' ;
         }
 
