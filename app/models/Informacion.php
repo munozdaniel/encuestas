@@ -7,20 +7,66 @@ class Informacion extends \Phalcon\Mvc\Model
      *
      * @var integer
      */
-    public $informacion_id;
+    protected $informacion_id;
 
     /**
      *
      * @var string
      */
-    public $informacion_nombre;
+    protected $informacion_nombre;
+
+    /**
+     * Method to set the value of field informacion_id
+     *
+     * @param integer $informacion_id
+     * @return $this
+     */
+    public function setInformacionId($informacion_id)
+    {
+        $this->informacion_id = $informacion_id;
+
+        return $this;
+    }
+
+    /**
+     * Method to set the value of field informacion_nombre
+     *
+     * @param string $informacion_nombre
+     * @return $this
+     */
+    public function setInformacionNombre($informacion_nombre)
+    {
+        $this->informacion_nombre = $informacion_nombre;
+
+        return $this;
+    }
+
+    /**
+     * Returns the value of field informacion_id
+     *
+     * @return integer
+     */
+    public function getInformacionId()
+    {
+        return $this->informacion_id;
+    }
+
+    /**
+     * Returns the value of field informacion_nombre
+     *
+     * @return string
+     */
+    public function getInformacionNombre()
+    {
+        return $this->informacion_nombre;
+    }
 
     /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->hasMany('informacion_id', 'Encuesta', 'informacion_id', array('alias' => 'Encuesta'));
+        $this->hasMany('informacion_id', 'Adicional', 'adicional_informacionId', array('alias' => 'Adicional'));
     }
 
     /**

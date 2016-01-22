@@ -1,64 +1,64 @@
 <?php
 
-class Tipopax extends \Phalcon\Mvc\Model
+class Grupo extends \Phalcon\Mvc\Model
 {
 
     /**
      *
      * @var integer
      */
-    protected $tipoPax_id;
+    protected $grupo_id;
 
     /**
      *
      * @var string
      */
-    protected $tipoPax_nombre;
+    protected $grupo_nombre;
 
     /**
-     * Method to set the value of field tipoPax_id
+     * Method to set the value of field grupo_id
      *
-     * @param integer $tipoPax_id
+     * @param integer $grupo_id
      * @return $this
      */
-    public function setTipopaxId($tipoPax_id)
+    public function setGrupoId($grupo_id)
     {
-        $this->tipoPax_id = $tipoPax_id;
+        $this->grupo_id = $grupo_id;
 
         return $this;
     }
 
     /**
-     * Method to set the value of field tipoPax_nombre
+     * Method to set the value of field grupo_nombre
      *
-     * @param string $tipoPax_nombre
+     * @param string $grupo_nombre
      * @return $this
      */
-    public function setTipopaxNombre($tipoPax_nombre)
+    public function setGrupoNombre($grupo_nombre)
     {
-        $this->tipoPax_nombre = $tipoPax_nombre;
+        $this->grupo_nombre = $grupo_nombre;
 
         return $this;
     }
 
     /**
-     * Returns the value of field tipoPax_id
+     * Returns the value of field grupo_id
      *
      * @return integer
      */
-    public function getTipopaxId()
+    public function getGrupoId()
     {
-        return $this->tipoPax_id;
+        return $this->grupo_id;
     }
 
     /**
-     * Returns the value of field tipoPax_nombre
+     * Returns the value of field grupo_nombre
      *
      * @return string
      */
-    public function getTipopaxNombre()
+    public function getGrupoNombre()
     {
-        return $this->tipoPax_nombre;
+        return $this->grupo_nombre;
     }
 
     /**
@@ -66,7 +66,7 @@ class Tipopax extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->hasMany('tipoPax_id', 'Alojamiento', 'alojamiento_tipoPaxId', array('alias' => 'Alojamiento'));
+        $this->hasMany('grupo_id', 'Adicional', 'adicional_grupoId', array('alias' => 'Adicional'));
     }
 
     /**
@@ -76,14 +76,14 @@ class Tipopax extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'tipopax';
+        return 'grupo';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Tipopax[]
+     * @return Grupo[]
      */
     public static function find($parameters = null)
     {
@@ -94,7 +94,7 @@ class Tipopax extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Tipopax
+     * @return Grupo
      */
     public static function findFirst($parameters = null)
     {

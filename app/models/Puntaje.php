@@ -7,27 +7,73 @@ class Puntaje extends \Phalcon\Mvc\Model
      *
      * @var integer
      */
-    public $puntaje_id;
+    protected $puntaje_id;
 
     /**
      *
      * @var string
      */
-    public $puntaje_descripcion;
+    protected $puntaje;
+
+    /**
+     * Method to set the value of field puntaje_id
+     *
+     * @param integer $puntaje_id
+     * @return $this
+     */
+    public function setPuntajeId($puntaje_id)
+    {
+        $this->puntaje_id = $puntaje_id;
+
+        return $this;
+    }
+
+    /**
+     * Method to set the value of field puntaje
+     *
+     * @param string $puntaje
+     * @return $this
+     */
+    public function setPuntaje($puntaje)
+    {
+        $this->puntaje = $puntaje;
+
+        return $this;
+    }
+
+    /**
+     * Returns the value of field puntaje_id
+     *
+     * @return integer
+     */
+    public function getPuntajeId()
+    {
+        return $this->puntaje_id;
+    }
+
+    /**
+     * Returns the value of field puntaje
+     *
+     * @return string
+     */
+    public function getPuntaje()
+    {
+        return $this->puntaje;
+    }
 
     /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->hasMany('puntaje_id', 'Personal', 'personal_tratoMucamas', array('alias' => 'Personal'));
-        $this->hasMany('puntaje_id', 'Personal', 'personal_tratoAdministrativo', array('alias' => 'Personal'));
-        $this->hasMany('puntaje_id', 'Recepcion', 'recepcion_tratoYCordialidad', array('alias' => 'Recepcion'));
-        $this->hasMany('puntaje_id', 'Recepcion', 'recepcion_nivelDesempeno', array('alias' => 'Recepcion'));
-        $this->hasMany('puntaje_id', 'Recepcion', 'recepcion_tiempoRespuesta', array('alias' => 'Recepcion'));
-        $this->hasMany('puntaje_id', 'Unidad', 'puntaje_confort', array('alias' => 'Unidad'));
-        $this->hasMany('puntaje_id', 'Unidad', 'puntaje_higiene', array('alias' => 'Unidad'));
-        $this->hasMany('puntaje_id', 'Unidad', 'puntaje_equipamiento', array('alias' => 'Unidad'));
+        $this->hasMany('puntaje_id', 'Personal', 'personal_puntajeAdministrativoId', array('alias' => 'Personal'));
+        $this->hasMany('puntaje_id', 'Personal', 'personal_puntajeMucamaId', array('alias' => 'Personal'));
+        $this->hasMany('puntaje_id', 'Recepcion', 'recepcion_puntajeTratoId', array('alias' => 'Recepcion'));
+        $this->hasMany('puntaje_id', 'Recepcion', 'recepcion_puntajeNivelId', array('alias' => 'Recepcion'));
+        $this->hasMany('puntaje_id', 'Recepcion', 'recepcion_puntajeTiempoId', array('alias' => 'Recepcion'));
+        $this->hasMany('puntaje_id', 'Unidad', 'unidad_puntajeConfortId', array('alias' => 'Unidad'));
+        $this->hasMany('puntaje_id', 'Unidad', 'unidad_puntajeHigieneId', array('alias' => 'Unidad'));
+        $this->hasMany('puntaje_id', 'Unidad', 'unidad_puntajeEquipoId', array('alias' => 'Unidad'));
     }
 
     /**
