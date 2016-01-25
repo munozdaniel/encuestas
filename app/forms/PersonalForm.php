@@ -18,73 +18,29 @@ class PersonalForm extends \Phalcon\Forms\Form{
         $descripcionPuntaje = array();
         foreach($listaPuntaje as $item)
         {
-            array_push($descripcionPuntaje,$item->puntaje_descripcion."&nbsp; &nbsp;");
+            array_push($descripcionPuntaje,$item->getPuntajeNombre()."&nbsp; &nbsp;");
         }
         /*----------------- PERSONAL DE ADMINISTRACION -------------------*/
-        $personal = new RadioGroup("personal_tratoAdministrativo", [
+        $personal = new RadioGroup("personal_puntajeAdministrativoId", [
             'elements' => $descripcionPuntaje,
-            'class' => 'pure-button button-white segment-item'
+            'class' => 'pure-button button-white segment-item',
+            'required'=>'true'
         ]);
-        /*
-        $personal->setFilters([
-            'striptags',
-            'trim'
-        ]);
-
-        $personal->addValidators([
-            new \Phalcon\Mvc\Model\Validator\StringLength([
-                'min' => 1,
-                'max' => 1,
-                'messageMaximum' => 'Too many characters for Post Type field',
-                'messageMinimum' => 'Post Type field cannot be empty',
-                'cancelOnFail' => true
-            ]),
-            new \Phalcon\Mvc\Model\Validator\Regex([
-                'pattern' => '/[a-z]/',
-                'message' => 'Post Type contained out of bounds characters',
-                'cancelOnFail' => true
-            ]),
-        ]);
-*/
-        $personal->setChecked(2);
-
+        $personal->setLabel("Personal de Administración");
         $this->add($personal);
         /*----------------- MUCAMAS -------------------*/
-
-
-        $mucamas = new RadioGroup("personal_tratoMucamas", [
+        $mucamas = new RadioGroup("personal_puntajeMucamaId", [
             'elements' => $descripcionPuntaje,
-            'class' => 'pure-button button-white segment-item'
+            'class' => 'pure-button button-white segment-item',
+            'required'=>'true'
         ]);
-/*
-        $mucamas->setFilters([
-            'striptags',
-            'trim'
-        ]);
-
-        $mucamas->addValidators([
-            new \Phalcon\Mvc\Model\Validator\StringLength([
-                'min' => 1,
-                'max' => 1,
-                'messageMaximum' => 'Too many characters for Post Type field',
-                'messageMinimum' => 'Post Type field cannot be empty',
-                'cancelOnFail' => true
-            ]),
-            new \Phalcon\Mvc\Model\Validator\Regex([
-                'pattern' => '/[a-z]/',
-                'message' => 'Post Type contained out of bounds characters',
-                'cancelOnFail' => true
-            ]),
-        ]);
-*/
-        $mucamas->setChecked(2);
-
+        $personal->setLabel("Mucamas");
         $this->add($mucamas);
         /*----------------- COMENTARIOS -------------------*/
-        $comentarios = new \Phalcon\Forms\Element\TextArea("personal_comentarios",
+        $comentarios = new \Phalcon\Forms\Element\TextArea("personal_comentario",
             array(
-                'maxlength'   => 150,
-                'placeholder' => 'Ingrese su comentario...',
+                'maxlength'   => 200,
+                'placeholder' => 'INGRESE SU COMENTARIO (máx. 200 caracteres)',
                 'rows'=>'4' ,'cols'=>'50'
             ));
         $comentarios->setLabel('Comentarios');
