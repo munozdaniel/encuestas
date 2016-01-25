@@ -48,10 +48,10 @@
                     </div>
                     <div class=" form-group">
                         <div class="col-xs-12 col-md-12">
-                            {{ recepcionForm.label('recepcion_puntajeInconvenientes',['class':'pull-left']) }}
+                            {{ recepcionForm.label('recepcion_tieneInconvenientes',['class':'pull-left']) }}
                         </div>
                         <div class="col-xs-12 col-md-7">
-                            {{ recepcionForm.render('recepcion_puntajeInconvenientes') }}
+                            {{ recepcionForm.render('recepcion_tieneInconvenientes') }}
                         </div>
                     </div>
                     <div class=" form-group">

@@ -86,7 +86,7 @@ class RecepcionForm extends \Phalcon\Forms\Form{
         $this->add($tratoCordialidad);
 
         /*----------------- INCONVENIENTES -------------------*/
-        $recepcion_inconvenientes = new RadioGroup("recepcion_puntajeInconvenientes", [
+        $recepcion_inconvenientes = new RadioGroup("recepcion_tieneInconvenientes", [
             'elements' => array('SI','NO'),
             'class' => 'pure-button button-white segment-item sub-items'
         ]);
@@ -97,8 +97,8 @@ class RecepcionForm extends \Phalcon\Forms\Form{
         /*----------------- COMENTARIOS -------------------*/
         $comentarios = new \Phalcon\Forms\Element\TextArea("recepcion_comentario",
             array(
-                'maxlength'   => 240,
-                'placeholder' => 'INGRESE SU COMENTARIO [200 caracteres]',
+                'maxlength'   => 200,
+                'placeholder' => 'INGRESE SU COMENTARIO (máx. 200 caracteres)',
                 'rows'=>'4' ,'cols'=>'50'
             ));
         $comentarios->setLabel('Comentarios');
