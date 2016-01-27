@@ -3,7 +3,7 @@
         {{ partial('index/parcial/header') }}
 
         <div class="col-md-10 col-md-offset-1 ss-form-container">
-            {{ form('adicional/create',"id":"crearAdicional","method":"post") }}
+            {{ form('adicional/create',"id":"formAdicional","method":"post") }}
 
 
             <div class="col-xs-12 col-md-12">
@@ -18,172 +18,176 @@
                         </h3>
                     </div>
                     <!-- ----------------------- ENCUESTA FORM PART I -------------------------- -->
-                    <div class="col-xs-12 col-md-6">
+                    <div class="col-xs-12 col-md-6 col-md-offset-3">
                         <div class=" form-group">
+                            <fieldset>
+                                <legend style="border-bottom:none !important;">
+                                    <span class="obligatorio ">[<i class="fa fa-asterisk"></i>]&nbsp;</span>
+                                    <label for="adicional_reservaId">
+                                        <ins>Donde realizó la reserva?</ins>
+                                    </label>
+                                </legend>
 
-                        <fieldset>
-                            <legend style="border-bottom:none !important;">
-                                <span class="obligatorio pull-left">[<i class="fa fa-asterisk"></i>]&nbsp;</span>
-                                <label for="adicional_reservaId"><ins>Donde hizo la reserva?</ins></label></legend>
-                            <select id="adicional_reservaId" name="adicional_reservaId" class="form-control" required
-                                    onchange="habilitarOtro('adicional_reservaOtro',this.id,this.value)">
-                                <option value="">Seleccione una opción</option>
-                                <option value="1">EN EL DPTO DE TURISMO DE MI INSTITUCIÓN</option>
-                                <option value="2">EN EL COMPLEJO</option>
-                                <option value="3">EN NEUQUEN</option>
-                                <option value="4">OTRO</option>
-                            </select>
-                            <input type="text" id="adicional_reservaOtro" name="adicional_reservaOtro"
-                                             class="form-control" placeholder="Otro lugar" disabled="">
-                        </fieldset>
-                            </div>
+                                <datalist id="lista_reserva">
+                                    <option value="EN EL DPTO DE TURISMO DE MI INSTITUCIÓN"></option>
+                                    <option value="EN EL COMPLEJO"></option>
+                                    <option value="EN NEUQUEN"></option>
+                                </datalist>
+                                <input type="text" name="adicional_reservaId" list="lista_reserva" required=""
+                                       autocomplete="off"
+                                       class="form-control" placeholder="Ingrese un nuevo lugar si es necesario"/>
+                            </fieldset>
+                        </div>
+                        <hr>
                     </div>
 
                     <div class="col-md-6 col-xs-12 ">
                         <div class=" form-group">
-                            <script type="text/javascript">
-                                $(document).ready(function () {
-                                    $('#adicional_grupo').multiselect({
-                                        nonSelectedText: '<span >SELECCIONAR LOS GRUPOS</span>',
-                                        enableHTML: true
-                                    });
-                                });
-                            </script>
-                            <!-- Build your select: -->
                             <fieldset>
                                 <legend style="border-bottom:none !important;">
                                     <label for="adicional_grupo">
-                                        <span class="obligatorio pull-left">[<i class="fa fa-asterisk"></i>]&nbsp;</span>
+                                        <span class="obligatorio pull-left">[<i
+                                                    class="fa fa-asterisk"></i>]&nbsp;</span>
                                         <ins> Como estuvo compuesto su grupo?</ins>
                                     </label>
                                 </legend>
-                                <select id="adicional_grupo" name="adicional_grupo[]" class="form-control"
-                                        multiple="multiple">
-                                    <option value="AMIGOS"> AMIGOS</option>
-                                    <option value="PAREJAS"> PAREJAS</option>
-                                    <option value="FAMILIA"> FAMILIA</option>
-                                </select>
+                                <label>
+                                    <span>AMIGOS</span>
+                                    <input type="checkbox" class="margin-right-8" name="adicional_grupo" value="1"/>
+                                </label>
+                                <label>
+                                    <span>PAREJAS</span>
+                                    <input type="checkbox" class="margin-right-8" name="adicional_grupo" value="2"/>
+                                </label>
+                                <label>
+                                    <span>FAMILIA</span>
+                                    <input type="checkbox" class="margin-right-8" name="adicional_grupo" value="3"/>
+                                </label>
+                                <label>
+                                    <span>OTRO</span>
+                                    <input type="checkbox" class="margin-right-8" id="otroGrupo" name="adicional_grupo"
+                                           value="4"
+                                           onClick="toggle('otroGrupo', 'adicional_grupoOtro')"/>
+                                </label>
+                                {{ text_field('adicional_grupoOtro','class':'form-control ','disabled':'','placeholder':'Ingrese otro grupo') }}
                             </fieldset>
-                            <br>
-
-                            <div class="col-xs-12 col-md-6 col-md-offset-3">
-                               <span>
-                                   {{ text_field('adicional_grupoOtro','class':'form-control','placeholder':'OTRO GRUPO (opcional)') }}
-                               </span>
-                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 col-xs-12">
                         <hr>
                     </div>
-                    <div class="col-md-6 col-xs-12">
+                    <div class="col-md-6 col-xs-12 ">
                         <div class=" form-group">
-                            <script type="text/javascript">
-                                $(document).ready(function () {
-                                    $('#adicional_informacion').multiselect({
-                                        nonSelectedText: '<span >SELECCIONAR LOS MEDIOS</span>',
-                                        enableHTML: true
-                                    });
-                                });
-                            </script>
-                            <!-- Build your select: -->
                             <fieldset>
                                 <legend style="border-bottom:none !important;">
-                                    <label for="adicional_informacion">
-                                        <span class="obligatorio pull-left">[<i class="fa fa-asterisk"></i>]&nbsp;</span>
+                                    <label for="adicional_grupo">
+                                        <span class="obligatorio pull-left">[<i
+                                                    class="fa fa-asterisk"></i>]&nbsp;</span>
                                         <ins> De que manera recibe la información?</ins>
                                     </label>
                                 </legend>
-                                <select id="adicional_informacion" name="adicional_informacion[]" class="form-control"
-                                        multiple="multiple">
-                                    <option value="WEB"> WEB</option>
-                                    <option value="FOLLETOS"> FOLLETOS</option>
-                                    <option value="CORREO ELECTRONICO"> CORREO ELECTRONICO</option>
-                                </select>
+                                <label>
+                                    <span>WEB</span>
+                                    <input type="checkbox" class="margin-right-8" name="adicional_informacion"
+                                           value="1"/>
+                                </label>
+                                <label>
+                                    <span>FOLLETOS</span>
+                                    <input type="checkbox" class="margin-right-8" name="adicional_informacion"
+                                           value="2"/>
+                                </label>
+                                <label>
+                                    <span>CORREO ELECTRONICO</span>
+                                    <input type="checkbox" class="margin-right-8" name="adicional_informacion"
+                                           value="3"/>
+                                </label>
+                                <label>
+                                    <span>OTRO</span>
+                                    <input type="checkbox" class="margin-right-8" id="otraInfo"
+                                           name="adicional_informacion" value="4"
+                                           onClick="toggle('otraInfo', 'adicional_informacionOtro')"/>
+                                </label>
+                                {{ text_field('adicional_informacionOtro','class':'form-control ','disabled':'','placeholder':'Ingrese otra fuente') }}
                             </fieldset>
-                            <br>
-
-                            <div class="col-xs-12 col-md-6 col-md-offset-3">
-                               <span>
-                                   {{ text_field('adicional_informacionOtro','class':'form-control','placeholder':'OTRO MEDIO (opcional)') }}
-                               </span>
-                            </div>
                         </div>
+                        <hr>
                     </div>
-
-
-                    <div class="col-md-6 col-xs-12">
+                    <div class="col-md-6 col-xs-12 ">
                         <div class=" form-group">
-                            <script type="text/javascript">
-                                $(document).ready(function () {
-                                    $('#adicional_motivo').multiselect({
-                                        nonSelectedText: '<span >SELECCIONAR LOS MOTIVOS</span>',
-                                        enableHTML: true
-                                    });
-                                });
-                            </script>
-                            <!-- Build your select: -->
                             <fieldset>
                                 <legend style="border-bottom:none !important;">
-                                    <label for="adicional_motivo">
-                                        <span class="obligatorio pull-left">[<i class="fa fa-asterisk"></i>]&nbsp;</span>
+                                    <label for="adicional_grupo">
+                                        <span class="obligatorio pull-left">[<i
+                                                    class="fa fa-asterisk"></i>]&nbsp;</span>
                                         <ins> Porque eligió este destino?</ins>
                                     </label>
                                 </legend>
-                                <select id="adicional_motivo" name="adicional_motivo[]" class="form-control"
-                                        multiple="multiple">
-                                    <option value="ES EL MEJOR PARA DESCANSAR"> ES EL MEJOR PARA DESCANSAR</option>
-                                    <option value="ES EL MAS BARATO"> ES EL MAS BARATO</option>
-                                    <option value="POR LOS ACTIVOS"> POR LOS ACTIVOS</option>
-                                    <option value="NO CONOCIA"> NO CONOCIA</option>
-                                </select>
+                                <label>
+                                    <span>ES EL MEJOR PARA DESCANSAR</span>
+                                    <input type="checkbox" class="margin-right-8" name="adicional_motivo" value="1"/>
+                                </label>
+                                <label>
+                                    <span>ES EL MAS BARATO</span>
+                                    <input type="checkbox" class="margin-right-8" name="adicional_motivo" value="2"/>
+                                </label>
+                                <label>
+                                    <span>POR LOS ACTIVOS</span>
+                                    <input type="checkbox" class="margin-right-8" name="adicional_motivo" value="3"/>
+                                </label>
+                                <label>
+                                    <span> NO CONOCIA</span>
+                                    <input type="checkbox" class="margin-right-8" name="adicional_motivo" value="4"/>
+                                </label>
+                                <label>
+                                    <span> OTRO</span>
+                                    <input type="checkbox" class="margin-right-8" id="otroMotivo"
+                                           name="adicional_motivo" value="5"
+                                           onClick="toggle('otroMotivo', 'adicional_motivoOtro')"/>
+                                </label>
+                                {{ text_field('adicional_motivoOtro','class':'form-control ','disabled':'','placeholder':'Ingrese otro motivo') }}
                             </fieldset>
-                            <br>
-
-                            <div class="col-xs-12 col-md-6 col-md-offset-3">
-                               <span>
-                                   {{ text_field('adicional_motivoOtro','class':'form-control','placeholder':'OTRO MOTIVO (opcional)') }}
-                               </span>
-                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 col-xs-12">
                         <hr>
                     </div>
-
-                    {# ===================================================================================== #}
-                    <div class="col-md-6 col-xs-12">
+                    <div class="col-md-6 col-xs-12 ">
                         <div class=" form-group">
                             <fieldset>
                                 <legend style="border-bottom:none !important;">
-                                    <label for="adicional_conocimiento">
+                                    <label for="adicional_grupo">
                                         <ins> Conoce algún otro MELEWE?</ins>
                                     </label>
                                 </legend>
+                                <label>
+                                    <span> SAN MARTIN DE LOS ANDES</span>
+                                    <input type="checkbox" class="margin-right-8" name="adicional_conocimiento"
+                                           value="1"/>
+                                </label>
+                                <label>
+                                    <span> VILLA LA ANGOSTURA</span>
+                                    <input type="checkbox" class="margin-right-8" name="adicional_conocimiento"
+                                           value="2"/>
+                                </label>
+                                <label>
+                                    <span> MOQUEHUE</span>
+                                    <input type="checkbox" class="margin-right-8" name="adicional_conocimiento"
+                                           value="3"/>
+                                </label>
+                                <label>
+                                    <span> LAS GRUTAS</span>
+                                    <input type="checkbox" class="margin-right-8" name="adicional_conocimiento"
+                                           value="4"/>
+                                </label>
+                                <label>
+                                    <span> CAVIAHUE</span>
+                                    <input type="checkbox" class="margin-right-8" name="adicional_conocimiento"
+                                           value="5"/>
+                                </label>
 
-                                <script type="text/javascript">
-                                    $(document).ready(function () {
-                                        $('#adicional_conocimiento').multiselect({
-                                            nonSelectedText: '<span >SELECCIONAR LOS COMPLEJOS</span>',
-                                            enableHTML: true
-                                        });
-                                    });
-                                </script>
-                                <!-- Build your select: -->
-                                <select id="adicional_conocimiento" name="adicional_conocimiento[]" class="form-control"
-                                        multiple="multiple">
-                                    <option value="1"> SAN MARTIN DE LOS ANDES</option>
-                                    <option value="2"> VILLA LA ANGOSTURA</option>
-                                    <option value="3"> MOQUEHUE</option>
-                                    <option value="4"> LAS GRUTAS</option>
-                                    <option value="5"> CAVIAHUE</option>
-                                </select>
                             </fieldset>
-
                         </div>
+                        <hr>
                     </div>
 
-                    <div class="col-md-6 col-xs-12">
+                    <div class="col-md-12 col-xs-12">
+                        <br>
                         <fieldset>
                             <legend style="border-bottom:none !important;">
                                 <label for="adicional_observacion">
@@ -191,7 +195,8 @@
                                 </label>
                             </legend>
                             <textarea id="adicional_observacion" name="adicional_observacion" maxlength="200"
-                                      placeholder="INGRESE SU COMENTARIO (máx. 200 caracteres)" rows="4" class="col-xs-12 col-md-12" >
+                                      placeholder="INGRESE SU COMENTARIO (máx. 200 caracteres)" rows="4"
+                                      class="col-xs-12 col-md-12">
                             </textarea>
                         </fieldset>
                     </div>
@@ -206,23 +211,43 @@
     </div>
 </div>
 <script type="text/javascript">
-
-    function habilitarOtro(campo, id, valor) {
-        //alert(campo+"-"+id+"- "+valor);
-        $('#' + campo).prop('disabled', valor != 4);
-    }
-    function habilitarDeshabilitarCampo(campo, id, valor) {
-        //alert("campo: "+campo + " - id: "+id + " - valor: "+valor);
-
-        if ($('#' + id).prop('checked')) {
-            $('#' + campo).prop('disabled', false);
+    /**
+     * Controla que por lo menos un checkbox este habilitado. (uno por pregunta)
+     */
+    $('form').submit(function (e) {
+        // si la cantidad de checkboxes "chequeados" es cero,
+        // entonces se evita que se envíe el formulario y se
+        // muestra una alerta al usuario
+        if ($('input[name="adicional_grupo"]:checked').length === 0) {
+            e.preventDefault();
+            alert('Especifique como esta compuesto su grupo');
         }
-        else {
-            $('#' + campo).prop('disabled', true);
+        if ($('input[name="adicional_informacion"]:checked').length === 0) {
+            e.preventDefault();
+            alert('Especifique de que manera recibe la información');
         }
-        //$('#'+campo).prop('disabled',valor != 1);
+        if ($('input[name="adicional_motivo"]:checked').length === 0) {
+            e.preventDefault();
+            alert('Especifique el motivo de su elección por el complejo');
+        }
 
+    });
+    /**
+     * Habilita/Deshabilita un input dependiendo del checkbox
+     * @param checkboxID
+     * @param toggleID
+     */
+    function toggle(checkboxID, toggleID) {
+        var checkbox = document.getElementById(checkboxID);
+        var toggle = document.getElementById(toggleID);
+        updateToggle = checkbox.checked ? toggle.disabled = false : toggle.disabled = true;
+        if (checkbox.checked) {
+            toggle.disabled = false
+            toggle.required = true;
+        } else {
+            toggle.disabled = true
+            toggle.required = false;
+        }
     }
-
 </script>
 <!-- Initialize the plugin: -->
