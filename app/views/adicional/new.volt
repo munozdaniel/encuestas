@@ -23,9 +23,9 @@
 
                         <fieldset>
                             <legend style="border-bottom:none !important;">
-                                <i class="fa fa-question-circle"></i>
+                                <span class="obligatorio pull-left">[<i class="fa fa-asterisk"></i>]&nbsp;</span>
                                 <label for="adicional_reservaId"><ins>Donde hizo la reserva?</ins></label></legend>
-                            <select id="adicional_reservaId" name="adicional_reservaId" class="form-control"
+                            <select id="adicional_reservaId" name="adicional_reservaId" class="form-control" required
                                     onchange="habilitarOtro('adicional_reservaOtro',this.id,this.value)">
                                 <option value="">Seleccione una opción</option>
                                 <option value="1">EN EL DPTO DE TURISMO DE MI INSTITUCIÓN</option>
@@ -53,7 +53,7 @@
                             <fieldset>
                                 <legend style="border-bottom:none !important;">
                                     <label for="adicional_grupo">
-                                        <i class="fa fa-question-circle"></i>
+                                        <span class="obligatorio pull-left">[<i class="fa fa-asterisk"></i>]&nbsp;</span>
                                         <ins> Como estuvo compuesto su grupo?</ins>
                                     </label>
                                 </legend>
@@ -90,7 +90,7 @@
                             <fieldset>
                                 <legend style="border-bottom:none !important;">
                                     <label for="adicional_informacion">
-                                        <i class="fa fa-question-circle"></i>
+                                        <span class="obligatorio pull-left">[<i class="fa fa-asterisk"></i>]&nbsp;</span>
                                         <ins> De que manera recibe la información?</ins>
                                     </label>
                                 </legend>
@@ -126,7 +126,7 @@
                             <fieldset>
                                 <legend style="border-bottom:none !important;">
                                     <label for="adicional_motivo">
-                                        <i class="fa fa-question-circle"></i>
+                                        <span class="obligatorio pull-left">[<i class="fa fa-asterisk"></i>]&nbsp;</span>
                                         <ins> Porque eligió este destino?</ins>
                                     </label>
                                 </legend>
@@ -157,7 +157,6 @@
                             <fieldset>
                                 <legend style="border-bottom:none !important;">
                                     <label for="adicional_conocimiento">
-                                        <i class="fa fa-question-circle"></i>
                                         <ins> Conoce algún otro MELEWE?</ins>
                                     </label>
                                 </legend>
@@ -187,7 +186,7 @@
                     <div class="col-md-6 col-xs-12">
                         <fieldset>
                             <legend style="border-bottom:none !important;">
-                                <label for="adicional_conocimiento">
+                                <label for="adicional_observacion">
                                     <ins> Desea agregar alguna observación?</ins>
                                 </label>
                             </legend>
