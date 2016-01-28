@@ -59,10 +59,7 @@ class AdicionalController extends ControllerBase
     public function newAction()
     {
         $this->view->adicionalForm = new AdicionalForm();
-        $this->assets->collection('footer')
-            ->addJs("js/jqBootstrapValidation.js");
-        $this->assets->collection('footerInline')
-            ->addInlineJs('$(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );');
+
     }
 
     /**

@@ -9,8 +9,11 @@
         {{ get_title() }}
         <!--  CSS propios de cada pagina -->
 
+
         <!-- core CSS -->
         {{ stylesheet_link('css/bootstrap.min.css') }}
+        {{ javascript_include('js/jquery.js') }}
+        {{ javascript_include('js/bootstrap.min.js') }}
         {{ stylesheet_link('css/font-awesome.min.css') }}
         {{ stylesheet_link('css/animate.min.css') }}
         {{ stylesheet_link('css/owl.carousel.css') }}
@@ -22,6 +25,7 @@
         <script src="js/html5shiv.js"></script>
         <script src="js/respond.min.js"></script>
         <![endif]-->
+
         <link rel="shortcut icon" href="images/ico/favicon.ico">
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
@@ -33,8 +37,6 @@
     </body>
 
     <!-- Javascripts -->
-    {{ javascript_include('js/jquery.js') }}
-    {{ javascript_include('js/bootstrap.min.js') }}
     <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
     {# Carrusel del inicio. Verificar si se puede utilizar solamente en el action.#}
     {{ javascript_include('js/owl.carousel.min.js') }}
@@ -52,6 +54,9 @@
     {%  if (assets.collection("footer")) %}
         {{  assets.outputJs("footer") }}
     {% endif %}
-
+    {%  if (assets.collection("footerInline")) %}
+        {{  assets.outputInlineJs("footerInline") }}
+    {% endif %}
+    <!-- Include the plugin's CSS and JS: -->
 
 </html>
