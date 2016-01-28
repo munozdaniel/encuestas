@@ -1007,3 +1007,18 @@ div.tooltip-inner {
 {
     z-index:102;
 }
+.ocultar{
+    display: none ;
+}
+.margin-right-10{
+     margin-right: 10px !important;
+ }
+.margin-right-8{
+    margin-right: 8px !important;
+}
+.margin-left-10{
+    margin-left: 10px !important;
+}
+.margin-left-8{
+    margin-left: 8px !important;
+}
