@@ -13,7 +13,19 @@ class Grupo extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    protected $grupo_nombre;
+    protected $grupo_respuesta;
+
+    /**
+     *
+     * @var string
+     */
+    protected $grupo_otro;
+
+    /**
+     *
+     * @var integer
+     */
+    protected $grupo_adicionalId;
 
     /**
      * Method to set the value of field grupo_id
@@ -29,14 +41,40 @@ class Grupo extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field grupo_nombre
+     * Method to set the value of field grupo_respuesta
      *
-     * @param string $grupo_nombre
+     * @param string $grupo_respuesta
      * @return $this
      */
-    public function setGrupoNombre($grupo_nombre)
+    public function setGrupoRespuesta($grupo_respuesta)
     {
-        $this->grupo_nombre = $grupo_nombre;
+        $this->grupo_respuesta = $grupo_respuesta;
+
+        return $this;
+    }
+
+    /**
+     * Method to set the value of field grupo_otro
+     *
+     * @param string $grupo_otro
+     * @return $this
+     */
+    public function setGrupoOtro($grupo_otro)
+    {
+        $this->grupo_otro = $grupo_otro;
+
+        return $this;
+    }
+
+    /**
+     * Method to set the value of field grupo_adicionalId
+     *
+     * @param integer $grupo_adicionalId
+     * @return $this
+     */
+    public function setGrupoAdicionalid($grupo_adicionalId)
+    {
+        $this->grupo_adicionalId = $grupo_adicionalId;
 
         return $this;
     }
@@ -52,13 +90,33 @@ class Grupo extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns the value of field grupo_nombre
+     * Returns the value of field grupo_respuesta
      *
      * @return string
      */
-    public function getGrupoNombre()
+    public function getGrupoRespuesta()
     {
-        return $this->grupo_nombre;
+        return $this->grupo_respuesta;
+    }
+
+    /**
+     * Returns the value of field grupo_otro
+     *
+     * @return string
+     */
+    public function getGrupoOtro()
+    {
+        return $this->grupo_otro;
+    }
+
+    /**
+     * Returns the value of field grupo_adicionalId
+     *
+     * @return integer
+     */
+    public function getGrupoAdicionalid()
+    {
+        return $this->grupo_adicionalId;
     }
 
     /**
@@ -66,7 +124,8 @@ class Grupo extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->hasMany('grupo_id', 'Adicional', 'adicional_grupoId', array('alias' => 'Adicional'));
+        $this->hasMany('grupo_id', 'Grupoadicional', 'grupo_id', array('alias' => 'Grupoadicional'));
+        $this->belongsTo('grupo_adicionalId', 'Adicional', 'adicional_id', array('alias' => 'Adicional'));
     }
 
     /**

@@ -4,7 +4,6 @@ class Motivo extends \Phalcon\Mvc\Model
 {
 
     /**
-     *
      * @var integer
      */
     protected $motivo_id;
@@ -13,7 +12,19 @@ class Motivo extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    protected $motivo_nombre;
+    protected $motivo_respuesta;
+
+    /**
+     *
+     * @var string
+     */
+    protected $motivo_otro;
+
+    /**
+     *
+     * @var integer
+     */
+    protected $motivo_adicionalId;
 
     /**
      * Method to set the value of field motivo_id
@@ -29,14 +40,40 @@ class Motivo extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field motivo_nombre
+     * Method to set the value of field motivo_respuesta
      *
-     * @param string $motivo_nombre
+     * @param string $motivo_respuesta
      * @return $this
      */
-    public function setMotivoNombre($motivo_nombre)
+    public function setMotivoRespuesta($motivo_respuesta)
     {
-        $this->motivo_nombre = $motivo_nombre;
+        $this->motivo_respuesta = $motivo_respuesta;
+
+        return $this;
+    }
+
+    /**
+     * Method to set the value of field motivo_otro
+     *
+     * @param string $motivo_otro
+     * @return $this
+     */
+    public function setMotivoOtro($motivo_otro)
+    {
+        $this->motivo_otro = $motivo_otro;
+
+        return $this;
+    }
+
+    /**
+     * Method to set the value of field motivo_adicionalId
+     *
+     * @param integer $motivo_adicionalId
+     * @return $this
+     */
+    public function setMotivoAdicionalid($motivo_adicionalId)
+    {
+        $this->motivo_adicionalId = $motivo_adicionalId;
 
         return $this;
     }
@@ -52,13 +89,33 @@ class Motivo extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns the value of field motivo_nombre
+     * Returns the value of field motivo_respuesta
      *
      * @return string
      */
-    public function getMotivoNombre()
+    public function getMotivoRespuesta()
     {
-        return $this->motivo_nombre;
+        return $this->motivo_respuesta;
+    }
+
+    /**
+     * Returns the value of field motivo_otro
+     *
+     * @return string
+     */
+    public function getMotivoOtro()
+    {
+        return $this->motivo_otro;
+    }
+
+    /**
+     * Returns the value of field motivo_adicionalId
+     *
+     * @return integer
+     */
+    public function getMotivoAdicionalid()
+    {
+        return $this->motivo_adicionalId;
     }
 
     /**
@@ -66,7 +123,7 @@ class Motivo extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->hasMany('motivo_id', 'Adicional', 'adicional_motivoId', array('alias' => 'Adicional'));
+        $this->hasMany('motivo_id', 'Motivoadicional', 'motivo_id', array('alias' => 'Motivoadicional'));
     }
 
     /**

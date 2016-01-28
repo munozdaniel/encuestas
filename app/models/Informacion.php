@@ -4,7 +4,6 @@ class Informacion extends \Phalcon\Mvc\Model
 {
 
     /**
-     *
      * @var integer
      */
     protected $informacion_id;
@@ -13,7 +12,19 @@ class Informacion extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    protected $informacion_nombre;
+    protected $informacion_respuesta;
+
+    /**
+     *
+     * @var string
+     */
+    protected $informacion_otro;
+
+    /**
+     *
+     * @var integer
+     */
+    protected $informacion_adicionalId;
 
     /**
      * Method to set the value of field informacion_id
@@ -29,14 +40,40 @@ class Informacion extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field informacion_nombre
+     * Method to set the value of field informacion_respuesta
      *
-     * @param string $informacion_nombre
+     * @param string $informacion_respuesta
      * @return $this
      */
-    public function setInformacionNombre($informacion_nombre)
+    public function setInformacionRespuesta($informacion_respuesta)
     {
-        $this->informacion_nombre = $informacion_nombre;
+        $this->informacion_respuesta = $informacion_respuesta;
+
+        return $this;
+    }
+
+    /**
+     * Method to set the value of field informacion_otro
+     *
+     * @param string $informacion_otro
+     * @return $this
+     */
+    public function setInformacionOtro($informacion_otro)
+    {
+        $this->informacion_otro = $informacion_otro;
+
+        return $this;
+    }
+
+    /**
+     * Method to set the value of field informacion_adicionalId
+     *
+     * @param integer $informacion_adicionalId
+     * @return $this
+     */
+    public function setInformacionAdicionalid($informacion_adicionalId)
+    {
+        $this->informacion_adicionalId = $informacion_adicionalId;
 
         return $this;
     }
@@ -52,13 +89,33 @@ class Informacion extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns the value of field informacion_nombre
+     * Returns the value of field informacion_respuesta
      *
      * @return string
      */
-    public function getInformacionNombre()
+    public function getInformacionRespuesta()
     {
-        return $this->informacion_nombre;
+        return $this->informacion_respuesta;
+    }
+
+    /**
+     * Returns the value of field informacion_otro
+     *
+     * @return string
+     */
+    public function getInformacionOtro()
+    {
+        return $this->informacion_otro;
+    }
+
+    /**
+     * Returns the value of field informacion_adicionalId
+     *
+     * @return integer
+     */
+    public function getInformacionAdicionalid()
+    {
+        return $this->informacion_adicionalId;
     }
 
     /**
@@ -66,7 +123,8 @@ class Informacion extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->hasMany('informacion_id', 'Adicional', 'adicional_informacionId', array('alias' => 'Adicional'));
+        $this->hasMany('informacion_id', 'Informacionadicional', 'informacion_id', array('alias' => 'Informacionadicional'));
+        $this->belongsTo('informacion_adicionalId', 'Adicional', 'adicional_id', array('alias' => 'Adicional'));
     }
 
     /**

@@ -107,5 +107,4 @@ class Puntaje extends \Phalcon\Mvc\Model
     {
         return parent::findFirst($parameters);
     }
-
 }
