@@ -62,7 +62,9 @@
                             {{ unidadForm.render('unidad_comentario') }}
                         </div>
                     </div>
-
+                    <div class="col-xs-12">
+                        <hr>
+                    </div>
 
                     <div class="col-xs-12 col-md-12 form-group">
                         {{ submit_button('CONTINUAR','class':'form-control btn btn-success ') }}

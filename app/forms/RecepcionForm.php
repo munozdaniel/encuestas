@@ -99,7 +99,8 @@ class RecepcionForm extends \Phalcon\Forms\Form{
             array(
                 'maxlength'   => 200,
                 'placeholder' => 'INGRESE SU COMENTARIO (máx. 200 caracteres)',
-                'rows'=>'4' ,'cols'=>'50'
+                'rows'=>'4',
+                'class'=>'col-xs-12 col-md-6 col-md-offset-3'
             ));
         $comentarios->setLabel('Comentarios');
         $comentarios->setFilters(array('string'));
