@@ -56,9 +56,10 @@ class AlojamientoController extends ControllerBase
     /**
      * Displays the creation form
      */
-    public function newAction()
+    public function newAction($params)
     {
-
+        $this->view->alojamientoForm = new AlojamientoForm();
+        $this->view->encuesta_id =  $params;
     }
 
     /**
@@ -102,34 +103,47 @@ class AlojamientoController extends ControllerBase
 
         if (!$this->request->isPost()) {
             return $this->dispatcher->forward(array(
-                "controller" => "alojamiento",
+                "controller" => "index",
                 "action" => "index"
             ));
         }
+        $encuesta = Encuesta::findFirst($this->request->getPost("encuesta_id",'int'));
+        if($encuesta->getEncuestaAlojamientoid()==NULL)
+        {
+            $alojamiento = new Alojamiento();
 
-        $alojamiento = new Alojamiento();
+            $alojamiento->setAlojamientoNrounidad($this->request->getPost("alojamiento_nroUnidad"));
+            $alojamiento->setAlojamientoCantdias($this->request->getPost("alojamiento_cantDias"));
+            $alojamiento->setAlojamientoTipopaxid($this->request->getPost("alojamiento_tipoPaxId"));
+            $alojamiento->setAlojamientoFechaestadia($this->request->getPost("alojamiento_fechaEstadia"));
+            $alojamiento->setAlojamientoPrimeravisita($this->request->getPost("alojamiento_primeraVisita"));
+            $alojamiento->setAlojamientoHabilitado(1);
 
-        $alojamiento->setAlojamientoNrounidad($this->request->getPost("alojamiento_nroUnidad"));
-        $alojamiento->setAlojamientoCantdias($this->request->getPost("alojamiento_cantDias"));
-        $alojamiento->setAlojamientoTipopaxid($this->request->getPost("alojamiento_tipoPaxId"));
-        $alojamiento->setAlojamientoFechaestadia($this->request->getPost("alojamiento_fechaEstadia"));
-        $alojamiento->setAlojamientoPrimeravisita($this->request->getPost("alojamiento_primeraVisita"));
-        $alojamiento->setAlojamientoHabilitado(1);
-        
 
-        if (!$alojamiento->save()) {
-            foreach ($alojamiento->getMessages() as $message) {
-                $this->flash->error($message);
+            if (!$alojamiento->save()) {
+                foreach ($alojamiento->getMessages() as $message) {
+                    $this->flash->error($message);
+                }
+
+                return $this->dispatcher->forward(array(
+                    "controller" => "alojamiento",
+                    "action" => "new"
+                ));
             }
 
-            return $this->dispatcher->forward(array(
-                "controller" => "alojamiento",
-                "action" => "new"
-            ));
+            $encuesta->setEncuestaAlojamientoid($alojamiento->getAlojamientoId());
+            if (!$encuesta->update()) {
+                foreach ($encuesta->getMessages() as $message) {
+                    $this->flash->error($message);
+                }
+
+                return $this->dispatcher->forward(array(
+                    "controller" => "alojamiento",
+                    "action" => "new"
+                ));
+            }
+            $this->flash->success("PASO Nº1 COMPLETADO CON EXITO!");
         }
-
-        $this->flash->notice(" <i class='fa fa-thumbs-o-up' style='font-size: 45px !important;'></i> PASO Nº 1 COMPLETADO CON EXITO! ");
-
         return $this->dispatcher->forward(array(
             "controller" => "recepcion",
             "action" => "new"

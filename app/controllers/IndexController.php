@@ -17,7 +17,6 @@ class IndexController extends ControllerBase
      */
     public function indexAction()
     {
-        $this->view->alojamientoForm = new AlojamientoForm();
     }
 
 
@@ -225,6 +224,10 @@ class IndexController extends ControllerBase
         }
 
         return $retorno;
+    }
+    public function participaAction()
+    {
+
     }
 
 
