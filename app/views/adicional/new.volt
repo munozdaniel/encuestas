@@ -17,7 +17,9 @@
                             <small>Paso 5/5</small>
                         </h3>
                     </div>
-                    <!-- ----------------------- ENCUESTA FORM PART I -------------------------- -->
+                    <!-- -----------------------  -------------------------- -->
+                    {{ hidden_field('encuesta_id','value':encuesta_id   ) }}
+
                     <div class="col-xs-12 col-md-6 col-md-offset-3">
                         <div class=" form-group">
                             <fieldset>

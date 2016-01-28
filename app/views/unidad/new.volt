@@ -15,7 +15,9 @@
                         <h2 class="pull-left">Las Unidades</h2>
                         <h3  class="pull-right"><small>Paso 3/5</small></h3>
                     </div>
-                    <!-- ----------------------- ENCUESTA FORM PART I -------------------------- -->
+                    <!-- ----------------------- -------------------------- -->
+                    {{ hidden_field('encuesta_id','value':encuesta_id   ) }}
+
                     <div class=" form-group">
                         <div class="col-xs-12 col-md-12">
                             <span class="obligatorio pull-left">[<i class="fa fa-asterisk"></i>]&nbsp;</span>
