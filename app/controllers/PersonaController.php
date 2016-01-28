@@ -107,30 +107,103 @@ class PersonaController extends ControllerBase
                 "action" => "index"
             ));
         }
+        //Busco si existe la Persona
+        $nombre =$this->request->getPost("persona_nombre",array('string'));
+        $apellido = $this->request->getPost("persona_apellido",'string');
+        $correo = $this->request->getPost("persona_correo",'email');
+        /*$persona = Persona::query()
+                ->where("persona_nombre LIKE ':persona_nombre:'")
+                ->andWhere("persona_apellido LIKE ':persona_apellido'")
+                ->andWhere("persona_correo LIKE ':persona_correo'")
+            ->bind(array('persona_nombre'=>$nombre,'persona_apellido'=>$apellido,'persona_correo'=>$correo))
+            ->execute();*/
+        $persona =  Persona::findFirst(array(
+            "(persona_nombre LIKE :persona_nombre:) AND (persona_apellido = :persona_apellido:) AND (persona_correo = :persona_correo:)",
+            'bind' => array('persona_nombre' => $nombre, 'persona_apellido' => $apellido,'persona_correo'=>$correo)
+        ));
+        if(!$persona){
+            /*No esta registrado*/
+            $persona = new Persona();
 
-        $persona = new Persona();
+            $persona->setPersonaNombre($nombre);
+            $persona->setPersonaApellido($apellido);
+            $persona->setPersonaCorreo($correo);
+            $persona->setPersonaTelefono($this->request->getPost("persona_telefono",'int'));
+            $persona->setPersonaCiudad($this->request->getPost("persona_ciudad",'string'));
+            $persona->setPersonaHabilitado(1);
+            $encuesta = new Encuesta();
+            $encuesta->setEncuestaFechacreacion(date('Y-m-d'));
+            $encuesta->setEncuestaHabilitado(1);
+            if(!$encuesta->save())
+            {
+                foreach ($encuesta->getMessages() as $message) {
+                    $this->flash->error($message);
+                }
 
-        $persona->setPersonaNombre($this->request->getPost("persona_nombre"));
-        $persona->setPersonaApellido($this->request->getPost("persona_apellido"));
-        $persona->setPersonaCorreo($this->request->getPost("persona_correo"));
-        $persona->setPersonaTelefono($this->request->getPost("persona_telefono"));
-        $persona->setPersonaCiudad($this->request->getPost("persona_ciudad"));
-        $persona->setPersonaEncuestaid($this->request->getPost("persona_encuestaId"));
-        $persona->setPersonaHabilitado($this->request->getPost("persona_habilitado"));
-        
+                return $this->dispatcher->forward(array(
+                    "controller" => "persona",
+                    "action" => "new"
+                ));
+            }
+            $persona->setPersonaEncuestaid($encuesta->getEncuestaId());
+            if (!$persona->save()) {
+                foreach ($persona->getMessages() as $message) {
+                    $this->flash->error($message);
+                }
 
-        if (!$persona->save()) {
-            foreach ($persona->getMessages() as $message) {
-                $this->flash->error($message);
+                return $this->dispatcher->forward(array(
+                    "controller" => "persona",
+                    "action" => "new"
+                ));
             }
 
-            return $this->dispatcher->forward(array(
-                "controller" => "persona",
-                "action" => "new"
-            ));
+            $this->flash->success("Gracias por registrarte, completa la encuesta para participar");
+        }else{
+            /*Esta Registrado*/
+            $encuesta = Encuesta::findFirst(array("encuesta_id = :encuesta_id:",'bind'=>array('encuesta_id'=>$persona->getPersonaEncuestaid())));
+            if($encuesta->getEncuestaTerminado()==1){
+                $this->flash->warning("Usted ya se encuentra participando");
+
+                return $this->dispatcher->forward(array(
+                    "controller" => "index",
+                    "action" => "participa"
+                ));
+            }
+            $this->flash->warning("Debe finalizar la encuesta para participar");
+            if($encuesta->getEncuestaAdicionalid()==NULL){
+                return $this->dispatcher->forward(array(
+                    "controller" => "adicional",
+                    "action" => "new"
+                ));
+            }
+            if($encuesta->getEncuestaUnidadid()==NULL){
+                return $this->dispatcher->forward(array(
+                    "controller" => "unidad",
+                    "action" => "new"
+                ));
+            }
+            if($encuesta->getEncuestaPersonalid()==NULL){
+                return $this->dispatcher->forward(array(
+                    "controller" => "personal",
+                    "action" => "new"
+                ));
+            }
+
+            if($encuesta->getEncuestaRecepcionid()==NULL){
+                return $this->dispatcher->forward(array(
+                    "controller" => "recepcion",
+                    "action" => "new"
+                ));
+            }
+            if($encuesta->getEncuestaAlojamientoid()==NULL){
+                return $this->dispatcher->forward(array(
+                    "controller" => "alojamiento",
+                    "action" => "new"
+                ));
+            }
         }
 
-        $this->flash->success("persona was created successfully");
+
 
         return $this->dispatcher->forward(array(
             "controller" => "persona",
