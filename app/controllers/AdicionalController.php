@@ -1,5 +1,5 @@
 <?php
- 
+
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
@@ -46,7 +46,7 @@ class AdicionalController extends ControllerBase
 
         $paginator = new Paginator(array(
             "data" => $adicional,
-            "limit"=> 10,
+            "limit" => 10,
             "page" => $numberPage
         ));
 
@@ -56,10 +56,24 @@ class AdicionalController extends ControllerBase
     /**
      * Displays the creation form
      */
-    public function newAction()
+    public function newAction($params)
     {
         $this->view->adicionalForm = new AdicionalForm();
-
+        if ($params == null) {
+            $this->flash->error("Es necesario que se registre para poder participar");
+            return $this->dispatcher->forward(array(
+                "controller" => "index",
+                "action" => "index"
+            ));
+        }
+        $this->view->encuesta_id = $params;
+        $encuesta = Encuesta::findFirst($params);
+        if ($encuesta->getEncuestaTerminado() == 1) {
+            return $this->dispatcher->forward(array(
+                "controller" => "index",
+                "action" => "participa"
+            ));
+        }
     }
 
     /**
@@ -95,7 +109,7 @@ class AdicionalController extends ControllerBase
             $this->tag->setDefault("adicional_motivoId", $adicional->getAdicionalMotivoid());
             $this->tag->setDefault("adicional_motivoOtro", $adicional->getAdicionalMotivootro());
             $this->tag->setDefault("adicional_observacion", $adicional->getAdicionalObservacion());
-            
+
         }
     }
 
@@ -111,80 +125,136 @@ class AdicionalController extends ControllerBase
                 "action" => "index"
             ));
         }
-        //print_r($_POST);
-        $adicional = new Adicional();
-        //Donde hizo la reserva? 1 - Otro
-        $reserva = new Reserva();
-        $reserva->setReservaRespuesta(strtoupper($this->request->get('adicional_reservaId','string')));
-        if(!$reserva->save())
-        {
-            foreach ($reserva->getMessages() as $message) {
-                $this->flash->error($message);
+        $encuesta = Encuesta::findFirst($this->request->getPost("encuesta_id", 'int'));
+        if ($encuesta->getEncuestaAdicionalid() == NULL) {
+            //print_r($_POST);
+            $adicional = new Adicional();
+            //Donde hizo la reserva? 1 - Otro
+            $reserva = new Reserva();
+            $reserva->setReservaRespuesta(strtoupper($this->request->get('adicional_reservaId', 'string')));
+            if (!$reserva->save()) {
+                foreach ($reserva->getMessages() as $message) {
+                    $this->flash->error($message);
+                }
+                return $this->dispatcher->forward(array(
+                    "controller" => "adicional",
+                    "action" => "new",
+                    "params" => array('encuesta_id' => $encuesta->getEncuestaId())
+                ));
             }
+            //Adicional
+            $adicional->setAdicionalReservaid($reserva->getReservaId());
+            $adicional->setAdicionalObservacion(strtoupper($this->request->get('adicional_observacion', 'string')));
+            if (!$adicional->save()) {
+                foreach ($adicional->getMessages() as $message) {
+                    $this->flash->error($message);
+                }
+
+                return $this->dispatcher->forward(array(
+                    "controller" => "adicional",
+                    "action" => "new",
+                    "params" => array('encuesta_id' => $encuesta->getEncuestaId())
+                ));
+            }
+            //Como estuvo compuesto su grupo? +1 - Otro
+            $arreglo = $this->request->get('adicional_grupo');
+            foreach ((array)$arreglo as $grupo) {
+                $unGrupo = new Grupo();
+                $unGrupo->setGrupoAdicionalid($adicional->getAdicionalId());
+                $unGrupo->setGrupoRespuesta($grupo);
+                if ($grupo == "OTRO")
+                    $unGrupo->setGrupoOtro(strtoupper($this->request->get('adicional_grupoOtro', 'string')));
+                if (!$unGrupo->save()) {
+                    foreach ($unGrupo->getMessages() as $message) {
+                        $this->flash->error($message);
+                    }
+                    return $this->dispatcher->forward(array(
+                        "controller" => "adicional",
+                        "action" => "new",
+                        "params" => array('encuesta_id' => $encuesta->getEncuestaId())
+                    ));
+                }
+            }
+            // De que manera recibe la información? +1 - Otro
+            $arreglo = $this->request->get('adicional_informacion');
+            foreach ((array)$arreglo as $info) {
+                $unaInfo = new Informacion();
+                $unaInfo->setInformacionAdicionalid($adicional->getAdicionalId());
+                $unaInfo->setInformacionRespuesta($info);
+                if ($info == "OTRO")
+                    $unaInfo->setInformacionOtro(strtoupper($this->request->get('adicional_informacionOtro', 'string')));
+                if (!$unaInfo->save()) {
+                    foreach ($unaInfo->getMessages() as $message) {
+                        $this->flash->error($message);
+                    }
+                    return $this->dispatcher->forward(array(
+                        "controller" => "adicional",
+                        "action" => "new",
+                        "params" => array('encuesta_id' => $encuesta->getEncuestaId())
+                    ));
+                }
+            }
+            //Porque eligió este destino? +1 - Otro
+            $arreglo = $this->request->get('adicional_motivo');
+            foreach ((array)$arreglo as $motivo) {
+                $unMotivo = new Motivo();
+                $unMotivo->setMotivoAdicionalid($adicional->getAdicionalId());
+                $unMotivo->setMotivoRespuesta($motivo);
+                if ($motivo == "OTRO")
+                    $unMotivo->setMotivoOtro(strtoupper($this->request->get('adicional_motivoOtro', 'string')));
+                if (!$unMotivo->save()) {
+                    foreach ($unMotivo->getMessages() as $message) {
+                        $this->flash->error($message);
+                    }
+                    return $this->dispatcher->forward(array(
+                        "controller" => "adicional",
+                        "action" => "new",
+                        "params" => array('encuesta_id' => $encuesta->getEncuestaId())
+                    ));
+                }
+            }
+            //Conoce algún otro MELEWE?
+            $arreglo = $this->request->get('adicional_conocimiento');
+            foreach ((array)$arreglo as $conoce) {
+                $unConocimiento = new Conocimientoadicional();
+                $unConocimiento->setAdicionalId($adicional->getAdicionalId());
+                echo "ID : " . $conoce;
+                $unConocimiento->setConocimientoId($conoce);
+                if (!$unConocimiento->save()) {
+                    foreach ($unConocimiento->getMessages() as $message) {
+                        $this->flash->error($message);
+                    }
+                    return $this->dispatcher->forward(array(
+                        "controller" => "adicional",
+                        "action" => "new",
+                        "params" => array('encuesta_id' => $encuesta->getEncuestaId())
+                    ));
+                }
+            }
+            $encuesta->setEncuestaAdicionalid($adicional->getAdicionalId());
+            $encuesta->setEncuestaTerminado(1);
+            if (!$encuesta->update()) {
+                foreach ($encuesta->getMessages() as $message) {
+                    $this->flash->error($message);
+                }
+                return $this->dispatcher->forward(array(
+                    "controller" => "adicional",
+                    "action" => "new",
+                    "params" => array('encuesta_id' => $encuesta->getEncuestaId())
+                ));
+            }
+
+            $this->flash->success("Muchas Gracias por completar la encuesta");
             return $this->dispatcher->forward(array(
-                "controller" => "adicional",
-                "action" => "new"
+                "controller" => "index",
+                "action" => "felicidades"
             ));
         }
-        //Adicional
-        $adicional->setAdicionalReservaid($reserva->getReservaId());
-        $adicional->setAdicionalObservacion(strtoupper($this->request->get('adicional_observacion','string')));
-        if (!$adicional->save()) {
-            foreach ($adicional->getMessages() as $message) {
-                $this->flash->error($message);
-            }
-
-            return $this->dispatcher->forward(array(
-                "controller" => "adicional",
-                "action" => "new"
-            ));
-        }
-        //Como estuvo compuesto su grupo? +1 - Otro
-        $arreglo = $this->request->get('adicional_grupo');
-        foreach((array)$arreglo as $grupo){
-            $unGrupo = new Grupo();
-            $unGrupo->setGrupoAdicionalid($adicional->getAdicionalId());
-            $unGrupo->setGrupoRespuesta($grupo);
-            if($grupo=="OTRO")
-                $unGrupo->setGrupoOtro(strtoupper($this->request->get('adicional_grupoOtro','string')));
-            $unGrupo->save();
-        }
-        // De que manera recibe la información? +1 - Otro
-        $arreglo = $this->request->get('adicional_informacion');
-        foreach((array)$arreglo as $info){
-            $unaInfo = new Informacion();
-            $unaInfo->setInformacionAdicionalid($adicional->getAdicionalId());
-            $unaInfo->setInformacionRespuesta($info);
-            if($info=="OTRO")
-                $unaInfo->setInformacionOtro(strtoupper($this->request->get('adicional_informacionOtro','string')));
-            $unaInfo->save();
-        }
-        //Porque eligió este destino? +1 - Otro
-        $arreglo = $this->request->get('adicional_motivo');
-        foreach((array)$arreglo as $motivo){
-            $unMotivo = new Motivo();
-            $unMotivo->setMotivoAdicionalid($adicional->getAdicionalId());
-            $unMotivo->setMotivoRespuesta($motivo);
-            if($motivo=="OTRO")
-                $unMotivo->setMotivoOtro(strtoupper($this->request->get('adicional_motivoOtro','string')));
-            $unMotivo->save();
-        }
-        //Conoce algún otro MELEWE?
-        $arreglo = $this->request->get('adicional_motivo');
-        foreach((array)$arreglo as $conoce){
-            $unConocimiento = new Conocimientoadicional();
-            $unConocimiento->setAdicionalId($adicional->getAdicionalId());
-            $unConocimiento->setConocimientoId($conoce);
-            $unConocimiento->save();
-        }
-
-        $this->flash->success("Muchas Gracias por completar la encuesta");
-
         return $this->dispatcher->forward(array(
             "controller" => "adicional",
-            "action" => "new"
+            "action" => "new",
+            "params" => array('encuesta_id' => $encuesta->getEncuestaId())
         ));
-
     }
 
     /**
@@ -223,7 +293,7 @@ class AdicionalController extends ControllerBase
         $adicional->setAdicionalMotivoid($this->request->getPost("adicional_motivoId"));
         $adicional->setAdicionalMotivootro($this->request->getPost("adicional_motivoOtro"));
         $adicional->setAdicionalObservacion($this->request->getPost("adicional_observacion"));
-        
+
 
         if (!$adicional->save()) {
 

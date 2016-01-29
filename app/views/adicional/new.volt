@@ -54,22 +54,22 @@
                                     </label>
                                 </legend>
                                 <label>
+                                    <input type="checkbox" class="margin-left-10" name="adicional_grupo[]" value="AMIGOS"/>
                                     <span>AMIGOS</span>
-                                    <input type="checkbox" class="margin-right-8" name="adicional_grupo[]" value="AMIGOS"/>
                                 </label>
                                 <label>
+                                    <input type="checkbox" class="margin-left-10" name="adicional_grupo[]" value="PAREJAS"/>
                                     <span>PAREJAS</span>
-                                    <input type="checkbox" class="margin-right-8" name="adicional_grupo[]" value="PAREJAS"/>
                                 </label>
                                 <label>
+                                    <input type="checkbox" class="margin-left-10" name="adicional_grupo[]" value="FAMILIA"/>
                                     <span>FAMILIA</span>
-                                    <input type="checkbox" class="margin-right-8" name="adicional_grupo[]" value="FAMILIA"/>
                                 </label>
                                 <label>
-                                    <span>OTRO</span>
-                                    <input type="checkbox" class="margin-right-8" id="otroGrupo" name="adicional_grupo[]"
+                                    <input type="checkbox" class="margin-left-10" id="otroGrupo" name="adicional_grupo[]"
                                            value="OTRO"
                                            onClick="toggle('otroGrupo', 'adicional_grupoOtro')"/>
+                                    <span>OTRO</span>
                                 </label>
                                 {{ text_field('adicional_grupoOtro','class':'form-control ','disabled':'','placeholder':'Ingrese otro grupo') }}
                             </fieldset>
@@ -87,25 +87,25 @@
                                     </label>
                                 </legend>
                                 <label>
-                                    <span>WEB</span>
-                                    <input type="checkbox" class="margin-right-8" name="adicional_informacion[]"
+                                    <input type="checkbox" class="margin-left-10" name="adicional_informacion[]"
                                            value="WEB"/>
+                                    <span>WEB</span>
                                 </label>
                                 <label>
-                                    <span>FOLLETOS</span>
-                                    <input type="checkbox" class="margin-right-8" name="adicional_informacion[]"
+                                    <input type="checkbox" class="margin-left-10" name="adicional_informacion[]"
                                            value="FOLLETOS"/>
+                                    <span>FOLLETOS</span>
                                 </label>
                                 <label>
-                                    <span>CORREO ELECTRONICO</span>
-                                    <input type="checkbox" class="margin-right-8" name="adicional_informacion[]"
+                                    <input type="checkbox" class="margin-left-10" name="adicional_informacion[]"
                                            value="CORREO ELECTRONICO"/>
+                                    <span>CORREO ELECTRONICO</span>
                                 </label>
                                 <label>
-                                    <span>OTRO</span>
-                                    <input type="checkbox" class="margin-right-8" id="otraInfo"
+                                    <input type="checkbox" class="margin-left-10" id="otraInfo"
                                            name="adicional_informacion" value="OTRO"
                                            onClick="toggle('otraInfo', 'adicional_informacionOtro')"/>
+                                    <span>OTRO</span>
                                 </label>
                                 {{ text_field('adicional_informacionOtro','class':'form-control ','disabled':'','placeholder':'Ingrese otra fuente') }}
                             </fieldset>
@@ -123,26 +123,26 @@
                                     </label>
                                 </legend>
                                 <label>
+                                    <input type="checkbox" class="margin-left-10" name="adicional_motivo[]" value="ES EL MEJOR PARA DESCANSAR"/>
                                     <span>ES EL MEJOR PARA DESCANSAR</span>
-                                    <input type="checkbox" class="margin-right-8" name="adicional_motivo[]" value="ES EL MEJOR PARA DESCANSAR"/>
                                 </label>
                                 <label>
+                                    <input type="checkbox" class="margin-left-10" name="adicional_motivo[]" value="ES EL MAS BARATO"/>
                                     <span>ES EL MAS BARATO</span>
-                                    <input type="checkbox" class="margin-right-8" name="adicional_motivo[]" value="ES EL MAS BARATO"/>
                                 </label>
                                 <label>
+                                    <input type="checkbox" class="margin-left-10" name="adicional_motivo[]" value="POR LOS ACTIVOS"/>
                                     <span>POR LOS ACTIVOS</span>
-                                    <input type="checkbox" class="margin-right-8" name="adicional_motivo[]" value="POR LOS ACTIVOS"/>
                                 </label>
                                 <label>
+                                    <input type="checkbox" class="margin-left-10" name="adicional_motivo[]" value="NO CONOCIA"/>
                                     <span> NO CONOCIA</span>
-                                    <input type="checkbox" class="margin-right-8" name="adicional_motivo[]" value="NO CONOCIA"/>
                                 </label>
                                 <label>
-                                    <span> OTRO</span>
-                                    <input type="checkbox" class="margin-right-8" id="otroMotivo"
+                                    <input type="checkbox" class="margin-left-10" id="otroMotivo"
                                            name="adicional_motivo" value="OTRO"
                                            onClick="toggle('otroMotivo', 'adicional_motivoOtro')"/>
+                                    <span> OTRO</span>
                                 </label>
                                 {{ text_field('adicional_motivoOtro','class':'form-control ','disabled':'','placeholder':'Ingrese otro motivo') }}
                             </fieldset>
@@ -158,29 +158,29 @@
                                     </label>
                                 </legend>
                                 <label>
+                                    <input type="checkbox" class="margin-left-8" name="adicional_conocimiento[]"
+                                           value="1"/>
                                     <span> SAN MARTIN DE LOS ANDES</span>
-                                    <input type="checkbox" class="margin-right-8" name="adicional_conocimiento[]"
-                                           value="SAN MARTIN DE LOS ANDES"/>
                                 </label>
                                 <label>
+                                    <input type="checkbox" class="margin-left-8" name="adicional_conocimiento[]"
+                                           value="2"/>
                                     <span> VILLA LA ANGOSTURA</span>
-                                    <input type="checkbox" class="margin-right-8" name="adicional_conocimiento[]"
-                                           value="VILLA LA ANGOSTURA"/>
                                 </label>
                                 <label>
+                                    <input type="checkbox" class="margin-left-8" name="adicional_conocimiento[]"
+                                           value="3"/>
                                     <span> MOQUEHUE</span>
-                                    <input type="checkbox" class="margin-right-8" name="adicional_conocimiento[]"
-                                           value="MOQUEHUE"/>
                                 </label>
                                 <label>
+                                    <input type="checkbox" class="margin-left-8" name="adicional_conocimiento[]"
+                                           value="4"/>
                                     <span> LAS GRUTAS</span>
-                                    <input type="checkbox" class="margin-right-8" name="adicional_conocimiento[]"
-                                           value="LAS GRUTAS"/>
                                 </label>
                                 <label>
+                                    <input type="checkbox" class="margin-left-8" name="adicional_conocimiento[]"
+                                           value="5"/>
                                     <span> CAVIAHUE</span>
-                                    <input type="checkbox" class="margin-right-8" name="adicional_conocimiento[]"
-                                           value="CAVIAHUE"/>
                                 </label>
 
                             </fieldset>
