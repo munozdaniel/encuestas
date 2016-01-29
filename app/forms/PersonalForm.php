@@ -34,7 +34,7 @@ class PersonalForm extends \Phalcon\Forms\Form{
             'class' => 'pure-button button-white segment-item',
             'required'=>'true'
         ]);
-        $personal->setLabel("Mucamas");
+        $mucamas->setLabel("Mucamas");
         $this->add($mucamas);
         /*----------------- COMENTARIOS -------------------*/
         $comentarios = new \Phalcon\Forms\Element\TextArea("personal_comentario",
