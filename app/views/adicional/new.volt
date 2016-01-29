@@ -222,15 +222,15 @@
         // muestra una alerta al usuario
         if ($('input[name="adicional_grupo[]"]:checked').length === 0) {
             e.preventDefault();
-            alert('Especifique como esta compuesto su grupo');
+            alert('ESPECIFIQUE COMO ESTÁ COMPUESTO SU GRUPO');
         }
         if ($('input[name="adicional_informacion[]"]:checked').length === 0) {
             e.preventDefault();
-            alert('Especifique de que manera recibe la información');
+            alert('ESPECIFIQUE DE QUE MANERA RECIBE LA INFORMACIÓN');
         }
         if ($('input[name="adicional_motivo[]"]:checked').length === 0) {
             e.preventDefault();
-            alert('Especifique el motivo de su elección por el complejo');
+            alert('ESPECIFIQEU EL MOTIVO DE SU ELECCIÓN POR EL COMPLEJO');
         }
 
     });
