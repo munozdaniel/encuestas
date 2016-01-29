@@ -59,7 +59,23 @@ class AlojamientoController extends ControllerBase
     public function newAction($params)
     {
         $this->view->alojamientoForm = new AlojamientoForm();
+        if($params==null)
+        {
+            $this->flash->error("Es necesario que se registre para poder participar");
+            return $this->dispatcher->forward(array(
+                "controller" => "index",
+                "action" => "index"
+            ));
+        }
         $this->view->encuesta_id =  $params;
+        $encuesta = Encuesta::findFirst($params);
+        if ($encuesta->getEncuestaAlojamientoid() != NULL) {
+            return $this->dispatcher->forward(array(
+                "controller" => "recepcion",
+                "action" => "new",
+                "params" => array('encuesta_id' => $encuesta->getEncuestaId())
+            ));
+        }
     }
 
     /**
@@ -127,7 +143,8 @@ class AlojamientoController extends ControllerBase
 
                 return $this->dispatcher->forward(array(
                     "controller" => "alojamiento",
-                    "action" => "new"
+                    "action" => "new",
+                    "params" => array('encuesta_id' => $encuesta->getEncuestaId())
                 ));
             }
 
@@ -139,14 +156,16 @@ class AlojamientoController extends ControllerBase
 
                 return $this->dispatcher->forward(array(
                     "controller" => "alojamiento",
-                    "action" => "new"
+                    "action" => "new",
+                    "params" => array('encuesta_id' => $encuesta->getEncuestaId())
                 ));
             }
             $this->flash->success("PASO Nº1 COMPLETADO CON EXITO!");
         }
         return $this->dispatcher->forward(array(
             "controller" => "recepcion",
-            "action" => "new"
+            "action" => "new",
+            "params" => array('encuesta_id' => $encuesta->getEncuestaId())
         ));
 
     }

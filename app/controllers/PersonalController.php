@@ -56,9 +56,26 @@ class PersonalController extends ControllerBase
     /**
      * Displays the creation form
      */
-    public function newAction()
+    public function newAction($params)
     {
         $this->view->personalForm = new PersonalForm();
+        if($params==null)
+        {
+            $this->flash->error("Es necesario que se registre para poder participar");
+            return $this->dispatcher->forward(array(
+                "controller" => "index",
+                "action" => "index"
+            ));
+        }
+        $this->view->encuesta_id =  $params;
+        $encuesta = Encuesta::findFirst($params);
+        if ($encuesta->getEncuestaPersonalid() != NULL) {
+            return $this->dispatcher->forward(array(
+                "controller" => "adicional",
+                "action" => "new",
+                "params" => array('encuesta_id' => $encuesta->getEncuestaId())
+            ));
+        }
     }
 
     /**
@@ -100,35 +117,50 @@ class PersonalController extends ControllerBase
 
         if (!$this->request->isPost()) {
             return $this->dispatcher->forward(array(
-                "controller" => "personal",
+                "controller" => "index",
                 "action" => "index"
             ));
         }
+        $encuesta = Encuesta::findFirst($this->request->getPost("encuesta_id", 'int'));
 
-        $personal = new Personal();
+        if ($encuesta->getEncuestaPersonalid() == NULL) {
+            $personal = new Personal();
 
-        $personal->setPersonalPuntajeadministrativoid($this->request->getPost("personal_puntajeAdministrativoId"));
-        $personal->setPersonalPuntajemucamaid($this->request->getPost("personal_puntajeMucamaId"));
-        $personal->setPersonalComentario($this->request->getPost("personal_comentario"));
-        $personal->setPersonalHabilitado(1);
-        
+            $personal->setPersonalPuntajeadministrativoid($this->request->getPost("personal_puntajeAdministrativoId"));
+            $personal->setPersonalPuntajemucamaid($this->request->getPost("personal_puntajeMucamaId"));
+            $personal->setPersonalComentario($this->request->getPost("personal_comentario"));
+            $personal->setPersonalHabilitado(1);
 
-        if (!$personal->save()) {
-            foreach ($personal->getMessages() as $message) {
-                $this->flash->error($message);
+
+            if (!$personal->save()) {
+                foreach ($personal->getMessages() as $message) {
+                    $this->flash->error($message);
+                }
+
+                return $this->dispatcher->forward(array(
+                    "controller" => "personal",
+                    "action" => "new",
+                    "params" => array('encuesta_id' => $encuesta->getEncuestaId())
+                ));
             }
+            $encuesta->setEncuestaPersonalid($personal->getPersonalId());
+            if (!$encuesta->update()) {
+                foreach ($encuesta->getMessages() as $message) {
+                    $this->flash->error($message);
+                }
 
-            return $this->dispatcher->forward(array(
-                "controller" => "personal",
-                "action" => "new"
-            ));
+                return $this->dispatcher->forward(array(
+                    "controller" => "personal",
+                    "action" => "new",
+                    "params" => array('encuesta_id' => $encuesta->getEncuestaId())
+                ));
+            }
+            $this->flash->success(" PASO Nº4 COMPLETADO CON EXITO! ");
         }
-
-        $this->flash->success("personal was created successfully");
-
         return $this->dispatcher->forward(array(
             "controller" => "adicional",
-            "action" => "new"
+            "action" => "new",
+            "params" => array('encuesta_id' => $encuesta->getEncuestaId())
         ));
 
     }

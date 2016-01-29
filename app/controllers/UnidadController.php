@@ -56,9 +56,26 @@ class UnidadController extends ControllerBase
     /**
      * Displays the creation form
      */
-    public function newAction()
+    public function newAction($params)
     {
         $this->view->unidadForm = new UnidadForm();
+        if($params==null)
+        {
+            $this->flash->error("Es necesario que se registre para poder participar");
+            return $this->dispatcher->forward(array(
+                "controller" => "index",
+                "action" => "index"
+            ));
+        }
+        $this->view->encuesta_id =  $params;
+        $encuesta = Encuesta::findFirst($params);
+        if ($encuesta->getEncuestaUnidadid() != NULL) {
+            return $this->dispatcher->forward(array(
+                "controller" => "personal",
+                "action" => "new",
+                "params" => array('encuesta_id' => $encuesta->getEncuestaId())
+            ));
+        }
 
     }
 
@@ -103,37 +120,51 @@ class UnidadController extends ControllerBase
 
         if (!$this->request->isPost()) {
             return $this->dispatcher->forward(array(
-                "controller" => "unidad",
+                "controller" => "index",
                 "action" => "index"
             ));
         }
+        $encuesta = Encuesta::findFirst($this->request->getPost("encuesta_id", 'int'));
+        if ($encuesta->getEncuestaUnidadid() == NULL) {
+            $unidad = new Unidad();
 
-        $unidad = new Unidad();
+            $unidad->setUnidadPuntajehigieneid($this->request->getPost("unidad_puntajeHigieneId"));
+            $unidad->setUnidadPuntajeequipoid($this->request->getPost("unidad_puntajeEquipoId"));
+            $unidad->setUnidadPuntajeconfortid($this->request->getPost("unidad_puntajeConfortId"));
+            $unidad->setUnidadTieneinconvenientes($this->request->getPost("unidad_tieneInconvenientes"));
+            $unidad->setUnidadComentario($this->request->getPost("unidad_comentario"));
+            $unidad->setUnidadHabilitado(1);
 
-        $unidad->setUnidadPuntajehigieneid($this->request->getPost("unidad_puntajeHigieneId"));
-        $unidad->setUnidadPuntajeequipoid($this->request->getPost("unidad_puntajeEquipoId"));
-        $unidad->setUnidadPuntajeconfortid($this->request->getPost("unidad_puntajeConfortId"));
-        $unidad->setUnidadTieneinconvenientes($this->request->getPost("unidad_tieneInconvenientes"));
-        $unidad->setUnidadComentario($this->request->getPost("unidad_comentario"));
-        $unidad->setUnidadHabilitado(1);
-        
 
-        if (!$unidad->save()) {
-            foreach ($unidad->getMessages() as $message) {
-                $this->flash->error($message);
+            if (!$unidad->save()) {
+                foreach ($unidad->getMessages() as $message) {
+                    $this->flash->error($message);
+                }
+
+                return $this->dispatcher->forward(array(
+                    "controller" => "unidad",
+                    "action" => "new",
+                    "params" => array('encuesta_id' => $encuesta->getEncuestaId())
+                ));
             }
+            $encuesta->setEncuestaUnidadid($unidad->getUnidadId());
+            if (!$encuesta->update()) {
+                foreach ($encuesta->getMessages() as $message) {
+                    $this->flash->error($message);
+                }
 
-            return $this->dispatcher->forward(array(
-                "controller" => "unidad",
-                "action" => "new"
-            ));
+                return $this->dispatcher->forward(array(
+                    "controller" => "unidad",
+                    "action" => "new",
+                    "params" => array('encuesta_id' => $encuesta->getEncuestaId())
+                ));
+            }
+            $this->flash->success(" PASO Nº3 COMPLETADO CON EXITO! ");
         }
-
-        $this->flash->notice(" <i class='fa fa-thumbs-o-up' style='font-size: 45px !important;'></i> PASO Nº 3 COMPLETADO CON EXITO! ");
-
         return $this->dispatcher->forward(array(
             "controller" => "personal",
-            "action" => "new"
+            "action" => "new",
+            "params" => array('encuesta_id' => $encuesta->getEncuestaId())
         ));
 
     }

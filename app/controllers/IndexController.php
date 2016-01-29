@@ -229,6 +229,10 @@ class IndexController extends ControllerBase
     {
 
     }
+    public function felicidadesAction()
+    {
+
+    }
 
 
 }

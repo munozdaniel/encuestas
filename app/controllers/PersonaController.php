@@ -163,7 +163,7 @@ class PersonaController extends ControllerBase
                     "action" => "participa"
                 ));
             }
-            $this->flash->warning("Usted ya se encuentra registrado, por favor finalice la encuesta para participar.");
+            $this->flash->warning("Usted ya se encuentra registrado, por favor finalice la encuesta para participar del sorteo.");
             if ($encuesta->getEncuestaAlojamientoid() == NULL) {
                 return $this->dispatcher->forward(array(
                     "controller" => "alojamiento",
@@ -175,28 +175,28 @@ class PersonaController extends ControllerBase
                 return $this->dispatcher->forward(array(
                     "controller" => "recepcion",
                     "action" => "new",
-                    "param" => array('encuesta_id' => $encuesta->getEncuestaId())
+                    "params" => array('encuesta_id' => $encuesta->getEncuestaId())
                 ));
             }
             if ($encuesta->getEncuestaUnidadid() == NULL) {
                 return $this->dispatcher->forward(array(
                     "controller" => "unidad",
                     "action" => "new",
-                    "param" => array('encuesta_id' => $encuesta->getEncuestaId())
+                    "params" => array('encuesta_id' => $encuesta->getEncuestaId())
                 ));
             }
             if ($encuesta->getEncuestaPersonalid() == NULL) {
                 return $this->dispatcher->forward(array(
                     "controller" => "personal",
                     "action" => "new",
-                    "param" => array('encuesta_id' => $encuesta->getEncuestaId())
+                    "params" => array('encuesta_id' => $encuesta->getEncuestaId())
                 ));
             }
             if ($encuesta->getEncuestaAdicionalid() == NULL) {
                 return $this->dispatcher->forward(array(
                     "controller" => "adicional",
                     "action" => "new",
-                    "param" => array('encuesta_id' => $encuesta->getEncuestaId())
+                    "params" => array('encuesta_id' => $encuesta->getEncuestaId())
                 ));
             }
         }
@@ -204,7 +204,8 @@ class PersonaController extends ControllerBase
 
         return $this->dispatcher->forward(array(
             "controller" => "alojamiento",
-            "action" => "new"
+            "action" => "new",
+            "params" => array('encuesta_id' => $encuesta->getEncuestaId())
         ));
 
     }

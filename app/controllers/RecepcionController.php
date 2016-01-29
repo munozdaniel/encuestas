@@ -1,5 +1,5 @@
 <?php
- 
+
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
@@ -11,7 +11,7 @@ class RecepcionController extends ControllerBase
      */
     public function indexAction()
     {
-    //        $this->persistent->parameters = null;
+        //        $this->persistent->parameters = null;
     }
 
     /**
@@ -46,7 +46,7 @@ class RecepcionController extends ControllerBase
 
         $paginator = new Paginator(array(
             "data" => $recepcion,
-            "limit"=> 10,
+            "limit" => 10,
             "page" => $numberPage
         ));
 
@@ -56,10 +56,27 @@ class RecepcionController extends ControllerBase
     /**
      * Displays the creation form
      */
-    public function newAction()
+    public function newAction($params)
     {
         $this->view->recepcionForm = new RecepcionForm();
 
+        if($params==null)
+        {
+            $this->flash->error("Es necesario que se registre para poder participar");
+            return $this->dispatcher->forward(array(
+                "controller" => "index",
+                "action" => "index"
+            ));
+        }
+        $this->view->encuesta_id =  $params;
+        $encuesta = Encuesta::findFirst($params);
+        if ($encuesta->getEncuestaRecepcionid() != NULL) {
+            return $this->dispatcher->forward(array(
+                "controller" => "unidad",
+                "action" => "new",
+                "params" => array('encuesta_id' => $encuesta->getEncuestaId())
+            ));
+        }
     }
 
     /**
@@ -91,7 +108,7 @@ class RecepcionController extends ControllerBase
             $this->tag->setDefault("recepcion_tieneInconvenientes", $recepcion->getRecepcionTieneinconvenientes());
             $this->tag->setDefault("recepcion_comentario", $recepcion->getRecepcionComentario());
             $this->tag->setDefault("recepcion_habilitado", $recepcion->getRecepcionHabilitado());
-            
+
         }
     }
 
@@ -103,37 +120,51 @@ class RecepcionController extends ControllerBase
 
         if (!$this->request->isPost()) {
             return $this->dispatcher->forward(array(
-                "controller" => "recepcion",
+                "controller" => "index",
                 "action" => "index"
             ));
         }
+        $encuesta = Encuesta::findFirst($this->request->getPost("encuesta_id", 'int'));
+        if ($encuesta->getEncuestaRecepcionid() == NULL) {
+            $recepcion = new Recepcion();
 
-        $recepcion = new Recepcion();
-
-        $recepcion->setRecepcionPuntajenivelid($this->request->getPost("recepcion_puntajeNivelId"));
-        $recepcion->setRecepcionPuntajetiempoid($this->request->getPost("recepcion_puntajeTiempoId"));
-        $recepcion->setRecepcionPuntajetratoid($this->request->getPost("recepcion_puntajeTratoId"));
-        $recepcion->setRecepcionTieneinconvenientes($this->request->getPost("recepcion_puntajeInconvenientes")-1);//Le resto 1 porque el RadioGroup Genera los values a partir de 1
-        $recepcion->setRecepcionComentario($this->request->getPost("recepcion_comentario"));
-        $recepcion->setRecepcionHabilitado(1);
+            $recepcion->setRecepcionPuntajenivelid($this->request->getPost("recepcion_puntajeNivelId"));
+            $recepcion->setRecepcionPuntajetiempoid($this->request->getPost("recepcion_puntajeTiempoId"));
+            $recepcion->setRecepcionPuntajetratoid($this->request->getPost("recepcion_puntajeTratoId"));
+            $recepcion->setRecepcionTieneinconvenientes($this->request->getPost("recepcion_puntajeInconvenientes") - 1);//Le resto 1 porque el RadioGroup Genera los values a partir de 1
+            $recepcion->setRecepcionComentario($this->request->getPost("recepcion_comentario"));
+            $recepcion->setRecepcionHabilitado(1);
 
 
-        if (!$recepcion->save()) {
-            foreach ($recepcion->getMessages() as $message) {
-                $this->flash->error($message);
+            if (!$recepcion->save()) {
+                foreach ($recepcion->getMessages() as $message) {
+                    $this->flash->error($message);
+                }
+
+                return $this->dispatcher->forward(array(
+                    "controller" => "recepcion",
+                    "action" => "new",
+                    "params" => array('encuesta_id' => $encuesta->getEncuestaId())
+                ));
             }
+            $encuesta->setEncuestaRecepcionid($recepcion->getRecepcionId());
+            if (!$encuesta->update()) {
+                foreach ($encuesta->getMessages() as $message) {
+                    $this->flash->error($message);
+                }
 
-            return $this->dispatcher->forward(array(
-                "controller" => "recepcion",
-                "action" => "new"
-            ));
+                return $this->dispatcher->forward(array(
+                    "controller" => "recepcion",
+                    "action" => "new",
+                    "params" => array('encuesta_id' => $encuesta->getEncuestaId())
+                ));
+            }
+            $this->flash->success("PASO Nº 2 COMPLETADO CON EXITO!  ");
         }
-
-        $this->flash->success("PASO Nº 2 COMPLETADO CON EXITO! <i class='fa fa-thumbs-up'></i>");
-
         return $this->dispatcher->forward(array(
             "controller" => "unidad",
-            "action" => "new"
+            "action" => "new",
+            "params" => array('encuesta_id' => $encuesta->getEncuestaId())
         ));
 
     }
@@ -170,7 +201,7 @@ class RecepcionController extends ControllerBase
         $recepcion->setRecepcionTieneinconvenientes($this->request->getPost("recepcion_tieneInconvenientes"));
         $recepcion->setRecepcionComentario($this->request->getPost("recepcion_comentario"));
         $recepcion->setRecepcionHabilitado($this->request->getPost("recepcion_habilitado"));
-        
+
 
         if (!$recepcion->save()) {
 
