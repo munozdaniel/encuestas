@@ -87,7 +87,6 @@ $di->set('mail', function () use ($config) {
     $mail->Password     = $config->mail->password;
     $mail->SMTPSecure   = $config->mail->security;
     $mail->Port         = $config->mail->port;
-    $mail->addAddress($config->mail->email, $config->mail->name);
 
     return $mail;
 });

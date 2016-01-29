@@ -11,7 +11,7 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: 'Opiniones con respecto al Trato y cordialidad de:'
+            text: 'Opiniones de los Inquilinos:'
         },
         yAxis: {
             allowDecimals: false,
