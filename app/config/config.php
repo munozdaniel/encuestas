@@ -38,13 +38,13 @@ return new \Phalcon\Config(array(
     ),
     'mail' => array(
         'host'     => 'mail.imps.org.ar',
-        'username'        => 'plantilla@imps.org.ar',
-        'password'    => 'dan$%&--iel',
+        'username'        => 'informatica@imps.org.ar',
+        'password'    => 'tecno$%&--logia',
         'security'    => '',
         'port'      => '26',
         'charset'     => 'UTF-8',
-        'email'     => 'dmunioz@imps.org.ar',
-        'name'     => 'dmunioz@imps.org.ar',
+        'email'     => 'informatica@imps.org.ar',
+        'name'     => 'informatica@imps.org.ar',
     )
     /*
      *  RECAPTCHA PARA EL SERVIDOR 75

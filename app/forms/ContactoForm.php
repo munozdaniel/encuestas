@@ -27,13 +27,14 @@ class ContactoForm  extends \Phalcon\Forms\Form{
             'complejosma@melewe.com.ar'      => 'San Martin de los Andes',
             'complejolg@melewe.com.ar'      => 'Las Grutas',
 
-        ));
+        ),array('required'=>''));
         $complejo->setLabel("Complejo");
         $this->add($complejo);
         /*--------------- Nombre ---------*/
         $nombre = new Text('contacto_nombre',array(
             'maxlength'   => 50,
             'placeholder' => 'Nombre',
+            'required'=>''
         ));
         $nombre->setLabel("Nombre");
         $nombre->addValidators(array(
@@ -51,7 +52,7 @@ class ContactoForm  extends \Phalcon\Forms\Form{
         // Email
         $email = new Text('contacto_email',array(
             'maxlength'   => 50,
-            'placeholder' => 'Email',
+            'placeholder' => 'Email','required'=>''
         ));
         $email->setLabel('E-Mail');
         $email->addValidators(array(
@@ -67,7 +68,7 @@ class ContactoForm  extends \Phalcon\Forms\Form{
         /*--------------- Asunto ---------*/
         $asunto = new Text('contacto_asunto',array(
             'maxlength'   => 50,
-            'placeholder' => 'Asunto'));
+            'placeholder' => 'Asunto','required'=>''));
         $asunto->setLabel("Asunto");
         $asunto->addValidators(array(
             new PresenceOf(array(
@@ -84,11 +85,20 @@ class ContactoForm  extends \Phalcon\Forms\Form{
             array(
                 'maxlength'   => 150,
                 'placeholder' => 'Ingrese su mensaje...',
-                'rows'=>'4' ,'cols'=>'40'
+                'rows'=>'4' ,'cols'=>'40',
+                'required'=>''
             ));
         $mensaje->setLabel('Observaciones');
         $mensaje->setFilters(array('string'));
         $this->add($mensaje);
+        /*---------------  ---------*/
+
+        $recaptcha = new Recaptcha('recaptcha');
+        $recaptcha->addValidator(new RecaptchaValidator(array(
+            'message' => "Es usted humano? <strong>Complete el CAPTCHA.</strong> "
+        )));
+
+        $this->add($recaptcha);
         /*--------------- Boton ---------*/
         $participar = new Submit('enviar', array(
             'class' => 'btn btn-success btn-block'
