@@ -68,8 +68,8 @@
                         <hr>
                     </div>
 
-                    <div class="col-xs-12 col-md-12 form-group">
-                        {{ submit_button('CONTINUAR','class':'form-control btn btn-success ') }}
+                    <div class="col-xs-12 col-md-5 col-md-offset-3 form-group pull-right">
+                        {{ submit_button('CONTINUAR','class':'form-control btn btn-info ') }}
                     </div>
                 </div>
             </div>

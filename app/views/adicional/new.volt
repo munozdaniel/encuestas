@@ -203,9 +203,9 @@
                         </fieldset>
                     </div>
 
-                    <div class="col-xs-12 col-md-12 form-group">
+                    <div class="col-xs-12 col-md-6 col-md-offset-3 form-group">
                         <hr>
-                        {{ submit_button('CONTINUAR','id':'continuarAdicional','class':'form-control btn btn-success ') }}
+                        {{ submit_button('FINALIZAR','id':'continuarAdicional','class':'form-control btn btn-info ') }}
                     </div>
                 </div>
             </div>
