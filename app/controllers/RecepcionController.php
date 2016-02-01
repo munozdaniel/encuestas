@@ -131,7 +131,7 @@ class RecepcionController extends ControllerBase
             $recepcion->setRecepcionPuntajenivelid($this->request->getPost("recepcion_puntajeNivelId"));
             $recepcion->setRecepcionPuntajetiempoid($this->request->getPost("recepcion_puntajeTiempoId"));
             $recepcion->setRecepcionPuntajetratoid($this->request->getPost("recepcion_puntajeTratoId"));
-            $recepcion->setRecepcionTieneinconvenientes($this->request->getPost("recepcion_puntajeInconvenientes") - 1);//Le resto 1 porque el RadioGroup Genera los values a partir de 1
+            $recepcion->setRecepcionTieneinconvenientes($this->request->getPost("recepcion_puntajeInconvenientes"));//Le resto 1 porque el RadioGroup Genera los values a partir de 1
             $recepcion->setRecepcionComentario($this->request->getPost("recepcion_comentario"));
             $recepcion->setRecepcionHabilitado(1);
 

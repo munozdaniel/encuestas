@@ -45,7 +45,7 @@ class UnidadForm extends \Phalcon\Forms\Form{
             'class' => 'pure-button button-white segment-item',
             'required'=>'true'
         ]);
-        $equipamiento->setLabel('Confort');
+        $confort->setLabel('Confort');
         $this->add($confort);
         /*----------------- INCONVENIENTES -------------------*/
         $unidad_inconveniente = new RadioGroup("unidad_tieneInconvenientes", [

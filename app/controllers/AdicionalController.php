@@ -58,7 +58,6 @@ class AdicionalController extends ControllerBase
      */
     public function newAction($params)
     {
-        $this->view->adicionalForm = new AdicionalForm();
         if ($params == null) {
             $this->flash->error("Es necesario que se registre para poder participar");
             return $this->dispatcher->forward(array(
@@ -218,7 +217,6 @@ class AdicionalController extends ControllerBase
             foreach ((array)$arreglo as $conoce) {
                 $unConocimiento = new Conocimientoadicional();
                 $unConocimiento->setAdicionalId($adicional->getAdicionalId());
-                echo "ID : " . $conoce;
                 $unConocimiento->setConocimientoId($conoce);
                 if (!$unConocimiento->save()) {
                     foreach ($unConocimiento->getMessages() as $message) {
