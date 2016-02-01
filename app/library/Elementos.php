@@ -32,7 +32,7 @@ class Elementos extends \Phalcon\Mvc\User\Component
     public function getMenu()
     {
 
-        $auth = $this->session->get('auth');
+        /*$auth = $this->session->get('auth');
         if ($auth['usuario_nick']!="INVITADO") {
             $this->_sesion = array(
                 'estadisticas'     =>  array(
@@ -48,7 +48,7 @@ class Elementos extends \Phalcon\Mvc\User\Component
                 'controlador'=>'sesion',
                 'accion'    =>'cerrar'
             );
-        }
+        }*/
 
         $nombreDelControlador = $this->view->getControllerName();
         foreach($this->_menu as $contenido => $item)
@@ -61,11 +61,11 @@ class Elementos extends \Phalcon\Mvc\User\Component
              echo $this->tag->linkTo($item['controlador'] . '/' . $item['accion'], $item['titulo']), '</li>';
             //echo "<a href='".$item['controlador']."".$item['accion']."'>".$item['titulo']."</a></li>";
         }
-        foreach($this->_sesion as $contenido => $item)
+       /* foreach($this->_sesion as $contenido => $item)
         {
             echo "<li>";
             echo $this->tag->linkTo($item['controlador'] . '/' . $item['accion'], $item['titulo']), '</li>';
             //echo "<li><a href='".$item['controlador']."/".$item['accion']."'>".$item['titulo']."</a></li>";
-        }
+        }*/
     }
 }
