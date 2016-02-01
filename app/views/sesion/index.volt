@@ -1,12 +1,20 @@
-{{ content() }}
 
 
+<div class="container">
 
+</div>
 <div id="login-page" style="height: 410px; margin-top: 5%">
     <div class="container">
+
         <div class="row">
+            <div class="col-md-12">
+                {{ content() }}
+
+            </div>
             <div class="col-md-4 col-md-offset-4">
-        {{ form('sesion/validar',"class":"form-login") }}
+        {{ form('sesion/validar',"class":"form-login",'style':'padding: 20px 20px 20px 20px;-webkit-box-shadow: 4px -1px 3px -2px rgba(7,120,140,0.65);
+-moz-box-shadow: 4px -1px 3px -2px rgba(7,120,140,0.65);
+box-shadow: 4px -1px 3px -2px rgba(7,120,140,0.65);') }}
 
             <h2 class="form-login-heading">Iniciar Sesión</h2>
             <div class="login-wrap">

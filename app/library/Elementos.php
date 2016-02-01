@@ -33,7 +33,7 @@ class Elementos extends \Phalcon\Mvc\User\Component
     {
 
         $auth = $this->session->get('auth');
-        if ($auth) {
+        if ($auth['usuario_nick']!="INVITADO") {
             $this->_sesion = array(
                 'estadisticas'     =>  array(
                     'class'     =>  '',
@@ -49,10 +49,7 @@ class Elementos extends \Phalcon\Mvc\User\Component
                 'accion'    =>'cerrar'
             );
         }
-        else
-        {
 
-        }
         $nombreDelControlador = $this->view->getControllerName();
         foreach($this->_menu as $contenido => $item)
         {

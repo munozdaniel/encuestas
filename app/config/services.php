@@ -118,7 +118,7 @@ $di->set('elemento', function(){
 $di->set('flash', function()
 {
     return new Phalcon\Flash\Direct(array(
-        'error'     => 'alert alert-danger multiple col-md-8',
+        'error'     => 'alert alert-danger ',
         'success'   => 'alert alert-success',
         'notice'    => 'alert alert-info ',
         'warning'   => 'alert alert-warning ',

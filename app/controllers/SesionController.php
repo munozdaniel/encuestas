@@ -32,18 +32,17 @@ class SesionController extends ControllerBase
                     "(usuario_nick = :usuario_nick:) AND (usuario_contrasenia = :usuario_contrasenia:) AND (usuario_activo = 1)",
                     'bind' => array('usuario_nick' => $nombre, 'usuario_contrasenia' => base64_encode($pass))
                 ));
-
                 if($usuarios!=false)
                 {
                     $this->_registrarSesion($usuarios);
                     $miSesion = $this->session->get('auth');
-                    $this->flash->success('Bienvenido/a '.$miSesion['usuario_nombreCompleto'] . " - Rol: ".$miSesion['rol_nombre']);
+                    $this->flash->success('Bienvenido/a '.$miSesion['usuario_nombreCompleto'] );
                     //Redireccionar la ejecución si el usuario es valido
                     return $this->redireccionar('index/index');
 
                 }
                 else{
-                    $this->flash->error("No se encontro el Usuario, verifique contraseña/nick");
+                    $this->flash->error("No se encontro el Usuario, verifique contraseña/nick. Es probable que se encuentre Inactivo, por favor comuniquese con el Equipo de Desarrollo");
 
                 }
             }
@@ -58,7 +57,6 @@ class SesionController extends ControllerBase
     }
     private function _registrarSesion($usuario)
     {
-
         $idRol = Usuarioporrol::findFirst(array("usuario_id     =       :usuario:",
                                                 'bind'          =>      array('usuario'=>$usuario->usuario_id)));
         if(empty($idRol))
