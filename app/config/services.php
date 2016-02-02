@@ -76,7 +76,7 @@ $di->set('mail', function () use ($config) {
     //require "../libraries/PHPMailer/PHPMailer.php";
     $mail = new PHPMailer;
     //Muestra Mensajes de error con detalles 3 o 4.
-   // $mail->SMTPDebug = 2;
+    $mail->SMTPDebug = 2;
     $mail->isSMTP();
     $mail->isHTML(true);
 

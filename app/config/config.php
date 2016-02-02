@@ -31,8 +31,8 @@ return new \Phalcon\Config(array(
         'baseUri'        => '/encuestas/',
     ),
     "recaptcha" => array(
-        'publicKey' => '6LfhrgwTAAAAAAElQ1S7BJOvjFCHPQvKMxP3WO6e',
-        'secretKey' => '6LfhrgwTAAAAAIjzQj9G4yCuJWBsAoPoF1bOyBau',
+        'publicKey' => '6LebYA0TAAAAAOIyncl_pHz7LcgKw_Bsrs6WzyO9',
+        'secretKey' => '6LebYA0TAAAAAMPzGFDTJbd4LfPjoOCclIJupyWY',
         'jsApiUrl' => 'https://www.google.com/recaptcha/api.js',
         'verifyUrl' => 'https://www.google.com/recaptcha/api/siteverify',
     ),

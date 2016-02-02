@@ -1,5 +1,5 @@
 <?php
-// smtp.php
+// SMTP.php
 use Phalcon\Exception;
 
 class PHPMailer
@@ -53,7 +53,7 @@ class PHPMailer
 
     /**
      * The Sender email (Return-Path) of the message.
-     * If not empty, will be sent via -f to sendmail or as 'MAIL FROM' in smtp mode.
+     * If not empty, will be sent via -f to sendmail or as 'MAIL FROM' in SMTP mode.
      * @type string
      */
     public $Sender = '';
@@ -130,7 +130,7 @@ class PHPMailer
 
     /**
      * Which method to use to send mail.
-     * Options: "mail", "sendmail", or "smtp".
+     * Options: "mail", "sendmail", or "SMTP".
      * @type stringf
      */
     public $Mailer = 'mail';
@@ -605,7 +605,7 @@ class PHPMailer
     public function __destruct()
     {
         //Close any open SMTP connection nicely
-        if ($this->Mailer == 'smtp') {
+        if ($this->Mailer == 'SMTP') {
             $this->smtpClose();
         }
     }
@@ -702,7 +702,7 @@ class PHPMailer
      */
     public function isSMTP()
     {
-        $this->Mailer = 'smtp';
+        $this->Mailer = 'SMTP';
     }
 
     /**
@@ -1136,7 +1136,7 @@ class PHPMailer
                 case 'sendmail':
                 case 'qmail':
                     return $this->sendmailSend($this->MIMEHeader, $this->MIMEBody);
-                case 'smtp':
+                case 'SMTP':
                     return $this->smtpSend($this->MIMEHeader, $this->MIMEBody);
                 case 'mail':
                     return $this->mailSend($this->MIMEHeader, $this->MIMEBody);
@@ -2942,7 +2942,7 @@ class PHPMailer
     protected function setError($msg)
     {
         $this->error_count++;
-        if ($this->Mailer == 'smtp' and !is_null($this->smtp)) {
+        if ($this->Mailer == 'SMTP' and !is_null($this->smtp)) {
             $lasterror = $this->smtp->getError();
             if (!empty($lasterror['error'])) {
                 $msg .= $this->lang('smtp_error') . $lasterror['error'];

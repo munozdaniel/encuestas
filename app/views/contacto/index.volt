@@ -1,4 +1,3 @@
-{{ content() }}
 
 <section id="features">
     <div align="center">
@@ -13,6 +12,7 @@
                     <div class="col-sm-4 col-sm-offset-8">
                         <div id="formulario" class="contact-form">
                             <h3>Información de Contacto</h3>
+                            {{ content() }}
 
                             <address id="address_id">
                                 <strong>Turismo Central Neuquén</strong><br>

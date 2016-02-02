@@ -93,7 +93,7 @@ class ContactoForm  extends \Phalcon\Forms\Form{
         $this->add($mensaje);
         /*---------------  ---------*/
 
-        $recaptcha = new Recaptcha('recaptcha');
+        $recaptcha = new Recaptcha('recaptcha',array('required'=>''));
         $recaptcha->addValidator(new RecaptchaValidator(array(
             'message' => "Es usted humano? <strong>Complete el CAPTCHA.</strong> "
         )));
