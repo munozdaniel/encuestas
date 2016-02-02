@@ -76,3 +76,8 @@
         </div>
     </div>
 </div>
+<script>
+    function asignarRequired(){
+        document.getElementById("unidad_comentario").required = document.getElementById('unidad_tieneInconvenientes').value == 1;
+    }
+</script>

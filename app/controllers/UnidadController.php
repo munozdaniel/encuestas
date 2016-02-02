@@ -131,7 +131,7 @@ class UnidadController extends ControllerBase
             $unidad->setUnidadPuntajehigieneid($this->request->getPost("unidad_puntajeHigieneId"));
             $unidad->setUnidadPuntajeequipoid($this->request->getPost("unidad_puntajeEquipoId"));
             $unidad->setUnidadPuntajeconfortid($this->request->getPost("unidad_puntajeConfortId"));
-            $unidad->setUnidadTieneinconvenientes($this->request->getPost("unidad_tieneInconvenientes")-1);
+            $unidad->setUnidadTieneinconvenientes($this->request->getPost("unidad_tieneInconvenientes"));
             $unidad->setUnidadComentario($this->request->getPost("unidad_comentario"));
             $unidad->setUnidadHabilitado(1);
 

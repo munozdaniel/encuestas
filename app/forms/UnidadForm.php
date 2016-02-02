@@ -48,13 +48,23 @@ class UnidadForm extends \Phalcon\Forms\Form{
         $confort->setLabel('Confort');
         $this->add($confort);
         /*----------------- INCONVENIENTES -------------------*/
-        $unidad_inconveniente = new RadioGroup("unidad_tieneInconvenientes", [
+        $elemento = new \Phalcon\Forms\Element\Select('unidad_tieneInconvenientes',  array('0'=>'NO','1'=>'SI'), array(
+            'useEmpty'   => true,
+            'emptyText'  => 'Seleccionar ',
+            'emptyValue' => '',
+            'class'      => ' ',
+            'required'=>'true',
+            'onchange'=>'asignarRequired()'
+        ));
+        $elemento->setLabel('Hubo algún inconveniente?');
+        $this->add($elemento);
+        /*$unidad_inconveniente = new RadioGroup("unidad_tieneInconvenientes", [
             'elements' => array('SI','NO'),
             'class' => 'pure-button button-white segment-item sub-items'
         ]);
         $unidad_inconveniente->setLabel('Hubo algún inconveniente?');
         $unidad_inconveniente->setChecked(1);
-        $this->add($unidad_inconveniente);
+        $this->add($unidad_inconveniente);*/
         /*----------------- COMENTARIOS -------------------*/
         $comentarios = new \Phalcon\Forms\Element\TextArea("unidad_comentario",
             array(
