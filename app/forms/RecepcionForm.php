@@ -86,14 +86,25 @@ class RecepcionForm extends \Phalcon\Forms\Form{
         $this->add($tratoCordialidad);
 
         /*----------------- INCONVENIENTES -------------------*/
-        $recepcion_inconvenientes = new RadioGroup("recepcion_tieneInconvenientes", [
+        /*$recepcion_inconvenientes = new RadioGroup("recepcion_tieneInconvenientes", [
             'elements' => array('SI','NO'),
-            'class' => 'pure-button button-white segment-item sub-items'
+            'class' => 'pure-button button-white segment-item sub-items',
+            'onchange="asignarRequired()"'
         ]);
         $recepcion_inconvenientes->setLabel('Hubo algún inconveniente?');
         $recepcion_inconvenientes->setChecked(1);
         $this->add($recepcion_inconvenientes);
-
+        */
+        $elemento = new Select('recepcion_tieneInconvenientes',  array('0'=>'NO','1'=>'SI'), array(
+            'useEmpty'   => true,
+            'emptyText'  => 'Seleccionar ',
+            'emptyValue' => '',
+            'class'      => ' ',
+            'required'=>'true',
+            'onchange'=>'asignarRequired()'
+        ));
+        $elemento->setLabel('Hubo algún inconveniente?');
+        $this->add($elemento);
         /*----------------- COMENTARIOS -------------------*/
         $comentarios = new \Phalcon\Forms\Element\TextArea("recepcion_comentario",
             array(

@@ -75,3 +75,8 @@
         </div>
     </div>
 </div>
+<script>
+    function asignarRequired(){
+        document.getElementById("recepcion_comentario").required = document.getElementById('recepcion_tieneInconvenientes').value == 1;
+    }
+</script>
