@@ -32,7 +32,7 @@
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     </head>
-    <body id="home" class="homepage">
+    <body id="home" class="homepage" onLoad="redireccionar()">
         {{ content() }}
     </body>
 
@@ -58,5 +58,10 @@
         {{  assets.outputInlineJs("footerInline") }}
     {% endif %}
     <!-- Include the plugin's CSS and JS: -->
-
+    <!-- Redireccionar cada diez minutos -->
+    <script language="JavaScript">
+        function redireccionar() {
+            setTimeout("location.href='http://www.melewe.com.ar/encuestas'", 600000);
+        }
+    </script>
 </html>
