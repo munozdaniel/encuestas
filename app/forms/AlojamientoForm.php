@@ -39,7 +39,7 @@ class AlojamientoForm extends \Phalcon\Forms\Form{
         $fechaEstadia->setLabel("Fecha de estadía");
         $this->add($fechaEstadia);
         /*------------- ES SU PRIMERA VISITA ------------*/
-        $elemento = new Select('alojamiento_primeraVisita',  array('SI','NO'), array(
+        $elemento = new Select('alojamiento_primeraVisita',  array('0'=>'NO','1'=>'SI'), array(
             'useEmpty'   => true,
             'emptyText'  => 'Seleccionar ',
             'emptyValue' => '',
