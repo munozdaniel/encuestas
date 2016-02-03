@@ -35,7 +35,7 @@ class SesionController extends ControllerBase
                 if($usuarios!=false)
                 {
                     $this->_registrarSesion($usuarios);
-                    $miSesion = $this->session->get('auth');
+                    $miSesion = $this->session->get('sesion_encuesta');
                     $this->flash->success('Bienvenido/a '.$miSesion['usuario_nombreCompleto'] );
                     //Redireccionar la ejecución si el usuario es valido
                     return $this->redireccionar('index/index');
@@ -67,7 +67,7 @@ class SesionController extends ControllerBase
         else
         {
             $rol = Rol::findFirstByRolId($idRol->rol_id);
-            $this->session->set('auth',array('usuario_id'   =>  $usuario->usuario_id,
+            $this->session->set('sesion_encuesta',array('usuario_id'   =>  $usuario->usuario_id,
                 'usuario_nombreCompleto'  =>  $usuario->usuario_nombreCompleto,
                 'usuario_nick'  =>  $usuario->usuario_nick,
                 'rol_nombre'   =>  $rol->rol_nombre));
