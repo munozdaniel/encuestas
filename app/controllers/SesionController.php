@@ -80,7 +80,7 @@ class SesionController extends ControllerBase
      */
     public function cerrarAction()
     {
-        $this->session->remove('auth');
+        $this->session->remove('sesion_encuesta');
         $this->flash->success('Se ha cerrado la sesión!');
         return $this->redireccionar("index/index");
     }

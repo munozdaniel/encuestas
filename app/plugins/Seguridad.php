@@ -50,8 +50,10 @@ class Seguridad extends \Phalcon\Mvc\User\Plugin
      */
     public function getAcl()
     {
-        if (!isset($this->persistent->acl))
-        {
+        //var_dump($this->persistent->acl);
+       // if (!isset($this->persistent->acl))//Almacena el acl de otro sistema.
+       // {
+
             //creamos la instancia de acl para crear los roles
             $acl = new Phalcon\Acl\Adapter\Memory();
 
@@ -78,7 +80,7 @@ class Seguridad extends \Phalcon\Mvc\User\Plugin
             //El acl queda almacenado en sesión
             $this->persistent->acl = $acl;
 
-        }
+       // }
 
         return $this->persistent->acl;
     }
