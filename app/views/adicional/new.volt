@@ -103,7 +103,7 @@
                                 </label>
                                 <label>
                                     <input type="checkbox" class="margin-left-10" id="otraInfo"
-                                           name="adicional_informacion" value="OTRO"
+                                           name="adicional_informacion[]" value="OTRO"
                                            onClick="toggle('otraInfo', 'adicional_informacionOtro')"/>
                                     <span>OTRO</span>
                                 </label>
@@ -140,7 +140,7 @@
                                 </label>
                                 <label>
                                     <input type="checkbox" class="margin-left-10" id="otroMotivo"
-                                           name="adicional_motivo" value="OTRO"
+                                           name="adicional_motivo[]" value="OTRO"
                                            onClick="toggle('otroMotivo', 'adicional_motivoOtro')"/>
                                     <span> OTRO</span>
                                 </label>
@@ -223,14 +223,17 @@
         if ($('input[name="adicional_grupo[]"]:checked').length === 0) {
             e.preventDefault();
             alert('ESPECIFIQUE COMO ESTÁ COMPUESTO SU GRUPO');
+            return false;
         }
         if ($('input[name="adicional_informacion[]"]:checked').length === 0) {
             e.preventDefault();
             alert('ESPECIFIQUE DE QUE MANERA RECIBE LA INFORMACIÓN');
+            return false;
         }
         if ($('input[name="adicional_motivo[]"]:checked').length === 0) {
             e.preventDefault();
-            alert('ESPECIFIQEU EL MOTIVO DE SU ELECCIÓN POR EL COMPLEJO');
+            alert('ESPECIFIQUE EL MOTIVO DE SU ELECCIÓN POR EL COMPLEJO');
+            return false;
         }
 
     });
