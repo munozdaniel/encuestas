@@ -7,17 +7,16 @@ class Seguridad extends \Phalcon\Mvc\User\Plugin
     public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
     {
         $auth = $this->session->get('sesion_encuesta');
-        if(!$auth)
+        if(!$auth || $auth==null)
         {
             $role = 'INVITADO';
-            $this->session->set('auth',array('usuario_id'   =>  3,
+            $this->session->set('sesion_encuesta',array('usuario_id'   =>  3,
                 'usuario_nombreCompleto'  =>  "USUARIO INVITADO",
                 'usuario_nick'  =>  "INVITADO",
                 'rol_nombre'   =>  "INVITADO"));
         }
         else
             $role = $auth["rol_nombre"];
-
         //nombre del controlador al que intentamos acceder
         $controller = $dispatcher->getControllerName();
 

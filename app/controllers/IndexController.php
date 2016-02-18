@@ -20,7 +20,9 @@ class IndexController extends ControllerBase
     }
 
 
-
+    /**
+     * No se utiliza
+     */
     public function indexOriginalAction()
     {
         $continuar = true;
