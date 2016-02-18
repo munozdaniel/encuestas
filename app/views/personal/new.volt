@@ -38,7 +38,14 @@
 
                         </div>
                     </div>
-
+                    <div class=" form-group">
+                        <div class="col-xs-12 col-md-12">
+                            {{ personalForm.label('personal_tieneInconvenientes',['class':'pull-left']) }}
+                        </div>
+                        <div class="col-xs-12 col-md-7">
+                            {{ personalForm.render('personal_tieneInconvenientes') }}
+                        </div>
+                    </div>
 
                     <div class=" form-group">
                         <div class="col-xs-12 col-md-12">

@@ -23,6 +23,12 @@ class Personal extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var integer
+     */
+    protected $personal_tieneInconvenientes;
+
+    /**
+     *
      * @var string
      */
     protected $personal_comentario;
@@ -71,7 +77,24 @@ class Personal extends \Phalcon\Mvc\Model
 
         return $this;
     }
+    /**
+     * Method to set the value of field personal_tieneInconvenientes
+     *
+     * @param integer $personal_tieneInconvenientes
+     * @return $this
+     */
+    public function setPersonalTieneinconvenientes($personal_tieneInconvenientes)
+    {
+        $this->personal_tieneInconvenientes = $personal_tieneInconvenientes;
 
+        return $this;
+    }
+    public function getPersonalTieneinconvenientes()
+    {
+        return $this->personal_tieneInconvenientes;
+
+
+    }
     /**
      * Method to set the value of field personal_comentario
      *

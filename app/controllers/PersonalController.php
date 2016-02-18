@@ -128,6 +128,7 @@ class PersonalController extends ControllerBase
 
             $personal->setPersonalPuntajeadministrativoid($this->request->getPost("personal_puntajeAdministrativoId"));
             $personal->setPersonalPuntajemucamaid($this->request->getPost("personal_puntajeMucamaId"));
+            $personal->setPersonalTieneinconvenientes($this->request->getPost("personal_tieneInconvenientes"));
             $personal->setPersonalComentario($this->request->getPost("personal_comentario"));
             $personal->setPersonalHabilitado(1);
 
