@@ -18,12 +18,12 @@ class AlojamientoForm extends \Phalcon\Forms\Form{
     public function initialize($entity = null, $options = array())
     {
         /*------------- Nº UNIDAD ------------*/
-        $unidad = new Numeric("alojamiento_nroUnidad",array('class'=>'form-control ','required'=>'true'));
+        $unidad = new Numeric("alojamiento_nroUnidad",array('class'=>'form-control ','required'=>'true','min'=>'1'));
         $unidad->setLabel("Estuve alojado en la Unidad Nº");
         $unidad->setFilters(array('int'));
         $this->add($unidad);
         /*-------------CANTIDAD DE DIAS ------------*/
-        $cantidad = new Numeric("alojamiento_cantDias",array('class'=>'form-control ','required'=>'true'));
+        $cantidad = new Numeric("alojamiento_cantDias",array('class'=>'form-control ','required'=>'true','min'=>'1'));
         $cantidad->setLabel("Cantidad de Días que estuvo alojado");
         $cantidad->setFilters(array('int'));
         $this->add($cantidad);
