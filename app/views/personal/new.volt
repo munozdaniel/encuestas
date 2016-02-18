@@ -59,3 +59,8 @@
         </div>
     </div>
 </div>
+<script>
+    function asignarRequired(){
+        document.getElementById("personal_comentario").required = document.getElementById('personal_tieneInconvenientes').value == 1;
+    }
+</script>

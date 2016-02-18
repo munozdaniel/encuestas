@@ -37,6 +37,17 @@ class PersonalForm extends \Phalcon\Forms\Form{
         $mucamas->setLabel("Mucamas");
         $this->add($mucamas);
         /*----------------- COMENTARIOS -------------------*/
+        $elemento = new \Phalcon\Forms\Element\Select('personal_tieneInconvenientes',  array('0'=>'NO','1'=>'SI'), array(
+            'useEmpty'   => true,
+            'emptyText'  => 'Seleccionar ',
+            'emptyValue' => '',
+            'class'      => ' ',
+            'required'=>'true',
+            'onchange'=>'asignarRequired()'
+        ));
+        $elemento->setLabel('Hubo algún inconveniente?');
+        $this->add($elemento);
+        /*----------------- COMENTARIOS -------------------*/
         $comentarios = new \Phalcon\Forms\Element\TextArea("personal_comentario",
             array(
                 'maxlength'   => 200,
